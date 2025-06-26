@@ -230,18 +230,19 @@
         <h2>You're Grounded! – Devlog</h2>
 
         <div class="devlog-entry">
-          <h4>Grab Mechanic + Camera Zoom</h4>
-          <time>June 26, 2025</time>
-          <p>Finished enemy grab logic with zoom and spacebar mash escape. Also added visual stun effect after escape. Big tension boost!</p>
+          <h4>Developing the Enemy AI Vision System</h4>
+          <time>June 27, 2025</time>
+          <p>This took a few solid days to get right. I reworked the code 3–4 times before I finally landed on something that felt solid and responsive.</p>
+
+          <p>The final setup uses 4 separate sets of RayCasts, each tied to a direction the enemy could be facing — up, down, left, or right. Each set has 3 rays that form a vision cone: one straight ahead and two angled to the sides. The enemy activates the correct set based on the current facing direction of the sprite.</p>
+
+          <p>When the player enters this vision cone, a "!" symbol appears to show the enemy has entered chase mode. If the player escapes the cone, the enemy records the last known location and moves to investigate. During this phase, a "?" icon appears above the enemy to indicate it’s in investigation mode instead of chasing.</p>
+
+          <p>This system adds a nice layer of tension and feedback to stealth gameplay, and I’m really happy I pushed through all the trial and error to get it working the way I wanted.</p>
+
           <img src="images/HallwayEnemy.png" alt="Hallway Enemy" class="img-medium">
         </div>
-
-        <div class="devlog-entry">
-          <h4>Hamper Interactions</h4>
-          <time>June 25, 2025</time>
-          <p>The laundry hamper now bounces and plays a rustle sound when hit — enemies nearby will hear it and investigate.</p>
-          <img src="images/HamperBounce.png" alt="Hamper Bounce" class="img-small">
-        </div>
+        
       </section>
     </main>
   </div>
