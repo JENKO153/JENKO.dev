@@ -242,11 +242,11 @@
         <div class="devlog-entry">
           <h4>Developing the Enemy AI Vision System</h4>
           <time>June 27, 2025</time>
-           <p>This took a few solid days to get right. I reworked the code 3–4 times before I finally landed on something that felt solid and responsive.</p>
-          <p>The final setup uses 4 separate sets of RayCasts, each tied to a direction the enemy could be facing — up, down, left, or right. Each set has 3 rays that form a vision cone: one straight ahead and two angled to the sides.</p>
-          <p>The enemy activates the correct set based on the current facing direction of the sprite. When the player enters this vision cone, a "!" symbol appears to show the enemy has entered chase mode.</p>
-          <p>If the player escapes the cone, the enemy records the last known location and moves to investigate. During this phase, a "?" icon appears above the enemy to indicate it’s in investigation mode instead of chasing.</p>
-          <p>This system adds a nice layer of tension and feedback to stealth gameplay, and I’m really happy I pushed through all the trial and error to get it working the way I wanted.</p>
+            <p>This one was a bit of a grind. Took me a few solid days to nail down, and I probably rewrote the whole thing at least 3 or 4 times before it actually felt right.</p>
+            <p>The idea was to give the enemies proper vision cones, so I set up 4 separate sets of RayCasts — one for each direction they might be facing: up, down, left, or right. Each set has 3 rays to form a cone — one straight ahead and two fanned out to the sides.</p>
+            <p>Depending on which way the enemy sprite is facing, it activates the matching ray set. When the player walks into the cone, the enemy gets triggered and a big ol' “!” pops up above its head — boom, it’s chase time.</p>
+            <p>If you manage to break line of sight, the enemy doesn’t just forget about you. It remembers where it last saw you and heads over there to check things out. While it’s in this “what just happened?” mode, a “?” shows up above its head to show it’s investigating.</p>
+            <p>Honestly, it makes stealth feel way more intense. Between all the trial and error and refactoring, I’m really happy with how it turned out. Adds a nice little layer of suspense to sneaking around the house.</p>
           <div class="image-gallery">
             <img src="images/enemy_vision_1.png" alt="Vision Angle 1" onclick="openLightbox(this)">
             <img src="images/enemy_vision_2.png" alt="Vision Angle 2" onclick="openLightbox(this)">
