@@ -3,35 +3,54 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>JENKO | Game Dev Portfolio</title>
+  <title>JENKO | Game Developer</title>
   <style>
-    body {
+    /* Reset & Base Styles */
+    * {
       margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
       font-family: 'Segoe UI', sans-serif;
-      background-color: #111;
-      color: #f0f0f0;
+      background-color: #0f0f11;
+      color: #e0e0e0;
+      line-height: 1.6;
+    }
+
+    a {
+      color: #00ffd5;
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    a:hover {
+      color: #00a9a0;
     }
 
     header {
-      background: #1f1f1f;
-      padding: 2rem;
+      background: linear-gradient(to right, #121212, #1e1e1e);
+      padding: 3rem 2rem;
       text-align: center;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
     }
 
     header h1 {
-      font-size: 2.5rem;
-      margin: 0;
+      font-size: 3rem;
+      color: #00ffd5;
     }
 
     header p {
-      color: #aaa;
       font-size: 1.2rem;
+      color: #aaa;
+      margin-top: 0.5rem;
     }
 
     .container {
-      max-width: 900px;
-      margin: 2rem auto;
-      padding: 0 1rem;
+      max-width: 960px;
+      margin: auto;
+      padding: 2rem;
     }
 
     .section {
@@ -39,34 +58,33 @@
     }
 
     .section h2 {
-      font-size: 1.8rem;
+      font-size: 2rem;
       border-bottom: 2px solid #333;
       padding-bottom: 0.5rem;
       margin-bottom: 1rem;
     }
 
     .project {
-      background: #1a1a1a;
+      background: #1a1a1d;
       padding: 1.5rem;
-      border-radius: 8px;
+      border-radius: 12px;
       margin-bottom: 1.5rem;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+      transition: transform 0.2s ease;
+    }
+
+    .project:hover {
+      transform: translateY(-4px);
     }
 
     .project h3 {
-      margin: 0 0 0.5rem 0;
+      color: #00ffd5;
+      font-size: 1.5rem;
     }
 
     .project p {
-      margin: 0.5rem 0;
-    }
-
-    .project a {
-      color: #00adb5;
-      text-decoration: none;
-    }
-
-    .project a:hover {
-      text-decoration: underline;
+      margin: 0.8rem 0;
+      color: #ccc;
     }
 
     .post-section {
@@ -74,17 +92,18 @@
     }
 
     .devlog-entry {
-      background: #1a1a1a;
-      border-left: 4px solid #00adb5;
-      padding: 1rem;
+      background: #1d1d1f;
+      border-left: 4px solid #00ffd5;
+      padding: 1rem 1.5rem;
       margin-bottom: 1.5rem;
-      border-radius: 6px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.3);
     }
 
     .devlog-entry h4 {
       margin: 0;
       font-size: 1.2rem;
-      color: #00adb5;
+      color: #00ffd5;
     }
 
     .devlog-entry time {
@@ -92,11 +111,31 @@
       color: #888;
     }
 
+    .devlog-entry p {
+      margin-top: 0.7rem;
+    }
+
     footer {
       text-align: center;
       padding: 2rem;
-      background: #1f1f1f;
-      color: #888;
+      background: #161616;
+      color: #777;
+      font-size: 0.9rem;
+      margin-top: 3rem;
+    }
+
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 2rem;
+      }
+
+      .section h2 {
+        font-size: 1.5rem;
+      }
+
+      .project h3 {
+        font-size: 1.3rem;
+      }
     }
   </style>
 </head>
@@ -104,46 +143,40 @@
 
   <header>
     <h1>JENKO</h1>
-    <p>Indie Game Developer | Pixel Art | Godot Engine</p>
+    <p>Game Developer • Pixel Artist • Godot Enthusiast</p>
   </header>
 
   <div class="container">
-    <!-- Portfolio Section -->
+    <!-- Projects -->
     <section class="section">
       <h2>Projects</h2>
 
       <div class="project">
         <h3>You're Grounded! (WIP)</h3>
-        <p>A stealth escape game where you sneak out of a locked-down house full of traps and AI enemies.</p>
+        <p>A stealth escape game where you sneak out of a fortified house while avoiding AI enemies and solving puzzles.</p>
         <p><a href="#grounded-devlog">→ View Devlog</a></p>
       </div>
 
-      <div class="project">
-        <h3>Lightbringer: Echoes of the Void</h3>
-        <p>Top-down action game with light mechanics, haunting void enemies, and a post-apocalyptic setting.</p>
-        <p><a href="#lightbringer-devlog">→ View Devlog</a></p>
-      </div>
-    </section>
-
-    <!-- Devlog: You're Grounded -->
+    <!-- You're Grounded Devlog -->
     <section id="grounded-devlog" class="section post-section">
       <h2>You're Grounded! – Devlog</h2>
 
       <div class="devlog-entry">
-        <h4>Day 5 – Grab Mechanic & Progress Bar</h4>
+        <h4>Day 5 – Grab Mechanic + Camera Zoom</h4>
         <time>June 26, 2025</time>
-        <p>Finished the enemy grab mechanic. It now zooms the camera, shows a mash bar, and stuns the enemy on escape. Super happy with the tension it adds!</p>
+        <p>Finished enemy grab logic with zoom and spacebar mash escape. Also added visual stun effect after escape. Big tension boost!</p>
       </div>
 
       <div class="devlog-entry">
-        <h4>Day 4 – Hamper Rustle & Collision Audio</h4>
+        <h4>Day 4 – Hamper Interactions</h4>
         <time>June 25, 2025</time>
-        <p>Made the laundry hamper jiggle and play a rustle sound when hit. Enemies react to it if nearby. Feels alive and dynamic!</p>
+        <p>The laundry hamper now bounces and plays a rustle sound when hit — enemies nearby will hear it and investigate.</p>
       </div>
     </section>
 
+
   <footer>
-    © 2025 Jenko | Game Dev Portfolio
+    © 2025 Jenko | Made with HTML & coffee
   </footer>
 
 </body>
