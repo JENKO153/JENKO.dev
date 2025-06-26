@@ -124,56 +124,62 @@
     .devlog-entry img {
       border-radius: 6px;
       margin-top: 1rem;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-      max-width: 100%;
-      height: auto;
+      max-height: 180px;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      transition: transform 0.4s ease, opacity 0.4s ease;
+    }
+
+    .image-slider {
+      position: relative;
+      margin-top: 2rem;
+      overflow: hidden;
+    }
+
+    .slider-wrapper {
+      display: flex;
+      transition: transform 0.6s ease;
+      gap: 2rem;
+      padding: 1rem 0;
+      scroll-behavior: smooth;
+    }
+
+    .slider-image {
+      flex: 0 0 220px;
+      height: 160px;
+      border-radius: 8px;
+      object-fit: cover;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+    }
+
+    .slider-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0,0,0,0.4);
+      border: none;
+      font-size: 1.5rem;
+      color: #facc6b;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      z-index: 10;
+    }
+
+    .slider-btn:hover {
+      background: rgba(0,0,0,0.6);
+    }
+
+    .slider-btn.left {
+      left: 0;
+    }
+
+    .slider-btn.right {
+      right: 0;
     }
 
     .img-small { width: 40%; }
     .img-medium { width: 60%; }
     .img-large { width: 100%; }
-
-    .image-slider {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      margin-top: 1.5rem;
-      overflow-x: auto;
-    }
-
-    .slider-wrapper {
-      display: flex;
-      overflow-x: auto;
-      scroll-behavior: smooth;
-      gap: 1rem;
-    }
-
-    .slider-wrapper::-webkit-scrollbar {
-      display: none;
-    }
-
-    .slider-image {
-      flex: 0 0 auto;
-      width: 220px;
-      height: auto;
-      border-radius: 6px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-    }
-
-    .slider-btn {
-      font-size: 1.2rem;
-      color: #facc6b;
-      background: none;
-      border: none;
-      cursor: pointer;
-      user-select: none;
-      padding: 0 0.5rem;
-      transition: color 0.2s ease;
-    }
-
-    .slider-btn:hover {
-      color: #ffe89b;
-    }
 
     .main::-webkit-scrollbar {
       width: 8px;
@@ -254,13 +260,13 @@
           <time>June 27, 2025</time>
           <p>This took a few solid days to get right. I reworked the code 3–4 times before I finally landed on something that felt solid and responsive. The final setup uses 4 separate sets of RayCasts, each tied to a direction the enemy could be facing — up, down, left, or right. Each set has 3 rays that form a vision cone: one straight ahead and two angled to the sides. The enemy activates the correct set based on the current facing direction of the sprite. When the player enters this vision cone, a "!" symbol appears to show the enemy has entered chase mode. If the player escapes the cone, the enemy records the last known location and moves to investigate. During this phase, a "?" icon appears above the enemy to indicate it’s in investigation mode instead of chasing. This system adds a nice layer of tension and feedback to stealth gameplay, and I’m really happy I pushed through all the trial and error to get it working the way I wanted.</p>
           <div class="image-slider">
-            <button class="slider-btn" onclick="scrollSlider('ai-slider', 'left')">&#8592;</button>
+            <button class="slider-btn left" onclick="scrollSlider('ai-slider', 'left')">&#8592;</button>
             <div class="slider-wrapper" id="ai-slider">
               <img src="images/enemy_vision_1.png" alt="Vision Angle 1" class="slider-image">
               <img src="images/enemy_vision_2.png" alt="Vision Angle 2" class="slider-image">
               <img src="images/enemy_vision_3.png" alt="Vision Angle 3" class="slider-image">
             </div>
-            <button class="slider-btn" onclick="scrollSlider('ai-slider', 'right')">&#8594;</button>
+            <button class="slider-btn right" onclick="scrollSlider('ai-slider', 'right')">&#8594;</button>
           </div>
         </div>
       </section>
