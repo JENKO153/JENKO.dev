@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>JENKO | Game Developer</title>
   <style>
-    /* Reset & Base Styles */
     * {
       margin: 0;
       padding: 0;
@@ -18,24 +17,23 @@
 
     body {
       font-family: 'Segoe UI', sans-serif;
-      background-color: #0a0a1a;
-      color: #e3e3f7;
+      background-color: #1a1a1a;
+      color: #e6e6e6;
       line-height: 1.6;
-      overflow-x: hidden;
     }
 
     a {
-      color: #bb86fc;
+      color: #c8aa6e;
       text-decoration: none;
-      transition: color 0.2s ease;
+      transition: color 0.3s ease;
     }
 
     a:hover {
-      color: #9f62f1;
+      color: #f0d49b;
     }
 
     header {
-      background: linear-gradient(to right, #0f0f23, #1e1e3f);
+      background: linear-gradient(to right, #1a1a1a, #222);
       padding: 3rem 2rem;
       text-align: center;
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
@@ -44,7 +42,7 @@
 
     header h1 {
       font-size: 3rem;
-      color: #bb86fc;
+      color: #c8aa6e;
     }
 
     header p {
@@ -72,11 +70,11 @@
       border-bottom: 2px solid #333;
       padding-bottom: 0.5rem;
       margin-bottom: 1rem;
-      color: #bb86fc;
+      color: #c8aa6e;
     }
 
     .project {
-      background: #1a1a2d;
+      background: #262626;
       padding: 1.5rem;
       border-radius: 12px;
       margin-bottom: 1.5rem;
@@ -90,7 +88,7 @@
     }
 
     .project h3 {
-      color: #bb86fc;
+      color: #c8aa6e;
       font-size: 1.5rem;
     }
 
@@ -104,19 +102,24 @@
     }
 
     .devlog-entry {
-      background: #1e1e33;
-      border-left: 4px solid #bb86fc;
+      background: #262626;
+      border-left: 4px solid #c8aa6e;
       padding: 1rem 1.5rem;
       margin-bottom: 1.5rem;
       border-radius: 8px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+      transition: transform 0.3s ease;
       animation: fadeInUp 0.8s ease forwards;
+    }
+
+    .devlog-entry:hover {
+      transform: translateY(-4px);
     }
 
     .devlog-entry h4 {
       margin: 0;
       font-size: 1.2rem;
-      color: #bb86fc;
+      color: #c8aa6e;
     }
 
     .devlog-entry time {
@@ -138,33 +141,21 @@
     footer {
       text-align: center;
       padding: 2rem;
-      background: #12122a;
-      color: #888;
+      background: #121212;
+      color: #777;
       font-size: 0.9rem;
       margin-top: 3rem;
     }
 
     /* Animations */
     @keyframes fadeInUp {
-      0% {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      100% {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      0% { opacity: 0; transform: translateY(30px); }
+      100% { opacity: 1; transform: translateY(0); }
     }
 
     @keyframes fadeInDown {
-      0% {
-        opacity: 0;
-        transform: translateY(-40px);
-      }
-      100% {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      0% { opacity: 0; transform: translateY(-40px); }
+      100% { opacity: 1; transform: translateY(0); }
     }
 
     @media (max-width: 600px) {
@@ -219,7 +210,7 @@
     </section>
 
   <footer>
-    © 2025 Jenko | Made with HTML & caffeine
+    © 2025 Jenko | Built with HTML & focus
   </footer>
 
 </body>
