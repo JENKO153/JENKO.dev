@@ -225,14 +225,14 @@
         </nav>
       </div>
       <div class="sidebar-footer">
-        © 2025 Jenko<br/>Built with 🍕 & code
+        © 2025 Jenko<br/>Built with Coffee
       </div>
     </aside>
     <main class="main">
       <section id="projects" class="section">
         <h2>Projects</h2>
         <div class="project">
-          <h3>You're Grounded! (WIP)</h3>
+          <h3>You're Grounded! (WorkInProgress)</h3>
           <p>A stealth escape game where you sneak out of a fortified house while avoiding AI enemies and solving puzzles.</p>
           <p><a href="#devlog">→ View Devlog</a></p>
         </div>
@@ -242,7 +242,11 @@
         <div class="devlog-entry">
           <h4>Developing the Enemy AI Vision System</h4>
           <time>June 27, 2025</time>
-          <p>This took a few solid days to get right. I reworked the code 3–4 times before I finally landed on something that felt solid and responsive. The final setup uses 4 separate sets of RayCasts, each tied to a direction the enemy could be facing — up, down, left, or right. Each set has 3 rays that form a vision cone: one straight ahead and two angled to the sides. The enemy activates the correct set based on the current facing direction of the sprite. When the player enters this vision cone, a "!" symbol appears to show the enemy has entered chase mode. If the player escapes the cone, the enemy records the last known location and moves to investigate. During this phase, a "?" icon appears above the enemy to indicate it’s in investigation mode instead of chasing. This system adds a nice layer of tension and feedback to stealth gameplay, and I’m really happy I pushed through all the trial and error to get it working the way I wanted.</p>
+           <p>This took a few solid days to get right. I reworked the code 3–4 times before I finally landed on something that felt solid and responsive.</p>
+          <p>The final setup uses 4 separate sets of RayCasts, each tied to a direction the enemy could be facing — up, down, left, or right. Each set has 3 rays that form a vision cone: one straight ahead and two angled to the sides.</p>
+          <p>The enemy activates the correct set based on the current facing direction of the sprite. When the player enters this vision cone, a "!" symbol appears to show the enemy has entered chase mode.</p>
+          <p>If the player escapes the cone, the enemy records the last known location and moves to investigate. During this phase, a "?" icon appears above the enemy to indicate it’s in investigation mode instead of chasing.</p>
+          <p>This system adds a nice layer of tension and feedback to stealth gameplay, and I’m really happy I pushed through all the trial and error to get it working the way I wanted.</p>
           <div class="image-gallery">
             <img src="images/enemy_vision_1.png" alt="Vision Angle 1" onclick="openLightbox(this)">
             <img src="images/enemy_vision_2.png" alt="Vision Angle 2" onclick="openLightbox(this)">
