@@ -287,17 +287,17 @@
     <img id="lightbox-img" src="" alt="Expanded view">
   </div>
   <script>
-    function openLightbox(img) {
-      const lightbox = document.querySelector('.lightbox');
-      const lightboxImg = document.getElementById('lightbox-img');
-      lightboxImg.src = img.src;
-      lightbox.classList.add('active');
-    }
+  function openLightbox(img) {
+    const lightbox = document.querySelector('.lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    lightboxImg.src = img.src;
+    lightbox.classList.add('active');
+  }
 
-    function closeLightbox() {
-      const lightbox = document.querySelector('.lightbox');
-      lightbox.classList.remove('active');
-    }
-  </script>
+  function closeLightbox() {
+    const lightbox = document.querySelector('.lightbox');
+    lightbox.classList.remove('active');
+  }
+</script>
 </body>
 </html>
