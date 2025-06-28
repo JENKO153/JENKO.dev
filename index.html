@@ -1024,13 +1024,14 @@
       width: 100%;
       border-right: none;
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      padding: 1.5rem;
+      padding: 1rem 1.5rem;
       position: fixed;
       top: 0;
       left: 0;
       z-index: 1000;
       backdrop-filter: blur(10px);
       background: rgba(26, 26, 26, 0.95);
+      height: auto;
     }
 
     .sidebar::after {
@@ -1042,28 +1043,62 @@
       justify-content: space-between;
       align-items: center;
       width: 100%;
+      flex-wrap: nowrap;
+    }
+
+    .logo-section > div:first-child {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
     }
 
     .logo-section h1 {
-      font-size: 1.5rem;
+      font-size: 1.2rem;
       margin-bottom: 0;
+      letter-spacing: 1px;
     }
 
     .tagline {
       display: none;
     }
 
+    .mobile-menu-toggle {
+      display: block;
+      flex-shrink: 0;
+    }
+
     .nav-links {
-      display: flex;
-      gap: 0.5rem;
-      margin: 0;
+      position: fixed;
+      top: 60px;
+      left: 0;
+      right: 0;
+      background: rgba(26, 26, 26, 0.98);
+      flex-direction: column;
+      padding: 0;
+      gap: 0;
+      transform: translateY(-100%);
+      transition: transform 0.3s ease;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .nav-links.active {
+      transform: translateY(0);
     }
 
     .nav-links a {
-      padding: 0.5rem 1rem;
+      padding: 1.2rem 2rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      width: 100%;
+      text-align: left;
+      font-size: 0.9rem;
+      letter-spacing: 1px;
+      display: block;
       margin: 0;
-      font-size: 0.75rem;
-      letter-spacing: 0.5px;
+    }
+
+    .nav-links a:last-child {
+      border-bottom: none;
     }
 
     .nav-links a:hover {
@@ -1080,7 +1115,7 @@
     }
 
     .main {
-      padding: 6rem 1.5rem 2rem;
+      padding: 5rem 1.5rem 2rem;
       margin-top: 0;
     }
 
@@ -1246,13 +1281,22 @@
   }
 
   @media (max-width: 480px) {
+    .sidebar {
+      padding: 0.8rem 1rem;
+    }
+
+    .logo-section h1 {
+      font-size: 1rem;
+      letter-spacing: 0.5px;
+    }
+
     .nav-links {
-      gap: 0.25rem;
+      top: 50px;
     }
 
     .nav-links a {
-      padding: 0.5rem 0.7rem;
-      font-size: 0.7rem;
+      padding: 1rem 1.5rem;
+      font-size: 0.85rem;
     }
 
     .hero-title {
@@ -1270,7 +1314,7 @@
     }
 
     .main {
-      padding: 5rem 1rem 2rem;
+      padding: 4rem 1rem 2rem;
     }
 
     .section h2 {
@@ -1343,16 +1387,17 @@
 
     .nav-links {
       position: fixed;
-      top: 70px;
+      top: 60px;
       left: 0;
       right: 0;
       background: rgba(26, 26, 26, 0.98);
       flex-direction: column;
-      padding: 1rem;
+      padding: 0;
       gap: 0;
       transform: translateY(-100%);
       transition: transform 0.3s ease;
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     }
 
     .nav-links.active {
@@ -1360,10 +1405,14 @@
     }
 
     .nav-links a {
-      padding: 1rem;
+      padding: 1.2rem 2rem;
       border-bottom: 1px solid rgba(255, 255, 255, 0.05);
       width: 100%;
-      text-align: center;
+      text-align: left;
+      font-size: 0.9rem;
+      letter-spacing: 1px;
+      display: block;
+      margin: 0;
     }
 
     .nav-links a:last-child {
@@ -1487,10 +1536,10 @@
         <div class="hero-section">
           <div class="hero-content">
             <h1 class="hero-title">
-              <span class="title-line">GAME</span>
-              <span class="title-line">DEVELOPER</span>
+              <span class="title-line">JENKO's</span>
+              <span class="title-line">DEV LOG</span>
             </h1>
-            <p class="hero-subtitle">Crafting immersive 2D experiences with Godot</p>
+            <p class="hero-subtitle">Crafting 2D games with Godot powered by caffeine</p>
             <div class="hero-cta">
               <a href="#projects" class="cta-button primary">View Projects</a>
               <a href="#devlog" class="cta-button secondary">Read Devlog</a>
