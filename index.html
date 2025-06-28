@@ -207,9 +207,17 @@
   .main {
     flex: 1;
     overflow-y: auto;
-    padding: 4rem;
+    padding: 0;
     background: var(--bg-dark);
     position: relative;
+  }
+
+  .main > .section {
+    padding: 4rem;
+  }
+
+  #home {
+    padding: 0;
   }
 
   .main::-webkit-scrollbar {
@@ -700,7 +708,7 @@
 
   /* Hero Section */
   #home {
-    min-height: 80vh;
+    min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -722,6 +730,12 @@
     height: 100%;
     object-fit: cover;
     object-position: center;
+    min-width: 100%;
+    min-height: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
 
   .hero-overlay {
@@ -1157,8 +1171,18 @@
     }
 
     .main {
-      padding: 5rem 1.5rem 2rem;
+      padding: 0;
       margin-top: 0;
+    }
+
+    .main > .section {
+      padding: 5rem 1.5rem 2rem;
+    }
+
+    #home {
+      min-height: 100vh;
+      padding: 0;
+      margin-top: 60px; /* Account for fixed header */
     }
 
     #home {
