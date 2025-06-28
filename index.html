@@ -708,6 +708,37 @@
     overflow: hidden;
   }
 
+  .hero-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+  }
+
+  .hero-background img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      135deg,
+      rgba(10, 10, 10, 0.8) 0%,
+      rgba(10, 10, 10, 0.6) 50%,
+      rgba(10, 10, 10, 0.9) 100%
+    );
+    backdrop-filter: blur(2px);
+  }
+
   .hero-section {
     text-align: center;
     position: relative;
@@ -718,6 +749,8 @@
 
   .hero-content {
     margin-bottom: 3rem;
+    position: relative;
+    z-index: 3;
   }
 
   .hero-title {
@@ -726,6 +759,7 @@
     font-weight: 900;
     line-height: 0.9;
     margin-bottom: 1.5rem;
+    text-shadow: 0 0 40px rgba(0, 0, 0, 0.8);
   }
 
   .title-line {
@@ -738,17 +772,24 @@
   }
 
   @keyframes titleGlow {
-    0% { filter: brightness(1) drop-shadow(0 0 20px rgba(0, 255, 204, 0.5)); }
-    100% { filter: brightness(1.2) drop-shadow(0 0 40px rgba(255, 0, 170, 0.8)); }
+    0% { 
+      filter: brightness(1) drop-shadow(0 0 20px rgba(0, 255, 204, 0.5));
+      transform: scale(1);
+    }
+    100% { 
+      filter: brightness(1.2) drop-shadow(0 0 40px rgba(255, 0, 170, 0.8));
+      transform: scale(1.02);
+    }
   }
 
   .hero-subtitle {
     font-size: 1.3rem;
-    color: var(--text-secondary);
+    color: var(--text-primary);
     margin-bottom: 3rem;
     font-weight: 300;
     letter-spacing: 2px;
     animation: fadeInUp 1s ease 0.5s both;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
   }
 
   .hero-cta {
@@ -783,10 +824,11 @@
   }
 
   .cta-button.secondary {
-    background: transparent;
+    background: rgba(255, 255, 255, 0.1);
     color: var(--text-primary);
     border: 2px solid var(--accent);
     box-shadow: 0 5px 20px rgba(255, 170, 0, 0.2);
+    backdrop-filter: blur(10px);
   }
 
   .cta-button.secondary:hover {
@@ -813,7 +855,7 @@
     height: 300px;
     border-radius: 50%;
     background: radial-gradient(circle, var(--primary), transparent);
-    opacity: 0.1;
+    opacity: 0.05;
     filter: blur(40px);
     animation: float 10s ease-in-out infinite;
   }
@@ -1043,13 +1085,7 @@
       justify-content: space-between;
       align-items: center;
       width: 100%;
-      flex-wrap: nowrap;
-    }
-
-    .logo-section > div:first-child {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
+      position: relative;
     }
 
     .logo-section h1 {
@@ -1065,6 +1101,10 @@
     .mobile-menu-toggle {
       display: block;
       flex-shrink: 0;
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
     }
 
     .nav-links {
@@ -1080,9 +1120,11 @@
       transition: transform 0.3s ease;
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      display: none;
     }
 
     .nav-links.active {
+      display: flex;
       transform: translateY(0);
     }
 
@@ -1386,37 +1428,11 @@
     }
 
     .nav-links {
-      position: fixed;
-      top: 60px;
-      left: 0;
-      right: 0;
-      background: rgba(26, 26, 26, 0.98);
-      flex-direction: column;
-      padding: 0;
-      gap: 0;
-      transform: translateY(-100%);
-      transition: transform 0.3s ease;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      display: none;
     }
 
     .nav-links.active {
-      transform: translateY(0);
-    }
-
-    .nav-links a {
-      padding: 1.2rem 2rem;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-      width: 100%;
-      text-align: left;
-      font-size: 0.9rem;
-      letter-spacing: 1px;
-      display: block;
-      margin: 0;
-    }
-
-    .nav-links a:last-child {
-      border-bottom: none;
+      display: flex;
     }
 
     body {
@@ -1490,10 +1506,8 @@
   <div class="layout">
     <aside class="sidebar" id="sidebar">
       <div class="logo-section">
-        <div>
-          <h1>JENKO</h1>
-          <p class="tagline">Game Developer</p>
-        </div>
+        <h1>JENKO</h1>
+        <p class="tagline">Game Developer</p>
         <button class="mobile-menu-toggle" id="menu-toggle" aria-label="Toggle menu">
           <span></span>
           <span></span>
@@ -1533,6 +1547,10 @@
     
     <main class="main">
       <section id="home" class="section">
+        <div class="hero-background">
+          <img src="images/Website_BG_Image.png" alt="Game Development Background" />
+          <div class="hero-overlay"></div>
+        </div>
         <div class="hero-section">
           <div class="hero-content">
             <h1 class="hero-title">
