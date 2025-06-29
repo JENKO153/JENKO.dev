@@ -1617,10 +1617,28 @@
         <div class="section-header">
           <h2>DEVELOPMENT LOG</h2>
         </div>
+
+        <div class="devlog-entry" onclick="openDevlogModal(this)">
+          <div class="devlog-header">
+            <h4>Main Menu Mockup & Future Level Planning</h4>
+            <time>June 30, 2025</time>
+          </div>
+          <p>After wrapping up the last batch of bug fixes and tutorial tweaks, I figured I deserved a bit of a break from all the scripting madness — so I jumped into something a bit more creative: the main menu.</p>
+          <p>I started designing the art and UI elements for the menu, building out button images and laying out the structure. Then I got into animating it all, adding a bit of motion to give it some life. It’s still early, and while I like the functionality and general layout, I’m on the fence about the style.</p>
+          <p>The current menu has this cold, concrete aesthetic — which kinda clashes with the cozy-cabin look of the game’s first level. It’s not horrible, though. In a way, it still fits the “you’re trapped” theme, so I might let it live for a while and see how it grows on me.</p>
+          <p>Either way, I’m thinking ahead. I’ll be adding new houses/levels once the first one is locked in. Different themes, different difficulty curves — and eventually, I want to bake in a replayability system so players can come back and try escaping again under new conditions.</p>
+          <p>For now, the menu’s a work-in-progress placeholder, but it’s fun seeing things come together visually after so much under-the-hood work.</p>
+          <div class="image-gallery">
+            <img src="images/Making_the_menu_1.png" alt="Door Bug Code Image" onclick="openLightbox(this)">
+            <img src="images/Making_the_menu_2.png" alt="Door Bug Code Image 2" onclick="openLightbox(this)">
+          </div>
+        </div>
         
         <div class="devlog-entry" onclick="openDevlogModal(this)">
-          <h4>Wrapping Up Tutorials, Stealth Prep & AI Cleanup</h4>
-          <time>June 30, 2025</time>
+          <div class="devlog-header">
+            <h4>Wrapping Up Tutorials, Stealth Prep & AI Cleanup</h4>
+            <time>June 30, 2025</time>
+          </div>
           <p>Started the day off with the usual routine — house cleaning, washing, vacuuming... the works. Once that was out of the way, I made my first coffee of the morning (mandatory), then jumped straight into dev mode.</p>
           <p>My main focus today was finishing up the tutorial system I started yesterday. I polished everything up — tweaked a few delays, smoothed out the animations, and did a pass on the text pacing. It’s feeling really solid now and flows naturally as the player moves through the space.</p>
           <p>This morning, I also caught and fixed a couple bugs with the tutorial indicators — just some logic that wasn’t triggering properly depending on the direction the player came from. Nothing major, but nice to have it sorted before it became a bigger headache.</p>
