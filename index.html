@@ -1988,8 +1988,8 @@
           block: 'start'
         });
       }
-      
     });
+  });
     // Like Button Functionality - Run after DOM is loaded
     document.addEventListener('DOMContentLoaded', function() {
     const likeButtons = document.querySelectorAll('.like-button');
@@ -2028,7 +2028,6 @@
       localStorage.setItem('devlogLikes', JSON.stringify(likes));
     });
   });
-});
 
   // Optional: Add loading animation
   window.addEventListener('load', () => {
