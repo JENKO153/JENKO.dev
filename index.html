@@ -1521,54 +1521,6 @@
     transition: transform 0.1s ease;
     display: none;
   }
-
-  /* Like Button Styles */
-.like-button {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 1rem;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 20px;
-  color: var(--text-secondary);
-  cursor: pointer;
-  transition: all 0.3s ease;
-  margin-top: 1.5rem;
-  font-size: 0.9rem;
-}
-
-.like-button:hover {
-  background: rgba(255, 0, 170, 0.1);
-  border-color: var(--secondary);
-  color: var(--secondary);
-  transform: translateY(-2px);
-}
-
-.like-button.liked {
-  background: rgba(255, 0, 170, 0.2);
-  border-color: var(--secondary);
-  color: var(--secondary);
-}
-
-.like-button.liked .heart {
-  animation: heartBeat 0.5s ease;
-}
-
-@keyframes heartBeat {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.3); }
-}
-
-.heart {
-  font-size: 1.1rem;
-  display: inline-block;
-  transition: transform 0.2s ease;
-}
-
-.like-count {
-  font-weight: 600;
-}
   </style>
 </head>
 
@@ -1678,10 +1630,6 @@
             <img src="images/Dresser_Puzzle_System_1.png" alt="Door Bug Code Image" onclick="openLightbox(this)">
             <img src="images/Dresser_Puzzle_System_2.png" alt="Door Bug Code Image 2" onclick="openLightbox(this)">
           </div>
-          <button class="like-button" data-post-id="7">
-            <span class="heart">❤️</span>
-            <span class="like-count">0</span>
-          </button>
         </div>
 
 
@@ -1699,10 +1647,6 @@
             <img src="images/Making_the_menu_1.png" alt="Door Bug Code Image" onclick="openLightbox(this)">
             <img src="images/Making_the_menu_2.png" alt="Door Bug Code Image 2" onclick="openLightbox(this)">
           </div>
-          <button class="like-button" data-post-id="6">
-            <span class="heart">❤️</span>
-            <span class="like-count">0</span>
-          </button>
         </div>
         
         <div class="devlog-entry" onclick="openDevlogModal(this)">
@@ -1721,10 +1665,6 @@
             <img src="images/Tutorial_Indicator_2.png" alt="Door Bug Code Image 2" onclick="openLightbox(this)">
             <img src="images/Tutorial_Indicator_3.png" alt="Door Bug Image" onclick="openLightbox(this)">
           </div>
-          <button class="like-button" data-post-id="5">
-            <span class="heart">❤️</span>
-            <span class="like-count">0</span>
-          </button>
         </div>
         
         <div class="devlog-entry" onclick="openDevlogModal(this)">
@@ -1744,10 +1684,6 @@
             <img src="images/door_bug_3.png" alt="Door Bug Image" onclick="openLightbox(this)">
             <img src="images/door_bug_4.png" alt="PC Screen Line Edit Fix" onclick="openLightbox(this)">
           </div>
-          <button class="like-button" data-post-id="4">
-            <span class="heart">❤️</span>
-            <span class="like-count">0</span>
-          </button>
         </div>
 
         <div class="devlog-entry" onclick="openDevlogModal(this)">
@@ -1765,10 +1701,6 @@
             <img src="images/Tutorial_Design_2.png" alt="Trigger zone for tutorial" onclick="openLightbox(this)">
             <img src="images/Tutorial_Design_1.png" alt="Mechanic intro with frozen player" onclick="openLightbox(this)">
           </div>
-          <button class="like-button" data-post-id="3">
-            <span class="heart">❤️</span>
-            <span class="like-count">0</span>
-          </button>
         </div>
         
         <div class="devlog-entry" onclick="openDevlogModal(this)">
@@ -1781,10 +1713,6 @@
           <p>Alongside that, I got to work on some shadowy visuals. I sketched out most of the pixel art myself, aiming for twisted, abstract silhouettes that you wouldn't want to see move at the end of a corridor. Subtle flickers in the dark, just enough to make your stomach drop.</p>
           <p>Music and sound really glue this all together. I built a looping ambient track that leans into long low notes and reverberating hums, then layered random sound stingers — like distant footsteps, creaking floorboards, or a far-off slam. You never quite know what's part of the soundtrack and what's part of the game.</p>
           <p>Every piece here — the light, the shadow, the sound — is meant to crank up the pressure while you're sneaking around. It's not horror, exactly… but it wants to get under your skin.</p>
-          <button class="like-button" data-post-id="2">
-            <span class="heart">❤️</span>
-            <span class="like-count">0</span>
-          </button>
         </div>
         
         <div class="devlog-entry" onclick="openDevlogModal(this)">
@@ -1803,10 +1731,6 @@
             <img src="images/enemy_vision_2.png" alt="Vision Angle 2" onclick="openLightbox(this)">
             <img src="images/enemy_vision_3.png" alt="Vision Angle 3" onclick="openLightbox(this)">
           </div>
-          <button class="like-button" data-post-id="1">
-            <span class="heart">❤️</span>
-            <span class="like-count">0</span>
-          </button>
         </div>
       </section>
       
@@ -1916,33 +1840,33 @@
 
   // Devlog Modal functionality
   function openDevlogModal(entry) {
-  // Prevent opening if clicking on an image or like button
-  if (window.event && (window.event.target.tagName === 'IMG' || window.event.target.closest('.like-button'))) {
-    return;
+    // Prevent opening if clicking on an image
+    if (event.target.tagName === 'IMG') {
+      return;
+    }
+    
+    const modal = document.getElementById('devlog-modal');
+    const modalBody = document.getElementById('devlog-modal-body');
+    
+    // Clone the content
+    const content = entry.cloneNode(true);
+    
+    // Remove onclick from cloned content
+    content.removeAttribute('onclick');
+    
+    // Update image onclick in cloned content
+    const images = content.querySelectorAll('img');
+    images.forEach(img => {
+      img.setAttribute('onclick', 'openLightbox(this)');
+    });
+    
+    // Set the content
+    modalBody.innerHTML = content.innerHTML;
+    
+    // Show the modal
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
   }
-  
-  const modal = document.getElementById('devlog-modal');
-  const modalBody = document.getElementById('devlog-modal-body');
-  
-  // Clone the content
-  const content = entry.cloneNode(true);
-  
-  // Remove onclick from cloned content
-  content.removeAttribute('onclick');
-  
-  // Update image onclick in cloned content
-  const images = content.querySelectorAll('img');
-  images.forEach(img => {
-    img.setAttribute('onclick', 'openLightbox(this)');
-  });
-  
-  // Set the content
-  modalBody.innerHTML = content.innerHTML;
-  
-  // Show the modal
-  modal.classList.add('active');
-  document.body.style.overflow = 'hidden';
-}
 
   function closeDevlogModal(event) {
     if (event && event.target !== event.currentTarget) {
@@ -1988,44 +1912,6 @@
           block: 'start'
         });
       }
-    });
-  });
-    // Like Button Functionality - Run after DOM is loaded
-    document.addEventListener('DOMContentLoaded', function() {
-    const likeButtons = document.querySelectorAll('.like-button');
-    const likes = JSON.parse(localStorage.getItem('devlogLikes') || '{}');
-
-    likeButtons.forEach(button => {
-    const postId = button.getAttribute('data-post-id');
-    const likeCount = button.querySelector('.like-count');
-    
-    // Initialize like counts
-    if (likes[postId]) {
-      likeCount.textContent = likes[postId].count;
-      if (likes[postId].liked) {
-        button.classList.add('liked');
-      }
-    }
-
-    button.addEventListener('click', (e) => {
-      e.stopPropagation();
-      
-      if (!likes[postId]) {
-        likes[postId] = { count: 0, liked: false };
-      }
-
-      if (likes[postId].liked) {
-        likes[postId].count--;
-        likes[postId].liked = false;
-        button.classList.remove('liked');
-      } else {
-        likes[postId].count++;
-        likes[postId].liked = true;
-        button.classList.add('liked');
-      }
-
-      likeCount.textContent = likes[postId].count;
-      localStorage.setItem('devlogLikes', JSON.stringify(likes));
     });
   });
 
