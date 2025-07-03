@@ -1,4 +1,913 @@
-.about-intro {
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>JENKO | Game Developer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  :root {
+    --primary: #00ffcc;
+    --secondary: #ff00aa;
+    --accent: #ffaa00;
+    --bg-dark: #0a0a0a;
+    --bg-medium: #1a1a1a;
+    --bg-light: #2a2a2a;
+    --text-primary: #ffffff;
+    --text-secondary: #b0b0b0;
+    --text-dim: #666666;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-dark);
+    color: var(--text-primary);
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  /* Animated background particles */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+      radial-gradient(2px 2px at 20% 30%, var(--primary), transparent),
+      radial-gradient(2px 2px at 60% 70%, var(--secondary), transparent),
+      radial-gradient(1px 1px at 50% 50%, var(--accent), transparent);
+    background-size: 200px 200px;
+    opacity: 0.1;
+    animation: drift 20s infinite linear;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  @keyframes drift {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(-200px, -200px); }
+  }
+
+  .layout {
+    display: flex;
+    height: 100vh;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Sidebar Styling */
+  .sidebar {
+    background: linear-gradient(180deg, var(--bg-medium), var(--bg-dark));
+    width: 300px;
+    padding: 3rem 2rem;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .sidebar::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
+    opacity: 0.05;
+    animation: pulse 4s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(0.8); opacity: 0.05; }
+    50% { transform: scale(1.2); opacity: 0.1; }
+  }
+
+  .logo-section {
+    position: relative;
+    z-index: 2;
+  }
+
+  .logo-section h1 {
+    font-family: 'Orbitron', monospace;
+    font-size: 2.5rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 0.5rem;
+    letter-spacing: 2px;
+    animation: glow 2s ease-in-out infinite alternate;
+  }
+
+  @keyframes glow {
+    0% { filter: drop-shadow(0 0 10px rgba(0, 255, 204, 0.5)); }
+    100% { filter: drop-shadow(0 0 20px rgba(255, 0, 170, 0.8)); }
+  }
+
+  .tagline {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: 3rem;
+    font-weight: 300;
+    letter-spacing: 1px;
+  }
+
+  .nav-links {
+    position: relative;
+    z-index: 2;
+  }
+
+  .nav-links a {
+    display: flex;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    margin: 0.5rem -1.5rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    text-decoration: none;
+    border-radius: 8px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .nav-links a::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0;
+    height: 2px;
+    background: var(--primary);
+    transition: width 0.3s ease;
+  }
+
+  .nav-links a:hover {
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.05);
+    transform: translateX(10px);
+  }
+
+  .nav-links a:hover::before {
+    width: 20px;
+  }
+
+  .sidebar-footer {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    position: relative;
+    z-index: 2;
+  }
+
+  .social-links {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .social-links a {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    color: var(--text-secondary);
+  }
+
+  .social-links a:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 255, 204, 0.3);
+  }
+
+  /* Main Content Area */
+  .main {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0;
+    background: var(--bg-dark);
+    position: relative;
+  }
+
+  .main > .section {
+    padding: 4rem;
+  }
+
+  #home {
+    padding: 0;
+  }
+
+  .main::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  .main::-webkit-scrollbar-track {
+    background: var(--bg-medium);
+  }
+
+  .main::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, var(--primary), var(--secondary));
+    border-radius: 5px;
+  }
+
+  .section {
+    margin-bottom: 6rem;
+    opacity: 0;
+    animation: fadeInUp 0.8s ease forwards;
+  }
+
+  .section:nth-child(1) { animation-delay: 0.1s; }
+  .section:nth-child(2) { animation-delay: 0.2s; }
+  .section:nth-child(3) { animation-delay: 0.3s; }
+
+  @keyframes fadeInUp {
+    0% { 
+      opacity: 0; 
+      transform: translateY(40px); 
+    }
+    100% { 
+      opacity: 1; 
+      transform: translateY(0); 
+    }
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 3rem;
+    position: relative;
+  }
+
+  .section h2 {
+    font-family: 'Orbitron', monospace;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-right: 2rem;
+    position: relative;
+  }
+
+  .section-header::after {
+    content: '';
+    flex: 1;
+    height: 2px;
+    background: linear-gradient(90deg, var(--primary), transparent);
+    margin-left: 2rem;
+  }
+
+  /* Project Cards */
+  .project {
+    background: linear-gradient(135deg, var(--bg-medium), var(--bg-light));
+    padding: 2rem;
+    border-radius: 16px;
+    margin-bottom: 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .project::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 255, 204, 0.1), transparent);
+    transition: left 0.6s ease;
+  }
+
+  .project:hover {
+    transform: translateY(-5px) scale(1.02);
+    border-color: var(--primary);
+    box-shadow: 
+      0 10px 30px rgba(0, 0, 0, 0.5),
+      0 0 50px rgba(0, 255, 204, 0.1);
+  }
+
+  .project:hover::before {
+    left: 100%;
+  }
+
+  .project-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+
+  .project h3 {
+    font-family: 'Orbitron', monospace;
+    font-size: 1.4rem;
+    color: var(--primary);
+    font-weight: 700;
+  }
+
+  .project-status {
+    display: inline-block;
+    padding: 0.3rem 1rem;
+    background: rgba(255, 170, 0, 0.2);
+    border: 1px solid var(--accent);
+    border-radius: 20px;
+    font-size: 0.75rem;
+    color: var(--accent);
+    font-weight: 600;
+    animation: statusPulse 2s ease-in-out infinite;
+  }
+
+  @keyframes statusPulse {
+    0%, 100% { opacity: 0.8; }
+    50% { opacity: 1; }
+  }
+
+  .project p {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--text-secondary);
+    margin: 1rem 0;
+  }
+
+  .project-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--primary);
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    margin-top: 1rem;
+  }
+
+  .project-link:hover {
+    gap: 1rem;
+    color: var(--text-primary);
+  }
+
+  /* Devlog Entries */
+  .devlog-entry {
+    background: var(--bg-medium);
+    padding: 2.5rem;
+    border-radius: 16px;
+    margin-bottom: 3rem;
+    border-left: 4px solid var(--secondary);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+
+  .devlog-entry::after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, var(--primary), var(--secondary), var(--accent));
+    border-radius: 16px;
+    opacity: 0;
+    z-index: -1;
+    transition: opacity 0.3s ease;
+  }
+
+  .devlog-entry::before {
+    content: 'Click to read more';
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: rgba(0, 255, 204, 0.2);
+    color: var(--primary);
+    padding: 0.3rem 1rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+
+  .devlog-entry:hover {
+    transform: translateX(10px);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+  }
+
+  .devlog-entry:hover::after {
+    opacity: 0.1;
+  }
+
+  .devlog-entry:hover::before {
+    opacity: 1;
+  }
+
+  /* Devlog Modal */
+  .devlog-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(20px);
+    z-index: 10000;
+    overflow-y: auto;
+    padding: 2rem;
+    animation: modalFadeIn 0.3s ease;
+  }
+
+  @keyframes modalFadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+
+  .devlog-modal.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .devlog-modal-content {
+    background: var(--bg-medium);
+    border-radius: 20px;
+    max-width: 900px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    padding: 3rem;
+    box-shadow: 
+      0 20px 60px rgba(0, 0, 0, 0.5),
+      0 0 100px rgba(0, 255, 204, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    animation: modalSlideIn 0.4s ease;
+  }
+
+  @keyframes modalSlideIn {
+    0% { 
+      transform: scale(0.8) translateY(50px);
+      opacity: 0;
+    }
+    100% { 
+      transform: scale(1) translateY(0);
+      opacity: 1;
+    }
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: var(--text-primary);
+    font-size: 2rem;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 10;
+  }
+
+  .modal-close:hover {
+    background: var(--primary);
+    color: var(--bg-dark);
+    transform: rotate(90deg);
+  }
+
+  #devlog-modal-body {
+    animation: contentFadeIn 0.5s ease 0.2s both;
+  }
+
+  @keyframes contentFadeIn {
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+
+  #devlog-modal-body .devlog-header {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+  }
+
+  #devlog-modal-body h4 {
+    font-family: 'Orbitron', monospace;
+    font-size: 2rem;
+    color: var(--primary);
+    margin-bottom: 1rem;
+  }
+
+  #devlog-modal-body time {
+    display: inline-block;
+    padding: 0.5rem 1.5rem;
+    background: linear-gradient(135deg, rgba(255, 0, 170, 0.2), rgba(0, 255, 204, 0.2));
+    border-radius: 30px;
+    font-size: 0.9rem;
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+
+  #devlog-modal-body p {
+    font-size: 1.1rem;
+    line-height: 1.9;
+    margin: 1.5rem 0;
+    color: var(--text-secondary);
+  }
+
+  #devlog-modal-body strong {
+    color: var(--accent);
+  }
+
+  #devlog-modal-body .image-gallery {
+    margin-top: 3rem;
+    gap: 2rem;
+  }
+
+  #devlog-modal-body .image-gallery img {
+    height: 250px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+  }
+
+  #devlog-modal-body .image-gallery img:hover {
+    border-color: var(--primary);
+    transform: scale(1.05);
+  }
+
+  .devlog-modal-content::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  .devlog-modal-content::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 5px;
+  }
+
+  .devlog-modal-content::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, var(--primary), var(--secondary));
+    border-radius: 5px;
+  }
+
+  /* Mobile adjustments for modal */
+  @media (max-width: 768px) {
+    .devlog-entry::before {
+      display: none;
+    }
+
+    .devlog-modal {
+      padding: 1rem;
+    }
+
+    .devlog-modal-content {
+      padding: 2rem 1.5rem;
+      max-height: 100vh;
+      border-radius: 16px;
+    }
+
+    .modal-close {
+      top: 1rem;
+      right: 1rem;
+      width: 35px;
+      height: 35px;
+      font-size: 1.5rem;
+    }
+
+    #devlog-modal-body h4 {
+      font-size: 1.5rem;
+    }
+
+    #devlog-modal-body p {
+      font-size: 1rem;
+    }
+
+    #devlog-modal-body .image-gallery {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .devlog-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1.5rem;
+  }
+
+  .devlog-entry h4 {
+    font-size: 1.3rem;
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+
+  .devlog-entry time {
+    display: inline-block;
+    padding: 0.3rem 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+  }
+
+  .devlog-entry p {
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: var(--text-secondary);
+    margin: 1rem 0;
+  }
+
+  .devlog-entry strong {
+    color: var(--primary);
+    font-weight: 600;
+  }
+
+  /* Image Gallery */
+  .image-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .image-gallery img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  }
+
+  .image-gallery img:hover {
+    transform: scale(1.05) rotate(1deg);
+    box-shadow: 
+      0 10px 30px rgba(0, 0, 0, 0.5),
+      0 0 30px rgba(0, 255, 204, 0.2);
+  }
+
+  /* Lightbox */
+  .lightbox {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.95);
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    cursor: pointer;
+    backdrop-filter: blur(10px);
+  }
+
+  .lightbox img {
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 12px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+    animation: zoomIn 0.3s ease;
+  }
+
+  @keyframes zoomIn {
+    0% { transform: scale(0.8); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+
+  .lightbox.active {
+    display: flex;
+  }
+
+  /* Hero Section */
+  #home {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+  }
+
+  .hero-background img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    min-width: 100%;
+    min-height: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      135deg,
+      rgba(10, 10, 10, 0.8) 0%,
+      rgba(10, 10, 10, 0.6) 50%,
+      rgba(10, 10, 10, 0.9) 100%
+    );
+    backdrop-filter: blur(2px);
+  }
+
+  .hero-section {
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 1200px;
+  }
+
+  .hero-content {
+    margin-bottom: 3rem;
+    position: relative;
+    z-index: 3;
+  }
+
+  .hero-title {
+    font-family: 'Orbitron', monospace;
+    font-size: clamp(3rem, 8vw, 6rem);
+    font-weight: 900;
+    line-height: 0.9;
+    margin-bottom: 1.5rem;
+    text-shadow: 0 0 40px rgba(0, 0, 0, 0.8);
+  }
+
+  .title-line {
+    display: block;
+    background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: titleGlow 3s ease-in-out infinite alternate;
+  }
+
+  @keyframes titleGlow {
+    0% { 
+      filter: brightness(1) drop-shadow(0 0 20px rgba(0, 255, 204, 0.5));
+      transform: scale(1);
+    }
+    100% { 
+      filter: brightness(1.2) drop-shadow(0 0 40px rgba(255, 0, 170, 0.8));
+      transform: scale(1.02);
+    }
+  }
+
+  .hero-subtitle {
+    font-size: 1.3rem;
+    color: var(--text-primary);
+    margin-bottom: 3rem;
+    font-weight: 300;
+    letter-spacing: 2px;
+    animation: fadeInUp 1s ease 0.5s both;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    animation: fadeInUp 1s ease 0.7s both;
+  }
+
+  .cta-button {
+    padding: 1rem 2.5rem;
+    font-family: 'Orbitron', monospace;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-radius: 30px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-button.primary {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: var(--bg-dark);
+    box-shadow: 0 5px 20px rgba(0, 255, 204, 0.3);
+  }
+
+  .cta-button.primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(0, 255, 204, 0.5);
+  }
+
+  .cta-button.secondary {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-primary);
+    border: 2px solid var(--accent);
+    box-shadow: 0 5px 20px rgba(255, 170, 0, 0.2);
+    backdrop-filter: blur(10px);
+  }
+
+  .cta-button.secondary:hover {
+    background: var(--accent);
+    color: var(--bg-dark);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(255, 170, 0, 0.4);
+  }
+
+  .hero-visual {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .floating-element {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--primary), transparent);
+    opacity: 0.05;
+    filter: blur(40px);
+    animation: float 10s ease-in-out infinite;
+  }
+
+  .floating-element:nth-child(1) {
+    top: 20%;
+    left: 10%;
+    animation-delay: 0s;
+  }
+
+  .floating-element:nth-child(2) {
+    top: 60%;
+    right: 10%;
+    background: radial-gradient(circle, var(--secondary), transparent);
+    animation-delay: 3s;
+    animation-duration: 12s;
+  }
+
+  .floating-element:nth-child(3) {
+    bottom: 10%;
+    left: 50%;
+    background: radial-gradient(circle, var(--accent), transparent);
+    animation-delay: 6s;
+    animation-duration: 8s;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(30px, -30px) scale(1.1); }
+    66% { transform: translate(-20px, 20px) scale(0.9); }
+  }
+
+  /* About Section Styles */
+  .about-content {
+    max-width: 1000px;
+  }
+
+  .about-intro {
     text-align: center;
     margin-bottom: 3rem;
     padding: 2rem;
@@ -709,68 +1618,56 @@
           <h2>DEVELOPMENT LOG</h2>
         </div>
 
-        <div class="devlog-entry" onclick="openDevlogModal(this)" data-post-id="1">
+        <div class="devlog-entry" onclick="openDevlogModal(this)">
           <h4>Bonus Puzzle Rooms & A Debugging Brain Fog</h4>
           <time>July 3, 2025</time>
-          <p>Haven't had a ton of time over the past few days to get stuck into development properly — had a family emergency come up, which meant flying all over the country. Life happens. But even in the air, I found a bit of time to brainstorm a new puzzle system I've been wanting to try out.</p>
-          <p>This one's a bonus level idea I'm adding into the second hallway section — it's all about matching photo fragments in the right sequence. The idea is to make these rooms optional "risk vs reward" zones. If the player wants to snag a collectable, they'll need to solve a small puzzle to earn it. These collectables will eventually offer small buffs or tools that make later levels a little easier — still fleshing that part out.</p>
+          <p>Haven’t had a ton of time over the past few days to get stuck into development properly — had a family emergency come up, which meant flying all over the country. Life happens. But even in the air, I found a bit of time to brainstorm a new puzzle system I’ve been wanting to try out.</p>
+          <p>This one’s a bonus level idea I’m adding into the second hallway section — it’s all about matching photo fragments in the right sequence. The idea is to make these rooms optional "risk vs reward" zones. If the player wants to snag a collectable, they’ll need to solve a small puzzle to earn it. These collectables will eventually offer small buffs or tools that make later levels a little easier — still fleshing that part out.</p>
           <p>Anyway, this morning I finished off the art for the puzzle and dumped it all into Godot to wire things up… and of course, nothing worked.</p>
-          <p>At first, mouse clicks weren't registering at all. Took a while to realise my ColorRects were blocking input — cool. Fixed that, then hit another wall: the click-and-drag system for moving puzzle pieces wasn't working either. After two hours of poking through everything thinking I'd broken something major, I finally figured it out… I'd added the left mouse button as an input action but hit "Cancel" instead of "Save" when I created it. Classic move.</p>
-          <p>Once that was sorted, the core mechanic actually started working — pieces are snapping, things are dragging, it's all coming to life. Next up: finishing the rest of the puzzle room layout and tying it into the level flow.</p>
+          <p>At first, mouse clicks weren’t registering at all. Took a while to realise my ColorRects were blocking input — cool. Fixed that, then hit another wall: the click-and-drag system for moving puzzle pieces wasn’t working either. After two hours of poking through everything thinking I’d broken something major, I finally figured it out… I’d added the left mouse button as an input action but hit “Cancel” instead of “Save” when I created it. Classic move.</p>
+          <p>Once that was sorted, the core mechanic actually started working — pieces are snapping, things are dragging, it’s all coming to life. Next up: finishing the rest of the puzzle room layout and tying it into the level flow.</p>
           <div class="image-gallery">
             <img src="images/Dresser_Puzzle_System_1.png" alt="Door Bug Code Image" onclick="openLightbox(this)">
             <img src="images/Dresser_Puzzle_System_2.png" alt="Door Bug Code Image 2" onclick="openLightbox(this)">
           </div>
-          <button class="like-button" data-post-id="1">
-            <span class="heart">❤️</span>
-            <span class="like-count">0</span>
-          </button>
         </div>
 
 
-        <div class="devlog-entry" onclick="openDevlogModal(this)" data-post-id="2">
+        <div class="devlog-entry" onclick="openDevlogModal(this)">
           <div class="devlog-header">
             <h4>Main Menu Mockup & Future Level Planning</h4>
             <time>June 30, 2025</time>
           </div>
           <p>After wrapping up the last batch of bug fixes and tutorial tweaks, I figured I deserved a bit of a break from all the scripting madness — so I jumped into something a bit more creative: the main menu.</p>
-          <p>I started designing the art and UI elements for the menu, building out button images and laying out the structure. Then I got into animating it all, adding a bit of motion to give it some life. It's still early, and while I like the functionality and general layout, I'm on the fence about the style.</p>
-          <p>The current menu has this cold, concrete aesthetic — which kinda clashes with the cozy-cabin look of the game's first level. It's not horrible, though. In a way, it still fits the "you're trapped" theme, so I might let it live for a while and see how it grows on me.</p>
-          <p>Either way, I'm thinking ahead. I'll be adding new houses/levels once the first one is locked in. Different themes, different difficulty curves — and eventually, I want to bake in a replayability system so players can come back and try escaping again under new conditions.</p>
-          <p>For now, the menu's a work-in-progress placeholder, but it's fun seeing things come together visually after so much under-the-hood work.</p>
+          <p>I started designing the art and UI elements for the menu, building out button images and laying out the structure. Then I got into animating it all, adding a bit of motion to give it some life. It’s still early, and while I like the functionality and general layout, I’m on the fence about the style.</p>
+          <p>The current menu has this cold, concrete aesthetic — which kinda clashes with the cozy-cabin look of the game’s first level. It’s not horrible, though. In a way, it still fits the “you’re trapped” theme, so I might let it live for a while and see how it grows on me.</p>
+          <p>Either way, I’m thinking ahead. I’ll be adding new houses/levels once the first one is locked in. Different themes, different difficulty curves — and eventually, I want to bake in a replayability system so players can come back and try escaping again under new conditions.</p>
+          <p>For now, the menu’s a work-in-progress placeholder, but it’s fun seeing things come together visually after so much under-the-hood work.</p>
           <div class="image-gallery">
             <img src="images/Making_the_menu_1.png" alt="Door Bug Code Image" onclick="openLightbox(this)">
             <img src="images/Making_the_menu_2.png" alt="Door Bug Code Image 2" onclick="openLightbox(this)">
           </div>
-          <button class="like-button" data-post-id="2">
-            <span class="heart">❤️</span>
-            <span class="like-count">0</span>
-          </button>
         </div>
         
-        <div class="devlog-entry" onclick="openDevlogModal(this)" data-post-id="3">
+        <div class="devlog-entry" onclick="openDevlogModal(this)">
           <div class="devlog-header">
             <h4>Wrapping Up Tutorials, Stealth Prep & AI Cleanup</h4>
             <time>June 30, 2025</time>
           </div>
           <p>Started the day off with the usual routine — house cleaning, washing, vacuuming... the works. Once that was out of the way, I made my first coffee of the morning (mandatory), then jumped straight into dev mode.</p>
-          <p>My main focus today was finishing up the tutorial system I started yesterday. I polished everything up — tweaked a few delays, smoothed out the animations, and did a pass on the text pacing. It's feeling really solid now and flows naturally as the player moves through the space.</p>
-          <p>This morning, I also caught and fixed a couple bugs with the tutorial indicators — just some logic that wasn't triggering properly depending on the direction the player came from. Nothing major, but nice to have it sorted before it became a bigger headache.</p>
-          <p>Then I decided to finally tackle something I've been putting off — cleaning up my main scripts. I'll be honest: my code looked like absolute chicken scratch. So I got a little help from AI (because I'm lazy and also smart) and went through all my core systems. Added comments, cleaned up indentation, and bundled related logic together into cleaner functions. It's actually readable now… which is wild.</p>
-          <p>After that, I turned my attention to materials. I had a few objects in the game that were unintentionally lit by dynamic lights, which totally ruined the mood. I've now marked those assets as unshaded, so they're immune to lighting and stay nice and shadowy. The vibe feels way more intentional now.</p>
-          <p>Next up: the second hallway level. This one introduces stealth mechanics, so I'll be designing a small tutorial for that, along with working in the ambient sound cues and general polish. Time to turn the tension up a notch.</p>
+          <p>My main focus today was finishing up the tutorial system I started yesterday. I polished everything up — tweaked a few delays, smoothed out the animations, and did a pass on the text pacing. It’s feeling really solid now and flows naturally as the player moves through the space.</p>
+          <p>This morning, I also caught and fixed a couple bugs with the tutorial indicators — just some logic that wasn’t triggering properly depending on the direction the player came from. Nothing major, but nice to have it sorted before it became a bigger headache.</p>
+          <p>Then I decided to finally tackle something I’ve been putting off — cleaning up my main scripts. I’ll be honest: my code looked like absolute chicken scratch. So I got a little help from AI (because I’m lazy and also smart) and went through all my core systems. Added comments, cleaned up indentation, and bundled related logic together into cleaner functions. It’s actually readable now… which is wild.</p>
+          <p>After that, I turned my attention to materials. I had a few objects in the game that were unintentionally lit by dynamic lights, which totally ruined the mood. I’ve now marked those assets as unshaded, so they’re immune to lighting and stay nice and shadowy. The vibe feels way more intentional now.</p>
+          <p>Next up: the second hallway level. This one introduces stealth mechanics, so I’ll be designing a small tutorial for that, along with working in the ambient sound cues and general polish. Time to turn the tension up a notch.</p>
           <div class="image-gallery">
             <img src="images/Tutorial_Indicator_1.png" alt="Door Bug Code Image" onclick="openLightbox(this)">
             <img src="images/Tutorial_Indicator_2.png" alt="Door Bug Code Image 2" onclick="openLightbox(this)">
             <img src="images/Tutorial_Indicator_3.png" alt="Door Bug Image" onclick="openLightbox(this)">
           </div>
-          <button class="like-button" data-post-id="3">
-            <span class="heart">❤️</span>
-            <span class="like-count">0</span>
-          </button>
         </div>
         
-        <div class="devlog-entry" onclick="openDevlogModal(this)" data-post-id="4">
+        <div class="devlog-entry" onclick="openDevlogModal(this)">
           <div class="devlog-header">
             <h4>Coffee-Fueled Debugging & Scene Fixes</h4>
             <time>June 29, 2025</time>
@@ -779,961 +1676,247 @@
           <p>I swapped them out for LineEdit boxes instead, which gave the whole thing a cleaner, more authentic feel. Then I wired in some basic keyboard input: hitting <strong>TAB</strong> moves the focus from the username field to the password one, and <strong>ENTER</strong> submits the login. Honestly, that little detail made it feel 10x better — like you're actually logging into something, not just clicking through boxes.</p>
           <p>With that sorted, I jumped into sound design. I added a few basic sound cues to the game — footsteps, Door opening and closing, and ambient touches. Nothing major yet, but even small audio polish gives it that extra "hey, this is a real game" vibe.</p>
           <p>Then came the beast of the day: a door transition bug. Everything looked fine until I changed scenes… and suddenly, the doors in the second level just stopped working. No animation, no logic, nada. I spent a solid 5–6 hours deep-diving into every possible reason — state resets, node parenting, signal breaks, you name it.</p>
-          <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>JENKO | Game Developer</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <style>
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+          <p>After a mountain of trial and error (and maybe a few curse words), I finally cracked it. Now the doors transition perfectly between levels without breaking. Huge relief — and easily the biggest win of the day.</p>
+          
+          <div class="image-gallery">
+            <img src="images/door_bug_1.png" alt="Door Bug Code Image" onclick="openLightbox(this)">
+            <img src="images/door_bug_2.png" alt="Door Bug Code Image 2" onclick="openLightbox(this)">
+            <img src="images/door_bug_3.png" alt="Door Bug Image" onclick="openLightbox(this)">
+            <img src="images/door_bug_4.png" alt="PC Screen Line Edit Fix" onclick="openLightbox(this)">
+          </div>
+        </div>
+
+        <div class="devlog-entry" onclick="openDevlogModal(this)">
+          <div class="devlog-header">
+            <h4>Building the Tutorial System</h4>
+            <time>June 28, 2025</time>
+          </div>
+          <p>I've started programming the tutorial system, and I'm actually really happy with how it's turning out. Rather than dumping a wall of text at the beginning and hoping the player remembers it all, I've gone for a more interactive, gradual approach.</p>
+          <p>Once the opening animation finishes, the first prompt appears — just basic movement stuff to get the player warmed up. From there, as the player explores the room, they'll occasionally enter invisible tutorial trigger zones (Area2Ds). When that happens, their movement freezes and a little prompt fades in explaining the new mechanic.</p>
+          <p>After the prompt finishes, movement is re-enabled so the player can immediately try it out. I think this pacing helps a ton — it lets you learn naturally as you go, without sitting through a bunch of text at the start wondering when the actual game kicks in.</p>
+          <p>Overall, it feels smoother, more engaging, and way less "hold-your-hand-y" than traditional tutorials. Plus, it sets the tone that this game's going to teach you on the fly — not lecture you.</p>
+
+          <div class="image-gallery">
+            <img src="images/Tutorial_Design_3.png" alt="Tutorial text showing movement" onclick="openLightbox(this)">
+            <img src="images/Tutorial_Design_2.png" alt="Trigger zone for tutorial" onclick="openLightbox(this)">
+            <img src="images/Tutorial_Design_1.png" alt="Mechanic intro with frozen player" onclick="openLightbox(this)">
+          </div>
+        </div>
+        
+        <div class="devlog-entry" onclick="openDevlogModal(this)">
+          <div class="devlog-header">
+            <h4>Crafting the Vibe – Lighting, Shadows & Sound</h4>
+            <time>June 27, 2025</time>
+          </div>
+          <p>One of the biggest shifts in the game recently has been the atmosphere — I wanted it to feel eerie, haunted, and just tense enough that you're never fully relaxed. That meant lighting had to do a lot of heavy lifting.</p>
+          <p>I started by darkening the whole scene and only selectively lighting key areas — like hallways, doorways, or interactable objects. This gives players that classic "what's in the shadows?" anxiety. I used soft, low-radius lights and layered shadow effects to keep things murky without being unplayable. It's meant to feel like your own house but somehow wrong.</p>
+          <p>Alongside that, I got to work on some shadowy visuals. I sketched out most of the pixel art myself, aiming for twisted, abstract silhouettes that you wouldn't want to see move at the end of a corridor. Subtle flickers in the dark, just enough to make your stomach drop.</p>
+          <p>Music and sound really glue this all together. I built a looping ambient track that leans into long low notes and reverberating hums, then layered random sound stingers — like distant footsteps, creaking floorboards, or a far-off slam. You never quite know what's part of the soundtrack and what's part of the game.</p>
+          <p>Every piece here — the light, the shadow, the sound — is meant to crank up the pressure while you're sneaking around. It's not horror, exactly… but it wants to get under your skin.</p>
+        </div>
+        
+        <div class="devlog-entry" onclick="openDevlogModal(this)">
+          <div class="devlog-header">
+            <h4>Developing the Enemy AI Vision System</h4>
+            <time>June 27, 2025</time>
+          </div>
+          <p>This one was a bit of a grind. Took me a few solid days to nail down, and I probably rewrote the whole thing at least 3 or 4 times before it actually felt right.</p>
+          <p>The idea was to give the enemies proper vision cones, so I set up 4 separate sets of RayCasts — one for each direction they might be facing: up, down, left, or right. Each set has 3 rays to form a cone — one straight ahead and two fanned out to the sides.</p>
+          <p>Depending on which way the enemy sprite is facing, it activates the matching ray set. When the player walks into the cone, the enemy gets triggered and a big ol' "!" pops up above its head — boom, it's chase time.</p>
+          <p>If you manage to break line of sight, the enemy doesn't just forget about you. It remembers where it last saw you and heads over there to check things out. While it's in this "what just happened?" mode, a "?" shows up above its head to show it's investigating.</p>
+          <p>Honestly, it makes stealth feel way more intense. Between all the trial and error and refactoring, I'm really happy with how it turned out. Adds a nice little layer of suspense to sneaking around the house.</p>
+          
+          <div class="image-gallery">
+            <img src="images/enemy_vision_1.png" alt="Vision Angle 1" onclick="openLightbox(this)">
+            <img src="images/enemy_vision_2.png" alt="Vision Angle 2" onclick="openLightbox(this)">
+            <img src="images/enemy_vision_3.png" alt="Vision Angle 3" onclick="openLightbox(this)">
+          </div>
+        </div>
+      </section>
+      
+      <section id="about" class="section">
+        <div class="section-header">
+          <h2>ABOUT ME</h2>
+        </div>
+        
+        <div class="about-content">
+          <div class="about-intro">
+            <h3>Hey, I'm Jenko!</h3>
+            <p>A 25-year-old game developer from Melbourne, Australia, turning coffee and spare time into interactive experiences.</p>
+          </div>
+          
+          <div class="about-grid">
+            <div class="about-card">
+              <div class="card-icon">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z"/>
+                  <path d="M12 22V12"/>
+                  <path d="M12 12L20 7"/>
+                  <path d="M12 12L4 7"/>
+                </svg>
+              </div>
+              <h4>The Journey</h4>
+              <p>Started my game dev adventure 3-4 years ago with Unity, explored the power of Unreal Engine for 6 months, then discovered Godot — and never looked back. Now I'm crafting 2D experiences that blend atmospheric storytelling with engaging mechanics.</p>
+            </div>
+            
+            <div class="about-card">
+              <div class="card-icon">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"/>
+                  <polyline points="12 6 12 12 16 14"/>
+                </svg>
+              </div>
+              <h4>The Balance</h4>
+              <p>I juggle a full-time job that takes me away for extended periods, but every spare moment becomes an opportunity to code, design, and create. Game development isn't just a hobby — it's my passion project that keeps me grounded (pun intended).</p>
+            </div>
+            
+            <div class="about-card">
+              <div class="card-icon">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/>
+                  <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+                  <line x1="12" y1="22.08" x2="12" y2="12"/>
+                </svg>
+              </div>
+              <h4>The Tech Stack</h4>
+              <p>Currently loving Godot for its flexibility and open-source nature. Experienced with GDScript, pixel art creation, and implementing complex game systems. Always learning, always building, always pushing pixels around until they feel just right.</p>
+            </div>
+          </div>
+          
+          <div class="about-footer">
+            <p>When I'm not debugging door transitions at 2 AM or perfecting enemy AI vision cones, you'll find me exploring Melbourne's coffee scene (essential fuel for late-night dev sessions) or planning my next game mechanic.</p>
+            <div class="about-stats">
+              <div class="stat">
+                <span class="stat-number">3-4</span>
+                <span class="stat-label">Years in Game Dev</span>
+              </div>
+              <div class="stat">
+                <span class="stat-number">3</span>
+                <span class="stat-label">Engines Mastered</span>
+              </div>
+              <div class="stat">
+                <span class="stat-number">∞</span>
+                <span class="stat-label">Coffees Consumed</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+  
+  <div class="lightbox" onclick="closeLightbox()">
+    <img id="lightbox-img" src="" alt="Expanded view">
+  </div>
+  
+  <div class="devlog-modal" id="devlog-modal" onclick="closeDevlogModal(event)">
+    <div class="devlog-modal-content" onclick="event.stopPropagation()">
+      <button class="modal-close" onclick="closeDevlogModal()">&times;</button>
+      <div id="devlog-modal-body">
+        <!-- Content will be injected here -->
+      </div>
+    </div>
+  </div>
+  
+  <script>
+  // Mobile menu toggle
+  const menuToggle = document.getElementById('menu-toggle');
+  const navLinks = document.getElementById('nav-links');
+  
+  if (menuToggle) {
+    menuToggle.addEventListener('click', () => {
+      menuToggle.classList.toggle('active');
+      navLinks.classList.toggle('active');
+    });
+
+    // Close menu when clicking a link
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        menuToggle.classList.remove('active');
+        navLinks.classList.remove('active');
+      });
+    });
   }
 
-  :root {
-    --primary: #00ffcc;
-    --secondary: #ff00aa;
-    --accent: #ffaa00;
-    --bg-dark: #0a0a0a;
-    --bg-medium: #1a1a1a;
-    --bg-light: #2a2a2a;
-    --text-primary: #ffffff;
-    --text-secondary: #b0b0b0;
-    --text-dim: #666666;
-  }
-
-  html {
-    scroll-behavior: smooth;
-    font-size: 16px;
-  }
-
-  body {
-    font-family: 'Inter', sans-serif;
-    background-color: var(--bg-dark);
-    color: var(--text-primary);
-    overflow-x: hidden;
-    position: relative;
-  }
-
-  /* Animated background particles */
-  body::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: 
-      radial-gradient(2px 2px at 20% 30%, var(--primary), transparent),
-      radial-gradient(2px 2px at 60% 70%, var(--secondary), transparent),
-      radial-gradient(1px 1px at 50% 50%, var(--accent), transparent);
-    background-size: 200px 200px;
-    opacity: 0.1;
-    animation: drift 20s infinite linear;
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  @keyframes drift {
-    0% { transform: translate(0, 0); }
-    100% { transform: translate(-200px, -200px); }
-  }
-
-  .layout {
-    display: flex;
-    height: 100vh;
-    position: relative;
-    z-index: 1;
-  }
-
-  /* Sidebar Styling */
-  .sidebar {
-    background: linear-gradient(180deg, var(--bg-medium), var(--bg-dark));
-    width: 300px;
-    padding: 3rem 2rem;
-    border-right: 1px solid rgba(255, 255, 255, 0.1);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .sidebar::after {
-    content: '';
-    position: absolute;
-    top: -50%;
-    right: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
-    opacity: 0.05;
-    animation: pulse 4s ease-in-out infinite;
-  }
-
-  @keyframes pulse {
-    0%, 100% { transform: scale(0.8); opacity: 0.05; }
-    50% { transform: scale(1.2); opacity: 0.1; }
-  }
-
-  .logo-section {
-    position: relative;
-    z-index: 2;
-  }
-
-  .logo-section h1 {
-    font-family: 'Orbitron', monospace;
-    font-size: 2.5rem;
-    font-weight: 900;
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    margin-bottom: 0.5rem;
-    letter-spacing: 2px;
-    animation: glow 2s ease-in-out infinite alternate;
-  }
-
-  @keyframes glow {
-    0% { filter: drop-shadow(0 0 10px rgba(0, 255, 204, 0.5)); }
-    100% { filter: drop-shadow(0 0 20px rgba(255, 0, 170, 0.8)); }
-  }
-
-  .tagline {
-    font-size: 0.9rem;
-    color: var(--text-secondary);
-    margin-bottom: 3rem;
-    font-weight: 300;
-    letter-spacing: 1px;
-  }
-
-  .nav-links {
-    position: relative;
-    z-index: 2;
-  }
-
-  .nav-links a {
-    display: flex;
-    align-items: center;
-    padding: 1rem 1.5rem;
-    margin: 0.5rem -1.5rem;
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: var(--text-secondary);
-    text-decoration: none;
-    border-radius: 8px;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .nav-links a::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 0;
-    height: 2px;
-    background: var(--primary);
-    transition: width 0.3s ease;
-  }
-
-  .nav-links a:hover {
-    color: var(--text-primary);
-    background: rgba(255, 255, 255, 0.05);
-    transform: translateX(10px);
-  }
-
-  .nav-links a:hover::before {
-    width: 20px;
-  }
-
-  .sidebar-footer {
-    font-size: 0.75rem;
-    color: var(--text-dim);
-    position: relative;
-    z-index: 2;
-  }
-
-  .social-links {
-    display: flex;
-    gap: 1rem;
-    margin-top: 1rem;
-  }
-
-  .social-links a {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
-    color: var(--text-secondary);
-  }
-
-  .social-links a:hover {
-    border-color: var(--primary);
-    color: var(--primary);
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0, 255, 204, 0.3);
-  }
-
-  /* Main Content Area */
-  .main {
-    flex: 1;
-    overflow-y: auto;
-    padding: 0;
-    background: var(--bg-dark);
-    position: relative;
-  }
-
-  .main > .section {
-    padding: 4rem;
-  }
-
-  #home {
-    padding: 0;
-  }
-
-  .main::-webkit-scrollbar {
-    width: 10px;
-  }
-
-  .main::-webkit-scrollbar-track {
-    background: var(--bg-medium);
-  }
-
-  .main::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, var(--primary), var(--secondary));
-    border-radius: 5px;
-  }
-
-  .section {
-    margin-bottom: 6rem;
-    opacity: 0;
-    animation: fadeInUp 0.8s ease forwards;
-  }
-
-  .section:nth-child(1) { animation-delay: 0.1s; }
-  .section:nth-child(2) { animation-delay: 0.2s; }
-  .section:nth-child(3) { animation-delay: 0.3s; }
-
-  @keyframes fadeInUp {
-    0% { 
-      opacity: 0; 
-      transform: translateY(40px); 
+  // Devlog Modal functionality
+  function openDevlogModal(entry) {
+    // Prevent opening if clicking on an image
+    if (event.target.tagName === 'IMG') {
+      return;
     }
-    100% { 
-      opacity: 1; 
-      transform: translateY(0); 
+    
+    const modal = document.getElementById('devlog-modal');
+    const modalBody = document.getElementById('devlog-modal-body');
+    
+    // Clone the content
+    const content = entry.cloneNode(true);
+    
+    // Remove onclick from cloned content
+    content.removeAttribute('onclick');
+    
+    // Update image onclick in cloned content
+    const images = content.querySelectorAll('img');
+    images.forEach(img => {
+      img.setAttribute('onclick', 'openLightbox(this)');
+    });
+    
+    // Set the content
+    modalBody.innerHTML = content.innerHTML;
+    
+    // Show the modal
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeDevlogModal(event) {
+    if (event && event.target !== event.currentTarget) {
+      return;
     }
+    
+    const modal = document.getElementById('devlog-modal');
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
   }
 
-  .section-header {
-    display: flex;
-    align-items: center;
-    margin-bottom: 3rem;
-    position: relative;
+  // Lightbox functionality
+  function openLightbox(img) {
+    event.stopPropagation();
+    const lightbox = document.querySelector('.lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    lightboxImg.src = img.src;
+    lightboxImg.alt = img.alt;
+    lightbox.classList.add('active');
   }
 
-  .section h2 {
-    font-family: 'Orbitron', monospace;
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--text-primary);
-    margin-right: 2rem;
-    position: relative;
+  function closeLightbox() {
+    const lightbox = document.querySelector('.lightbox');
+    lightbox.classList.remove('active');
   }
 
-  .section-header::after {
-    content: '';
-    flex: 1;
-    height: 2px;
-    background: linear-gradient(90deg, var(--primary), transparent);
-    margin-left: 2rem;
-  }
-
-  /* Project Cards */
-  .project {
-    background: linear-gradient(135deg, var(--bg-medium), var(--bg-light));
-    padding: 2rem;
-    border-radius: 16px;
-    margin-bottom: 2rem;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    position: relative;
-    overflow: hidden;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  .project::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(0, 255, 204, 0.1), transparent);
-    transition: left 0.6s ease;
-  }
-
-  .project:hover {
-    transform: translateY(-5px) scale(1.02);
-    border-color: var(--primary);
-    box-shadow: 
-      0 10px 30px rgba(0, 0, 0, 0.5),
-      0 0 50px rgba(0, 255, 204, 0.1);
-  }
-
-  .project:hover::before {
-    left: 100%;
-  }
-
-  .project-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1rem;
-  }
-
-  .project h3 {
-    font-family: 'Orbitron', monospace;
-    font-size: 1.4rem;
-    color: var(--primary);
-    font-weight: 700;
-  }
-
-  .project-status {
-    display: inline-block;
-    padding: 0.3rem 1rem;
-    background: rgba(255, 170, 0, 0.2);
-    border: 1px solid var(--accent);
-    border-radius: 20px;
-    font-size: 0.75rem;
-    color: var(--accent);
-    font-weight: 600;
-    animation: statusPulse 2s ease-in-out infinite;
-  }
-
-  @keyframes statusPulse {
-    0%, 100% { opacity: 0.8; }
-    50% { opacity: 1; }
-  }
-
-  .project p {
-    font-size: 1rem;
-    line-height: 1.8;
-    color: var(--text-secondary);
-    margin: 1rem 0;
-  }
-
-  .project-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    color: var(--primary);
-    font-weight: 500;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    margin-top: 1rem;
-  }
-
-  .project-link:hover {
-    gap: 1rem;
-    color: var(--text-primary);
-  }
-
-  /* Devlog Entries */
-  .devlog-entry {
-    background: var(--bg-medium);
-    padding: 2.5rem;
-    border-radius: 16px;
-    margin-bottom: 3rem;
-    border-left: 4px solid var(--secondary);
-    position: relative;
-    overflow: hidden;
-    transition: all 0.3s ease;
-    cursor: pointer;
-  }
-
-  .devlog-entry::after {
-    content: '';
-    position: absolute;
-    top: -2px;
-    left: -2px;
-    right: -2px;
-    bottom: -2px;
-    background: linear-gradient(45deg, var(--primary), var(--secondary), var(--accent));
-    border-radius: 16px;
-    opacity: 0;
-    z-index: -1;
-    transition: opacity 0.3s ease;
-  }
-
-  .devlog-entry::before {
-    content: 'Click to read more';
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    background: rgba(0, 255, 204, 0.2);
-    color: var(--primary);
-    padding: 0.3rem 1rem;
-    border-radius: 20px;
-    font-size: 0.75rem;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    pointer-events: none;
-  }
-
-  .devlog-entry:hover {
-    transform: translateX(10px);
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
-  }
-
-  .devlog-entry:hover::after {
-    opacity: 0.1;
-  }
-
-  .devlog-entry:hover::before {
-    opacity: 1;
-  }
-
-  /* Like Button Styles */
-  .like-button {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.5rem 1rem;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 20px;
-    color: var(--text-secondary);
-    cursor: pointer;
-    transition: all 0.3s ease;
-    margin-top: 1.5rem;
-    font-size: 0.9rem;
-  }
-
-  .like-button:hover {
-    background: rgba(255, 0, 170, 0.1);
-    border-color: var(--secondary);
-    color: var(--secondary);
-    transform: translateY(-2px);
-  }
-
-  .like-button.liked {
-    background: rgba(255, 0, 170, 0.2);
-    border-color: var(--secondary);
-    color: var(--secondary);
-  }
-
-  .like-button.liked .heart {
-    animation: heartBeat 0.5s ease;
-  }
-
-  @keyframes heartBeat {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.3); }
-  }
-
-  .heart {
-    font-size: 1.1rem;
-    display: inline-block;
-    transition: transform 0.2s ease;
-  }
-
-  .like-count {
-    font-weight: 600;
-  }
-
-  /* Devlog Modal */
-  .devlog-modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.95);
-    backdrop-filter: blur(20px);
-    z-index: 10000;
-    overflow-y: auto;
-    padding: 2rem;
-    animation: modalFadeIn 0.3s ease;
-  }
-
-  @keyframes modalFadeIn {
-    0% { opacity: 0; }
-    100% { opacity: 1; }
-  }
-
-  .devlog-modal.active {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .devlog-modal-content {
-    background: var(--bg-medium);
-    border-radius: 20px;
-    max-width: 900px;
-    width: 100%;
-    max-height: 90vh;
-    overflow-y: auto;
-    position: relative;
-    padding: 3rem;
-    box-shadow: 
-      0 20px 60px rgba(0, 0, 0, 0.5),
-      0 0 100px rgba(0, 255, 204, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    animation: modalSlideIn 0.4s ease;
-  }
-
-  @keyframes modalSlideIn {
-    0% { 
-      transform: scale(0.8) translateY(50px);
-      opacity: 0;
+  // Add escape key functionality
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closeLightbox();
+      closeDevlogModal();
     }
-    100% { 
-      transform: scale(1) translateY(0);
-      opacity: 1;
-    }
-  }
+  });
 
-  .modal-close {
-    position: absolute;
-    top: 1.5rem;
-    right: 1.5rem;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    color: var(--text-primary);
-    font-size: 2rem;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    z-index: 10;
-  }
+  // Smooth scroll for navigation links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    });
+  });
 
-  .modal-close:hover {
-    background: var(--primary);
-    color: var(--bg-dark);
-    transform: rotate(90deg);
-  }
-
-  #devlog-modal-body {
-    animation: contentFadeIn 0.5s ease 0.2s both;
-  }
-
-  @keyframes contentFadeIn {
-    0% { opacity: 0; transform: translateY(20px); }
-    100% { opacity: 1; transform: translateY(0); }
-  }
-
-  #devlog-modal-body .devlog-header {
-    margin-bottom: 2rem;
-    padding-bottom: 1.5rem;
-    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
-  }
-
-  #devlog-modal-body h4 {
-    font-family: 'Orbitron', monospace;
-    font-size: 2rem;
-    color: var(--primary);
-    margin-bottom: 1rem;
-  }
-
-  #devlog-modal-body time {
-    display: inline-block;
-    padding: 0.5rem 1.5rem;
-    background: linear-gradient(135deg, rgba(255, 0, 170, 0.2), rgba(0, 255, 204, 0.2));
-    border-radius: 30px;
-    font-size: 0.9rem;
-    color: var(--text-primary);
-    font-weight: 600;
-  }
-
-  #devlog-modal-body p {
-    font-size: 1.1rem;
-    line-height: 1.9;
-    margin: 1.5rem 0;
-    color: var(--text-secondary);
-  }
-
-  #devlog-modal-body strong {
-    color: var(--accent);
-  }
-
-  #devlog-modal-body .image-gallery {
-    margin-top: 3rem;
-    gap: 2rem;
-  }
-
-  #devlog-modal-body .image-gallery img {
-    height: 250px;
-    cursor: pointer;
-    border: 2px solid transparent;
-    transition: all 0.3s ease;
-  }
-
-  #devlog-modal-body .image-gallery img:hover {
-    border-color: var(--primary);
-    transform: scale(1.05);
-  }
-
-  .devlog-modal-content::-webkit-scrollbar {
-    width: 10px;
-  }
-
-  .devlog-modal-content::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 5px;
-  }
-
-  .devlog-modal-content::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, var(--primary), var(--secondary));
-    border-radius: 5px;
-  }
-
-  /* Mobile adjustments for modal */
-  @media (max-width: 768px) {
-    .devlog-entry::before {
-      display: none;
-    }
-
-    .devlog-modal {
-      padding: 1rem;
-    }
-
-    .devlog-modal-content {
-      padding: 2rem 1.5rem;
-      max-height: 100vh;
-      border-radius: 16px;
-    }
-
-    .modal-close {
-      top: 1rem;
-      right: 1rem;
-      width: 35px;
-      height: 35px;
-      font-size: 1.5rem;
-    }
-
-    #devlog-modal-body h4 {
-      font-size: 1.5rem;
-    }
-
-    #devlog-modal-body p {
-      font-size: 1rem;
-    }
-
-    #devlog-modal-body .image-gallery {
-      grid-template-columns: 1fr;
-    }
-  }
-
-  .devlog-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 1.5rem;
-  }
-
-  .devlog-entry h4 {
-    font-size: 1.3rem;
-    color: var(--text-primary);
-    font-weight: 600;
-  }
-
-  .devlog-entry time {
-    display: inline-block;
-    padding: 0.3rem 1rem;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 20px;
-    font-size: 0.8rem;
-    color: var(--text-secondary);
-    font-weight: 500;
-  }
-
-  .devlog-entry p {
-    font-size: 0.95rem;
-    line-height: 1.8;
-    color: var(--text-secondary);
-    margin: 1rem 0;
-  }
-
-  .devlog-entry strong {
-    color: var(--primary);
-    font-weight: 600;
-  }
-
-  /* Image Gallery */
-  .image-gallery {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1.5rem;
-    margin-top: 2rem;
-  }
-
-  .image-gallery img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-  }
-
-  .image-gallery img:hover {
-    transform: scale(1.05) rotate(1deg);
-    box-shadow: 
-      0 10px 30px rgba(0, 0, 0, 0.5),
-      0 0 30px rgba(0, 255, 204, 0.2);
-  }
-
-  /* Lightbox */
-  .lightbox {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.95);
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-    cursor: pointer;
-    backdrop-filter: blur(10px);
-  }
-
-  .lightbox img {
-    max-width: 90%;
-    max-height: 90%;
-    border-radius: 12px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
-    animation: zoomIn 0.3s ease;
-  }
-
-  @keyframes zoomIn {
-    0% { transform: scale(0.8); opacity: 0; }
-    100% { transform: scale(1); opacity: 1; }
-  }
-
-  .lightbox.active {
-    display: flex;
-  }
-
-  /* Hero Section */
-  #home {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .hero-background {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-  }
-
-  .hero-background img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-    min-width: 100%;
-    min-height: 100%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-
-  .hero-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-      135deg,
-      rgba(10, 10, 10, 0.8) 0%,
-      rgba(10, 10, 10, 0.6) 50%,
-      rgba(10, 10, 10, 0.9) 100%
-    );
-    backdrop-filter: blur(2px);
-  }
-
-  .hero-section {
-    text-align: center;
-    position: relative;
-    z-index: 2;
-    width: 100%;
-    max-width: 1200px;
-  }
-
-  .hero-content {
-    margin-bottom: 3rem;
-    position: relative;
-    z-index: 3;
-  }
-
-  .hero-title {
-    font-family: 'Orbitron', monospace;
-    font-size: clamp(3rem, 8vw, 6rem);
-    font-weight: 900;
-    line-height: 0.9;
-    margin-bottom: 1.5rem;
-    text-shadow: 0 0 40px rgba(0, 0, 0, 0.8);
-  }
-
-  .title-line {
-    display: block;
-    background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: titleGlow 3s ease-in-out infinite alternate;
-  }
-
-  @keyframes titleGlow {
-    0% { 
-      filter: brightness(1) drop-shadow(0 0 20px rgba(0, 255, 204, 0.5));
-      transform: scale(1);
-    }
-    100% { 
-      filter: brightness(1.2) drop-shadow(0 0 40px rgba(255, 0, 170, 0.8));
-      transform: scale(1.02);
-    }
-  }
-
-  .hero-subtitle {
-    font-size: 1.3rem;
-    color: var(--text-primary);
-    margin-bottom: 3rem;
-    font-weight: 300;
-    letter-spacing: 2px;
-    animation: fadeInUp 1s ease 0.5s both;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
-  }
-
-  .hero-cta {
-    display: flex;
-    gap: 1.5rem;
-    justify-content: center;
-    flex-wrap: wrap;
-    animation: fadeInUp 1s ease 0.7s both;
-  }
-
-  .cta-button {
-    padding: 1rem 2.5rem;
-    font-family: 'Orbitron', monospace;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    border-radius: 30px;
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .cta-button.primary {
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
-    color: var(--bg-dark);
-    box-shadow: 0 5px 20px rgba(0, 255, 204, 0.3);
-  }
-
-  .cta-button.primary:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 30px rgba(0, 255, 204, 0.5);
-  }
-
-  .cta-button.secondary {
-    background: rgba(255, 255, 255, 0.1);
-    color: var(--text-primary);
-    border: 2px solid var(--accent);
-    box-shadow: 0 5px 20px rgba(255, 170, 0, 0.2);
-    backdrop-filter: blur(10px);
-  }
-
-  .cta-button.secondary:hover {
-    background: var(--accent);
-    color: var(--bg-dark);
-    transform: translateY(-3px);
-    box-shadow: 0 8px 30px rgba(255, 170, 0, 0.4);
-  }
-
-  .hero-visual {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 1;
-  }
-
-  .floating-element {
-    position: absolute;
-    width: 300px;
-    height: 300px;
-    border-radius: 50%;
-    background: radial-gradient(circle, var(--primary), transparent);
-    opacity: 0.05;
-    filter: blur(40px);
-    animation: float 10s ease-in-out infinite;
-  }
-
-  .floating-element:nth-child(1) {
-    top: 20%;
-    left: 10%;
-    animation-delay: 0s;
-  }
-
-  .floating-element:nth-child(2) {
-    top: 60%;
-    right: 10%;
-    background: radial-gradient(circle, var(--secondary), transparent);
-    animation-delay: 3s;
-    animation-duration: 12s;
-  }
-
-  .floating-element:nth-child(3) {
-    bottom: 10%;
-    left: 50%;
-    background: radial-gradient(circle, var(--accent), transparent);
-    animation-delay: 6s;
-    animation-duration: 8s;
-  }
-
-  @keyframes float {
-    0%, 100% { transform: translate(0, 0) scale(1); }
-    33% { transform: translate(30px, -30px) scale(1.1); }
-    66% { transform: translate(-20px, 20px) scale(0.9); }
-  }
-
-  /* About Section Styles */
-  .about-content {
-    max-width: 1000px;
-  }
-
-  .about-intro
+  // Optional: Add loading animation
+  window.addEventListener('load', () => {
+    document.body.style.opacity = '1';
+  });
+  </script>
