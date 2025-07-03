@@ -1619,6 +1619,21 @@
         </div>
 
         <div class="devlog-entry" onclick="openDevlogModal(this)">
+          <h4>Bonus Puzzle Rooms & A Debugging Brain Fog</h4>
+          <time>July 3, 2025</time>
+          <p>Haven’t had a ton of time over the past few days to get stuck into development properly — had a family emergency come up, which meant flying all over the country. Life happens. But even in the air, I found a bit of time to brainstorm a new puzzle system I’ve been wanting to try out.</p>
+          <p>This one’s a bonus level idea I’m adding into the second hallway section — it’s all about matching photo fragments in the right sequence. The idea is to make these rooms optional "risk vs reward" zones. If the player wants to snag a collectable, they’ll need to solve a small puzzle to earn it. These collectables will eventually offer small buffs or tools that make later levels a little easier — still fleshing that part out.</p>
+          <p>Anyway, this morning I finished off the art for the puzzle and dumped it all into Godot to wire things up… and of course, nothing worked.</p>
+          <p>At first, mouse clicks weren’t registering at all. Took a while to realise my ColorRects were blocking input — cool. Fixed that, then hit another wall: the click-and-drag system for moving puzzle pieces wasn’t working either. After two hours of poking through everything thinking I’d broken something major, I finally figured it out… I’d added the left mouse button as an input action but hit “Cancel” instead of “Save” when I created it. Classic move.</p>
+          <p>Once that was sorted, the core mechanic actually started working — pieces are snapping, things are dragging, it’s all coming to life. Next up: finishing the rest of the puzzle room layout and tying it into the level flow.</p>
+          <div class="image-gallery">
+            <img src="images/Dresser_Puzzle_System_1.png" alt="Door Bug Code Image" onclick="openLightbox(this)">
+            <img src="images/Dresser_Puzzle_System_2.png" alt="Door Bug Code Image 2" onclick="openLightbox(this)">
+          </div>
+        </div>
+
+
+        <div class="devlog-entry" onclick="openDevlogModal(this)">
           <div class="devlog-header">
             <h4>Main Menu Mockup & Future Level Planning</h4>
             <time>June 30, 2025</time>
