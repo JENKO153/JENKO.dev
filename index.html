@@ -1916,33 +1916,33 @@
 
   // Devlog Modal functionality
   function openDevlogModal(entry) {
-    // Prevent opening if clicking on an image
-    if (event.target.tagName === 'IMG' || event.target.closest('.like-button')) {
-      return;
-    }
-    
-    const modal = document.getElementById('devlog-modal');
-    const modalBody = document.getElementById('devlog-modal-body');
-    
-    // Clone the content
-    const content = entry.cloneNode(true);
-    
-    // Remove onclick from cloned content
-    content.removeAttribute('onclick');
-    
-    // Update image onclick in cloned content
-    const images = content.querySelectorAll('img');
-    images.forEach(img => {
-      img.setAttribute('onclick', 'openLightbox(this)');
-    });
-    
-    // Set the content
-    modalBody.innerHTML = content.innerHTML;
-    
-    // Show the modal
-    modal.classList.add('active');
-    document.body.style.overflow = 'hidden';
+  // Prevent opening if clicking on an image or like button
+  if (window.event && (window.event.target.tagName === 'IMG' || window.event.target.closest('.like-button'))) {
+    return;
   }
+  
+  const modal = document.getElementById('devlog-modal');
+  const modalBody = document.getElementById('devlog-modal-body');
+  
+  // Clone the content
+  const content = entry.cloneNode(true);
+  
+  // Remove onclick from cloned content
+  content.removeAttribute('onclick');
+  
+  // Update image onclick in cloned content
+  const images = content.querySelectorAll('img');
+  images.forEach(img => {
+    img.setAttribute('onclick', 'openLightbox(this)');
+  });
+  
+  // Set the content
+  modalBody.innerHTML = content.innerHTML;
+  
+  // Show the modal
+  modal.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
 
   function closeDevlogModal(event) {
     if (event && event.target !== event.currentTarget) {
@@ -1988,43 +1988,45 @@
           block: 'start'
         });
       }
+      
     });
+    // Like Button Functionality - Run after DOM is loaded
+    document.addEventListener('DOMContentLoaded', function() {
+    const likeButtons = document.querySelectorAll('.like-button');
+    const likes = JSON.parse(localStorage.getItem('devlogLikes') || '{}');
 
-    // Like Button Functionality
-const likeButtons = document.querySelectorAll('.like-button');
-const likes = JSON.parse(localStorage.getItem('devlogLikes') || '{}');
-
-likeButtons.forEach(button => {
-  const postId = button.getAttribute('data-post-id');
-  const likeCount = button.querySelector('.like-count');
-  
-  // Initialize like counts
-  if (likes[postId]) {
-    likeCount.textContent = likes[postId].count;
-    if (likes[postId].liked) {
-      button.classList.add('liked');
-    }
-  }
-
-  button.addEventListener('click', (e) => {
-    e.stopPropagation();
+    likeButtons.forEach(button => {
+    const postId = button.getAttribute('data-post-id');
+    const likeCount = button.querySelector('.like-count');
     
-    if (!likes[postId]) {
-      likes[postId] = { count: 0, liked: false };
+    // Initialize like counts
+    if (likes[postId]) {
+      likeCount.textContent = likes[postId].count;
+      if (likes[postId].liked) {
+        button.classList.add('liked');
+      }
     }
 
-    if (likes[postId].liked) {
-      likes[postId].count--;
-      likes[postId].liked = false;
-      button.classList.remove('liked');
-    } else {
-      likes[postId].count++;
-      likes[postId].liked = true;
-      button.classList.add('liked');
-    }
+    button.addEventListener('click', (e) => {
+      e.stopPropagation();
+      
+      if (!likes[postId]) {
+        likes[postId] = { count: 0, liked: false };
+      }
 
-    likeCount.textContent = likes[postId].count;
-    localStorage.setItem('devlogLikes', JSON.stringify(likes));
+      if (likes[postId].liked) {
+        likes[postId].count--;
+        likes[postId].liked = false;
+        button.classList.remove('liked');
+      } else {
+        likes[postId].count++;
+        likes[postId].liked = true;
+        button.classList.add('liked');
+      }
+
+      likeCount.textContent = likes[postId].count;
+      localStorage.setItem('devlogLikes', JSON.stringify(likes));
+    });
   });
 });
 
