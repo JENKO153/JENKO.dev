@@ -929,37 +929,7 @@
           <h2>DEVELOPMENT LOG</h2>
           <div class="section-rule" aria-hidden="true"></div>
         </div>
-
-        <article class="card devlog-entry" role="button" tabindex="0" onclick="openDevlogModal(this, event)" onkeydown="devlogKeyOpen(this, event)">
-          <div class="card-pad">
-
-            <div class="devlog-header">
-              <h4>Dev Log – Locking in the Core Development Loop</h4>
-              <time>15 Jan 2026</time>
-            </div>
-
-            <!-- ✅ FIX: moved here so it never overlaps the date -->
-            <span class="hint">Click to read more</span>
-
-            <p>This has been one of the biggest development milestones so far, and honestly one of the most important ones to get right before moving forward. Over the last stretch of work, the focus hasn’t been on adding flashy features, but on properly locking in the entire game development loop from start to finish. I wanted to make sure that making a game, developing it, publishing it, supporting it, and finally moving on all feel like real, connected systems rather than disconnected menus or progress bars.</p>
-            <p>At the core of this update is the fact that development is now fully driven by time. Progress doesn’t magically jump forward or tick up just because you clicked a button. Hours are earned minute by minute through the in-game clock, sleeping correctly skips time without breaking anything, and development only advances when a real hour of work has actually passed. This was crucial to making the game feel grounded and believable rather than gamey or exploitable.</p>
-            <p>Once a project is started, it moves through a clear lifecycle. During development, the game builds up progress while also carrying an inherent bug risk that’s influenced by the player’s decisions, such as genre and programming language. More bugs mean worse starting quality, and that trade-off is intentional. When development finishes, the game becomes ready to publish, and once published, sales begin immediately. There’s no hidden delay or fake buffer — the game is out in the world, and its performance is now affected by the choices made during development.</p>
-            <p>After release, the game enters a proper support phase. This is where updates come into play. Updates don’t cost money yet, but they do cost player fatigue and time, and they exist to reduce bugs and increase quality over time. Importantly, support progress now starts at zero, not at some artificial 100%, and quality doesn’t reset or drop incorrectly when entering this phase. The quality you publish with is the baseline, and every update builds on top of that. Bugs are tracked from their starting count at release, and quality improves as bugs are fixed. Once bugs drop below a certain threshold, the player can finish support permanently, locking the game and freeing themselves up to start the next project.</p>
-            <p>A lot of effort also went into separating how information is presented. The in-game computer is now the place where full control happens — starting projects, publishing games, managing updates, and making decisions. The phone, on the other hand, is designed as a lightweight, always-available snapshot. It mirrors exactly what the computer shows, but without buttons or interaction. This means you can keep an eye on development or support progress while walking around, without opening menus or pausing the flow of the game. Under the hood, it’s signal-driven and optimised so it updates only when something actually changes.</p>
-            <p>Behind the scenes, the save system has been tightened up significantly. Active projects, completed games, released titles, support states, bugs, quality, and future sales data are all persisted cleanly. You can save at any point — mid-development, mid-support, or post-release — and everything restores exactly as it should. At the same time, the codebase itself has been cleaned up and tagged so systems are clearly separated and readable, making future additions far less risky.</p>
-            <p>With this foundation in place, the game is now ready to move into the next major phase: sales simulation. This will introduce long-term performance, revenue decay, the impact of updates over time, and eventually the deeper strategy of balancing quality, bugs, timing, and player fatigue. But none of that would matter if the core loop wasn’t solid — and now it finally is.</p>
-
-            <div class="image-gallery" aria-label="Devlog images">
-              <img src="images/BlogPost 1-1.png" alt="Vision Angle 1" onclick="openLightbox(this, event)">
-              <img src="images/BlogPost 1-2.png" alt="Vision Angle 1" onclick="openLightbox(this, event)">
-              <img src="images/BlogPost 1-3.png" alt="Vision Angle 1" onclick="openLightbox(this, event)">
-              <img src="images/BlogPost 1-6.png" alt="Vision Angle 1" onclick="openLightbox(this, event)">
-              <img src="images/BlogPost 1-7.png" alt="Vision Angle 1" onclick="openLightbox(this, event)">
-              <img src="images/BlogPost 1-8.png" alt="Vision Angle 1" onclick="openLightbox(this, event)">
-            </div>
-
-          </div>
-        </article>
+        
         <article class="card devlog-entry" role="button" tabindex="0" onclick="openDevlogModal(this, event)" onkeydown="devlogKeyOpen(this, event)">
           <div class="card-pad">
 
@@ -986,7 +956,13 @@
             </div>
 
           </div>
-        </article></h4>
+        </article>
+
+        <article class="card devlog-entry" role="button" tabindex="0" onclick="openDevlogModal(this, event)" onkeydown="devlogKeyOpen(this, event)">
+          <div class="card-pad">
+
+            <div class="devlog-header">
+              <h4>Dev Log – Locking in the Core Development Loop</h4>
               <time>15 Jan 2026</time>
             </div>
 
