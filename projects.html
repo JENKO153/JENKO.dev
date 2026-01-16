@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>JENKO | Projects</title>
+
+  <!-- Fonts (same as home) -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* =========================
+       Reset / Base
+    ========================== */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root{
+      --bg: #0b0f14;
+      --panel: #101826;
+      --panel-2: #0f1724;
+      --border: rgba(255,255,255,0.10);
+      --border-2: rgba(255,255,255,0.06);
+
+      --text: #eef2ff;
+      --muted: rgba(238,242,255,0.70);
+      --dim: rgba(238,242,255,0.45);
+
+      --primary: #55f7d4;
+      --secondary: #ff4fb7;
+      --accent: #ffb44b;
+
+      --shadow: 0 16px 50px rgba(0,0,0,0.55);
+      --radius: 18px;
+
+      --max: 1120px;
+      --navH: 72px;
+    }
+
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body{
+      font-family: 'Inter', sans-serif;
+      background: radial-gradient(1200px 700px at 25% -10%, rgba(85,247,212,0.10), transparent 55%),
+                  radial-gradient(900px 600px at 110% 10%, rgba(255,79,183,0.08), transparent 55%),
+                  radial-gradient(900px 600px at 60% 120%, rgba(255,180,75,0.06), transparent 55%),
+                  var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    a{ color: inherit; text-decoration: none; }
+    img{ display: block; max-width: 100%; }
+
+    :focus-visible{
+      outline: 2px solid rgba(85,247,212,0.9);
+      outline-offset: 3px;
+      border-radius: 10px;
+    }
+
+    .container{
+      width: min(var(--max), 92vw);
+      margin: 0 auto;
+    }
+
+    .section{
+      padding: 70px 0;
+    }
+
+    /* =========================
+       Top Navigation (same style)
+    ========================== */
+    .topbar{
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      height: var(--navH);
+      display: flex;
+      align-items: center;
+      backdrop-filter: blur(14px);
+      background: rgba(11,15,20,0.72);
+      border-bottom: 1px solid var(--border-2);
+    }
+
+    .topbar-inner{
+      width: min(var(--max), 92vw);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand{
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      min-width: 220px;
+    }
+
+    .brand h1{
+      font-family: 'Orbitron', monospace;
+      font-weight: 900;
+      letter-spacing: 2px;
+      font-size: 1.2rem;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .brand p{
+      color: var(--dim);
+      font-size: 0.9rem;
+      font-weight: 400;
+      white-space: nowrap;
+    }
+
+    .nav{
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nav a{
+      color: var(--muted);
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      padding: 10px 12px;
+      border-radius: 12px;
+      transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+    }
+
+    .nav a:hover{
+      background: rgba(255,255,255,0.06);
+      color: var(--text);
+      transform: translateY(-1px);
+    }
+
+    .nav-cta{
+      margin-left: 6px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(85,247,212,0.35);
+      background: rgba(85,247,212,0.10);
+      color: var(--text);
+      transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+    }
+    .nav-cta:hover{
+      transform: translateY(-1px);
+      background: rgba(85,247,212,0.16);
+      border-color: rgba(85,247,212,0.55);
+    }
+
+    .menu-btn{
+      display: none;
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.04);
+      cursor: pointer;
+      position: relative;
+    }
+    .menu-btn span{
+      position: absolute;
+      left: 50%;
+      width: 18px;
+      height: 2px;
+      background: rgba(238,242,255,0.85);
+      transform: translateX(-50%);
+      transition: transform 0.2s ease, top 0.2s ease, opacity 0.2s ease;
+    }
+    .menu-btn span:nth-child(1){ top: 16px; }
+    .menu-btn span:nth-child(2){ top: 21px; }
+    .menu-btn span:nth-child(3){ top: 26px; }
+    .menu-btn.active span:nth-child(1){ top: 21px; transform: translateX(-50%) rotate(45deg); }
+    .menu-btn.active span:nth-child(2){ opacity: 0; }
+    .menu-btn.active span:nth-child(3){ top: 21px; transform: translateX(-50%) rotate(-45deg); }
+
+    .drawer{
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.65);
+      z-index: 998;
+    }
+    .drawer.active{ display: block; }
+    .drawer-panel{
+      position: absolute;
+      top: var(--navH);
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(var(--max), 92vw);
+      border: 1px solid var(--border);
+      background: rgba(16,24,38,0.92);
+      backdrop-filter: blur(16px);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .drawer-panel a{
+      display: block;
+      padding: 16px 16px;
+      color: var(--muted);
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .drawer-panel a:hover{
+      background: rgba(255,255,255,0.06);
+      color: var(--text);
+    }
+    .drawer-panel a:last-child{ border-bottom: none; }
+
+    /* =========================
+       Page Hero
+    ========================== */
+    .page-hero{
+      padding: 54px 0 28px;
+      border-bottom: 1px solid var(--border-2);
+    }
+
+    .page-hero-card{
+      border: 1px solid var(--border);
+      background: rgba(16,24,38,0.62);
+      border-radius: calc(var(--radius) + 6px);
+      box-shadow: var(--shadow);
+      padding: 28px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-hero-card::before{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background: radial-gradient(900px 400px at 20% 0%, rgba(85,247,212,0.14), transparent 60%),
+                  radial-gradient(900px 400px at 110% 20%, rgba(255,79,183,0.10), transparent 60%);
+      pointer-events:none;
+    }
+
+    .page-hero-inner{
+      position: relative;
+      z-index: 1;
+    }
+
+    .page-title{
+      font-family: 'Orbitron', monospace;
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 900;
+      letter-spacing: 0.03em;
+      margin-bottom: 10px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .page-subtitle{
+      color: rgba(238,242,255,0.82);
+      line-height: 1.75;
+      max-width: 72ch;
+    }
+
+    /* =========================
+       Section headers
+    ========================== */
+    .section-head{
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+
+    .section-head h2{
+      font-family: 'Orbitron', monospace;
+      font-size: 1.55rem;
+      letter-spacing: 0.08em;
+    }
+
+    .section-rule{
+      height: 1px;
+      flex: 1;
+      background: linear-gradient(90deg, rgba(85,247,212,0.35), rgba(255,255,255,0.06), transparent);
+      border-radius: 999px;
+      margin-left: 16px;
+    }
+
+    /* =========================
+       Cards / Project Layout
+    ========================== */
+    .grid{
+      display: grid;
+      gap: 18px;
+    }
+
+    .card{
+      border: 1px solid var(--border);
+      background: rgba(16,24,38,0.62);
+      border-radius: var(--radius);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+      overflow: hidden;
+    }
+    .card-pad{ padding: 22px; }
+
+    .project-top{
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .project-title{
+      font-family: 'Orbitron', monospace;
+      font-size: 1.25rem;
+      color: rgba(85,247,212,0.95);
+      letter-spacing: 0.04em;
+    }
+
+    .project-status{
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      color: rgba(255,180,75,0.95);
+      border: 1px solid rgba(255,180,75,0.55);
+      background: rgba(255,180,75,0.12);
+      white-space: nowrap;
+    }
+
+    .project-desc{
+      color: var(--muted);
+      line-height: 1.9;
+      margin: 10px 0;
+      font-size: 1.02rem;
+    }
+
+    .meta-row{
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .meta{
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.04);
+      color: rgba(238,242,255,0.85);
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      font-size: 0.82rem;
+      user-select: none;
+    }
+
+    .meta .dot{
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: rgba(255,180,75,0.9);
+      box-shadow: 0 0 0 3px rgba(255,180,75,0.12);
+    }
+
+    .project-actions{
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+    }
+
+    .btn{
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 12px 18px;
+      border-radius: 999px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.06);
+      color: var(--text);
+      transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+    }
+    .btn:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,0.08);
+      border-color: rgba(255,255,255,0.18);
+    }
+    .btn.primary{
+      border-color: rgba(85,247,212,0.55);
+      background: linear-gradient(135deg, rgba(85,247,212,0.18), rgba(255,79,183,0.10));
+    }
+    .btn.primary:hover{
+      background: linear-gradient(135deg, rgba(85,247,212,0.24), rgba(255,79,183,0.14));
+      border-color: rgba(85,247,212,0.75);
+    }
+
+    /* Gallery */
+    .gallery-wrap{
+      margin-top: 18px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    .gallery-title{
+      font-family: 'Orbitron', monospace;
+      letter-spacing: 0.08em;
+      font-size: 0.95rem;
+      color: rgba(238,242,255,0.85);
+      margin-bottom: 10px;
+    }
+
+    .image-gallery{
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 14px;
+    }
+
+    .image-gallery img{
+      grid-column: span 6;
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.10);
+      box-shadow: 0 12px 26px rgba(0,0,0,0.38);
+      cursor: pointer;
+      transition: transform 0.18s ease, border-color 0.18s ease, filter 0.18s ease;
+    }
+
+    .image-gallery img:first-child{
+      grid-column: span 12;
+      height: 320px;
+    }
+
+    .image-gallery img:hover{
+      transform: translateY(-3px);
+      border-color: rgba(85,247,212,0.40);
+      filter: brightness(1.04);
+    }
+
+    /* =========================
+       Lightbox
+    ========================== */
+    .lightbox{
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.92);
+      z-index: 10000;
+      justify-content: center;
+      align-items: center;
+      padding: 24px;
+      cursor: pointer;
+    }
+    .lightbox.active{ display: flex; }
+    .lightbox img{
+      max-width: min(1100px, 94vw);
+      max-height: 90vh;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.10);
+      box-shadow: var(--shadow);
+    }
+
+    /* Footer */
+    .site-footer{
+      border-top: 1px solid var(--border-2);
+      padding: 26px 0;
+      color: var(--dim);
+      font-size: 0.9rem;
+    }
+    .footer-inner{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .social-links{
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .social-links a{
+      width: 40px;
+      height: 40px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.04);
+      color: rgba(238,242,255,0.82);
+      transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+    }
+    .social-links a:hover{
+      transform: translateY(-1px);
+      border-color: rgba(85,247,212,0.45);
+      background: rgba(85,247,212,0.08);
+      color: rgba(238,242,255,0.95);
+    }
+
+    /* Responsive */
+    @media (max-width: 900px){
+      .brand p{ display: none; }
+      .project-top{ flex-direction: column; align-items: flex-start; }
+    }
+
+    @media (max-width: 768px){
+      .nav{ display: none; }
+      .menu-btn{ display: inline-block; }
+      .section{ padding: 56px 0; }
+      .image-gallery img{ grid-column: span 12; height: 200px; }
+      .image-gallery img:first-child{ height: 240px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Top Navigation -->
+  <header class="topbar" role="banner">
+    <div class="topbar-inner">
+      <div class="brand" aria-label="Site brand">
+        <h1>JENKO</h1>
+        <p>Game Developer</p>
+      </div>
+
+      <nav class="nav" aria-label="Primary navigation">
+        <a href="index.html">HOME</a>
+        <a href="projects.html">PROJECTS</a>
+        <a href="devlog.html">DEVLOG</a>
+        <a href="about.html">ABOUT</a>
+        <a class="nav-cta" href="devlog.html">Read Latest</a>
+      </nav>
+
+      <button class="menu-btn" id="menu-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-drawer">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div class="drawer" id="mobile-drawer" aria-hidden="true">
+    <div class="drawer-panel" role="dialog" aria-label="Mobile navigation">
+      <a href="index.html">HOME</a>
+      <a href="projects.html">PROJECTS</a>
+      <a href="devlog.html">DEVLOG</a>
+      <a href="about.html">ABOUT</a>
+    </div>
+  </div>
+
+  <main role="main">
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+      <div class="container">
+        <div class="page-hero-card">
+          <div class="page-hero-inner">
+            <div class="page-title">PROJECTS</div>
+            <div class="page-subtitle">
+              A home for everything I’m building. Dev Cycle is the main focus right now — more projects will get added as they become real.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <h2>FEATURED</h2>
+          <div class="section-rule" aria-hidden="true"></div>
+        </div>
+
+        <div class="grid">
+
+          <!-- Dev Cycle (primary project) -->
+          <article class="card">
+            <div class="card-pad">
+
+              <div class="project-top">
+                <div class="project-title">Dev Cycle</div>
+                <span class="project-status">IN DEVELOPMENT</span>
+              </div>
+
+              <p class="project-desc">
+                A grounded game-dev tycoon where you build games from scratch, publish, support, and move on — with real systems behind it:
+                time-driven progress, bugs, quality, updates, and a full dev lifecycle.
+              </p>
+
+              <div class="meta-row" aria-label="Project metadata">
+                <span class="meta"><span class="dot"></span> Godot 4</span>
+                <span class="meta"><span class="dot"></span> System-heavy gameplay</span>
+                <span class="meta"><span class="dot"></span> Tycoon / Sim</span>
+                <span class="meta"><span class="dot"></span> 2D Top-down</span>
+              </div>
+
+              <div class="project-actions">
+                <a class="btn primary" href="devlog.html">Read Devlog →</a>
+                <a class="btn" href="index.html">Back to Home →</a>
+              </div>
+
+              <div class="gallery-wrap">
+                <div class="gallery-title">SCREENSHOTS</div>
+
+                <!-- Replace / add images whenever you want -->
+                <div class="image-gallery" aria-label="Project screenshots">
+                  <img src="images/BlogPost 1-1.png" alt="Dev Cycle screenshot 1" onclick="openLightbox(this, event)">
+                  <img src="images/BlogPost 1-2.png" alt="Dev Cycle screenshot 2" onclick="openLightbox(this, event)">
+                  <img src="images/BlogPost 1-3.png" alt="Dev Cycle screenshot 3" onclick="openLightbox(this, event)">
+                  <img src="images/BlogPost 1-6.png" alt="Dev Cycle screenshot 4" onclick="openLightbox(this, event)">
+                </div>
+              </div>
+
+            </div>
+          </article>
+
+          <!-- Future project placeholder (same style, easy to duplicate) -->
+          <article class="card">
+            <div class="card-pad">
+
+              <div class="project-top">
+                <div class="project-title">Next Project (Placeholder)</div>
+                <span class="project-status">PLANNING</span>
+              </div>
+
+              <p class="project-desc">
+                Reserved for whatever I spin up next — prototypes, experiments, or side projects that become worth showing.
+                When it’s ready, this card becomes a full project page with screenshots and progress updates.
+              </p>
+
+              <div class="meta-row" aria-label="Project metadata">
+                <span class="meta"><span class="dot"></span> Prototype</span>
+                <span class="meta"><span class="dot"></span> TBD Genre</span>
+                <span class="meta"><span class="dot"></span> Early Stage</span>
+              </div>
+
+              <div class="project-actions">
+                <a class="btn primary" href="devlog.html">See Devlog Updates →</a>
+                <a class="btn" href="about.html">More About Me →</a>
+              </div>
+
+              <div class="gallery-wrap">
+                <div class="gallery-title">CONCEPT / PLACEHOLDERS</div>
+                <div class="image-gallery" aria-label="Placeholder images">
+                  <img src="images/Blog_BG.png" alt="Placeholder hero" onclick="openLightbox(this, event)">
+                  <img src="images/Blog_BG.png" alt="Placeholder hero" onclick="openLightbox(this, event)">
+                </div>
+              </div>
+
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-inner">
+          <div>
+            <div>© 2025 Jenko</div>
+            <div>Made with Coffee</div>
+          </div>
+
+          <div class="social-links" aria-label="Social links">
+            <a href="#" title="GitHub" aria-label="GitHub">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+              </svg>
+            </a>
+
+            <a href="#" title="Twitter" aria-label="Twitter">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/>
+              </svg>
+            </a>
+
+            <a href="#" title="LinkedIn" aria-label="LinkedIn">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/>
+                <circle cx="4" cy="4" r="2"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- Lightbox -->
+  <div class="lightbox" onclick="closeLightbox(event)">
+    <img id="lightbox-img" src="" alt="Expanded view">
+  </div>
+
+  <script>
+    // =========================
+    // Mobile menu toggle
+    // =========================
+    const menuToggle = document.getElementById('menu-toggle');
+    const drawer = document.getElementById('mobile-drawer');
+    const drawerLinks = drawer.querySelectorAll('a');
+
+    function setDrawer(open){
+      if(open){
+        menuToggle.classList.add('active');
+        menuToggle.setAttribute('aria-expanded', 'true');
+        drawer.classList.add('active');
+        drawer.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      } else {
+        menuToggle.classList.remove('active');
+        menuToggle.setAttribute('aria-expanded', 'false');
+        drawer.classList.remove('active');
+        drawer.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      }
+    }
+
+    if(menuToggle){
+      menuToggle.addEventListener('click', () => {
+        const isOpen = drawer.classList.contains('active');
+        setDrawer(!isOpen);
+      });
+    }
+
+    drawer.addEventListener('click', (e) => {
+      if(e.target === drawer) setDrawer(false);
+    });
+
+    drawerLinks.forEach(link => {
+      link.addEventListener('click', () => setDrawer(false));
+    });
+
+    // =========================
+    // Lightbox
+    // =========================
+    function openLightbox(img, ev) {
+      if(ev) ev.stopPropagation();
+      const lightbox = document.querySelector('.lightbox');
+      const lightboxImg = document.getElementById('lightbox-img');
+      lightboxImg.src = img.src;
+      lightboxImg.alt = img.alt;
+      lightbox.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox(ev) {
+      if(ev) ev.stopPropagation();
+      const lightbox = document.querySelector('.lightbox');
+      lightbox.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    // Escape closes drawer + lightbox
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeLightbox();
+        setDrawer(false);
+      }
+    });
+  </script>
+
+</body>
+</html>

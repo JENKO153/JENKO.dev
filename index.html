@@ -5,868 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>JENKO | Game Developer</title>
 
-  <!-- Fonts (kept your original choice) -->
+  <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-  <style>
-    /* =========================
-       Reset / Base
-    ========================== */
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-
-    :root{
-      /* Clean, professional dark palette */
-      --bg: #0b0f14;
-      --panel: #101826;
-      --panel-2: #0f1724;
-      --border: rgba(255,255,255,0.10);
-      --border-2: rgba(255,255,255,0.06);
-
-      --text: #eef2ff;
-      --muted: rgba(238,242,255,0.70);
-      --dim: rgba(238,242,255,0.45);
-
-      /* Subtle accent (keeps your neon identity but toned down) */
-      --primary: #55f7d4;   /* teal */
-      --secondary: #ff4fb7; /* pink */
-      --accent: #ffb44b;    /* warm amber */
-
-      --shadow: 0 16px 50px rgba(0,0,0,0.55);
-      --radius: 18px;
-
-      --max: 1120px;
-      --navH: 72px;
-    }
-
-    html { scroll-behavior: smooth; font-size: 16px; }
-    body{
-      font-family: 'Inter', sans-serif;
-      background: radial-gradient(1200px 700px at 25% -10%, rgba(85,247,212,0.10), transparent 55%),
-                  radial-gradient(900px 600px at 110% 10%, rgba(255,79,183,0.08), transparent 55%),
-                  radial-gradient(900px 600px at 60% 120%, rgba(255,180,75,0.06), transparent 55%),
-                  var(--bg);
-      color: var(--text);
-      overflow-x: hidden;
-    }
-
-    a{ color: inherit; text-decoration: none; }
-    img{ display: block; max-width: 100%; }
-
-    /* Focus visibility */
-    :focus-visible{
-      outline: 2px solid rgba(85,247,212,0.9);
-      outline-offset: 3px;
-      border-radius: 10px;
-    }
-
-    /* =========================
-       Layout Containers
-    ========================== */
-    .container{
-      width: min(var(--max), 92vw);
-      margin: 0 auto;
-    }
-
-    .section{
-      padding: 70px 0;
-    }
-
-    /* Anchor offset for sticky nav */
-    section[id]{
-      scroll-margin-top: calc(var(--navH) + 18px);
-    }
-
-    /* =========================
-       Top Navigation
-    ========================== */
-    .topbar{
-      position: sticky;
-      top: 0;
-      z-index: 999;
-      height: var(--navH);
-      display: flex;
-      align-items: center;
-      backdrop-filter: blur(14px);
-      background: rgba(11,15,20,0.72);
-      border-bottom: 1px solid var(--border-2);
-    }
-
-    .topbar-inner{
-      width: min(var(--max), 92vw);
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-    }
-
-    .brand{
-      display: flex;
-      align-items: baseline;
-      gap: 12px;
-      min-width: 220px;
-    }
-
-    .brand h1{
-      font-family: 'Orbitron', monospace;
-      font-weight: 900;
-      letter-spacing: 2px;
-      font-size: 1.2rem;
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .brand p{
-      color: var(--dim);
-      font-size: 0.9rem;
-      font-weight: 400;
-      white-space: nowrap;
-    }
-
-    .nav{
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .nav a{
-      color: var(--muted);
-      font-size: 0.9rem;
-      font-weight: 600;
-      letter-spacing: 0.06em;
-      padding: 10px 12px;
-      border-radius: 12px;
-      transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
-    }
-
-    .nav a:hover{
-      background: rgba(255,255,255,0.06);
-      color: var(--text);
-      transform: translateY(-1px);
-    }
-
-    .nav-cta{
-      margin-left: 6px;
-      padding: 10px 14px;
-      border-radius: 999px;
-      border: 1px solid rgba(85,247,212,0.35);
-      background: rgba(85,247,212,0.10);
-      color: var(--text);
-      transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
-    }
-    .nav-cta:hover{
-      transform: translateY(-1px);
-      background: rgba(85,247,212,0.16);
-      border-color: rgba(85,247,212,0.55);
-    }
-
-    /* Mobile menu button */
-    .menu-btn{
-      display: none;
-      width: 44px;
-      height: 44px;
-      border-radius: 14px;
-      border: 1px solid var(--border);
-      background: rgba(255,255,255,0.04);
-      cursor: pointer;
-      position: relative;
-    }
-    .menu-btn span{
-      position: absolute;
-      left: 50%;
-      width: 18px;
-      height: 2px;
-      background: rgba(238,242,255,0.85);
-      transform: translateX(-50%);
-      transition: transform 0.2s ease, top 0.2s ease, opacity 0.2s ease;
-    }
-    .menu-btn span:nth-child(1){ top: 16px; }
-    .menu-btn span:nth-child(2){ top: 21px; }
-    .menu-btn span:nth-child(3){ top: 26px; }
-    .menu-btn.active span:nth-child(1){ top: 21px; transform: translateX(-50%) rotate(45deg); }
-    .menu-btn.active span:nth-child(2){ opacity: 0; }
-    .menu-btn.active span:nth-child(3){ top: 21px; transform: translateX(-50%) rotate(-45deg); }
-
-    /* Mobile nav drawer */
-    .drawer{
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.65);
-      z-index: 998;
-    }
-    .drawer.active{ display: block; }
-    .drawer-panel{
-      position: absolute;
-      top: var(--navH);
-      left: 50%;
-      transform: translateX(-50%);
-      width: min(var(--max), 92vw);
-      border: 1px solid var(--border);
-      background: rgba(16,24,38,0.92);
-      backdrop-filter: blur(16px);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      overflow: hidden;
-    }
-    .drawer-panel a{
-      display: block;
-      padding: 16px 16px;
-      color: var(--muted);
-      font-weight: 600;
-      letter-spacing: 0.05em;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-    }
-    .drawer-panel a:hover{
-      background: rgba(255,255,255,0.06);
-      color: var(--text);
-    }
-    .drawer-panel a:last-child{ border-bottom: none; }
-
-    /* =========================
-       Hero
-    ========================== */
-    #home{ padding: 0; }
-
-    .hero{
-      min-height: calc(100vh - var(--navH));
-      display: grid;
-      align-items: center;
-      position: relative;
-      overflow: hidden;
-      border-bottom: 1px solid var(--border-2);
-    }
-
-    .hero-bg{ position: absolute; inset: 0; z-index: 0; }
-    .hero-bg img{
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      filter: saturate(0.95) contrast(1.02);
-      transform: scale(1.02);
-    }
-    .hero-overlay{
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(180deg,
-        rgba(11,15,20,0.70) 0%,
-        rgba(11,15,20,0.72) 40%,
-        rgba(11,15,20,0.92) 100%);
-    }
-
-    .hero-inner{ position: relative; z-index: 1; padding: 80px 0; }
-
-    .hero-card{
-      border: 1px solid var(--border);
-      background: rgba(16,24,38,0.55);
-      backdrop-filter: blur(16px);
-      border-radius: calc(var(--radius) + 6px);
-      padding: 44px;
-      box-shadow: var(--shadow);
-    }
-
-    .hero-title{
-      font-family: 'Orbitron', monospace;
-      font-size: clamp(2.4rem, 6vw, 4.2rem);
-      line-height: 1.0;
-      font-weight: 900;
-      letter-spacing: 0.02em;
-      margin-bottom: 16px;
-    }
-    .hero-title span{
-      display: block;
-      background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .hero-subtitle{
-      color: rgba(238,242,255,0.84);
-      font-size: 1.08rem;
-      line-height: 1.7;
-      margin-bottom: 26px;
-      max-width: 54ch;
-    }
-
-    .hero-actions{
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    .btn{
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      padding: 12px 18px;
-      border-radius: 999px;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      border: 1px solid var(--border);
-      background: rgba(255,255,255,0.06);
-      color: var(--text);
-      transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
-    }
-    .btn:hover{
-      transform: translateY(-1px);
-      background: rgba(255,255,255,0.08);
-      border-color: rgba(255,255,255,0.16);
-    }
-    .btn.primary{
-      border-color: rgba(85,247,212,0.55);
-      background: linear-gradient(135deg, rgba(85,247,212,0.18), rgba(255,79,183,0.10));
-    }
-    .btn.primary:hover{
-      background: linear-gradient(135deg, rgba(85,247,212,0.24), rgba(255,79,183,0.14));
-      border-color: rgba(85,247,212,0.75);
-    }
-
-    /* =========================
-       Section headers
-    ========================== */
-    .section-head{
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: 14px;
-      margin-bottom: 22px;
-    }
-
-    .section-head h2{
-      font-family: 'Orbitron', monospace;
-      font-size: 1.55rem;
-      letter-spacing: 0.08em;
-    }
-
-    .section-rule{
-      height: 1px;
-      flex: 1;
-      background: linear-gradient(90deg, rgba(85,247,212,0.35), rgba(255,255,255,0.06), transparent);
-      border-radius: 999px;
-      margin-left: 16px;
-    }
-
-    /* =========================
-       Cards
-    ========================== */
-    .card{
-      border: 1px solid var(--border);
-      background: rgba(16,24,38,0.62);
-      border-radius: var(--radius);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.35);
-    }
-    .card-pad{ padding: 22px; }
-
-    /* =========================
-       Projects
-    ========================== */
-    .project-header{
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 12px;
-      margin-bottom: 10px;
-    }
-
-    .project h3{
-      font-family: 'Orbitron', monospace;
-      font-size: 1.25rem;
-      color: rgba(85,247,212,0.95);
-      letter-spacing: 0.04em;
-    }
-
-    .project-status{
-      padding: 6px 12px;
-      border-radius: 999px;
-      font-size: 0.78rem;
-      font-weight: 800;
-      letter-spacing: 0.08em;
-      color: rgba(255,180,75,0.95);
-      border: 1px solid rgba(255,180,75,0.55);
-      background: rgba(255,180,75,0.12);
-      white-space: nowrap;
-    }
-
-    .project p{
-      color: var(--muted);
-      line-height: 1.8;
-      margin: 10px 0;
-    }
-
-    .project-link{
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      margin-top: 8px;
-      color: rgba(85,247,212,0.95);
-      font-weight: 700;
-      letter-spacing: 0.02em;
-      padding: 10px 12px;
-      border-radius: 12px;
-      border: 1px solid rgba(85,247,212,0.28);
-      background: rgba(85,247,212,0.06);
-      transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
-    }
-    .project-link:hover{
-      transform: translateY(-1px);
-      background: rgba(85,247,212,0.10);
-      border-color: rgba(85,247,212,0.45);
-    }
-
-    /* =========================
-       DEVLOG LIST SPACING (bigger separation)
-    ========================== */
-    .devlog-list{
-      display: grid;
-      gap: 28px; /* ✅ bigger separation between posts */
-    }
-
-    /* =========================
-       Devlog list card
-    ========================== */
-    .devlog-entry{
-      cursor: pointer;
-      transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
-      position: relative;
-    }
-    .devlog-entry:hover{
-      transform: translateY(-2px);
-      border-color: rgba(255,255,255,0.18);
-      background: rgba(16,24,38,0.72);
-    }
-
-    .devlog-header{
-      display: flex;
-      gap: 14px;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 10px;
-    }
-    .devlog-entry h4{
-      font-size: 1.18rem;
-      font-weight: 800;
-      color: rgba(238,242,255,0.95);
-      line-height: 1.25;
-    }
-    .devlog-entry time{
-      padding: 6px 12px;
-      border-radius: 999px;
-      font-size: 0.82rem;
-      font-weight: 700;
-      color: rgba(238,242,255,0.80);
-      border: 1px solid rgba(255,255,255,0.12);
-      background: rgba(255,255,255,0.05);
-      white-space: nowrap;
-    }
-
-    /* ✅ hint under header */
-    .hint{
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-
-      font-size: 0.78rem;
-      color: rgba(85,247,212,0.9);
-      border: 1px solid rgba(85,247,212,0.30);
-      background: rgba(85,247,212,0.08);
-      padding: 6px 10px;
-      border-radius: 999px;
-
-      opacity: 0;
-      transform: translateY(-2px);
-      transition: opacity 0.18s ease, transform 0.18s ease;
-
-      margin-bottom: 8px;
-    }
-    .devlog-entry:hover .hint{
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .devlog-entry p{
-      color: var(--muted);
-      line-height: 1.9;
-      margin: 12px 0;
-    }
-    .devlog-entry strong{
-      color: rgba(85,247,212,0.95);
-      font-weight: 800;
-    }
-
-    /* =========================
-       Preview clamp (main page only)
-       Modal will override this to show full content.
-    ========================== */
-    .preview-clamp{
-      display: -webkit-box;
-      -webkit-box-orient: vertical;
-      -webkit-line-clamp: 6; /* adjust if you want more/less preview */
-      overflow: hidden;
-    }
-    #devlog-modal-body .preview-clamp{
-      display: block;
-      -webkit-line-clamp: unset;
-      overflow: visible;
-    }
-
-    /* =========================
-       Gallery block + nicer layout
-       - first image hero (full width)
-       - rest in grid
-    ========================== */
-    .gallery-wrap{
-      margin-top: 18px;
-      padding-top: 16px;
-      border-top: 1px solid rgba(255,255,255,0.08);
-    }
-    .gallery-title{
-      font-family: 'Orbitron', monospace;
-      letter-spacing: 0.08em;
-      font-size: 0.95rem;
-      color: rgba(238,242,255,0.85);
-      margin-bottom: 10px;
-    }
-
-    .image-gallery{
-      display: grid;
-      grid-template-columns: repeat(12, 1fr);
-      gap: 14px;
-      margin-top: 10px;
-    }
-
-    .image-gallery img{
-      grid-column: span 6;
-      width: 100%;
-      height: 220px;
-      object-fit: cover;
-      border-radius: 16px;
-      border: 1px solid rgba(255,255,255,0.10);
-      box-shadow: 0 12px 26px rgba(0,0,0,0.38);
-      cursor: pointer;
-      transition: transform 0.18s ease, border-color 0.18s ease, filter 0.18s ease;
-    }
-
-    .image-gallery img:first-child{
-      grid-column: span 12;
-      height: 320px;
-    }
-
-    .image-gallery img:hover{
-      transform: translateY(-3px);
-      border-color: rgba(85,247,212,0.40);
-      filter: brightness(1.04);
-    }
-
-    /* =========================
-       About
-    ========================== */
-    .about-intro{
-      text-align: center;
-      padding: 22px;
-      border-radius: var(--radius);
-      border: 1px solid var(--border);
-      background: rgba(16,24,38,0.55);
-      margin-bottom: 18px;
-    }
-    .about-intro h3{
-      font-family: 'Orbitron', monospace;
-      font-size: 1.65rem;
-      margin-bottom: 10px;
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .about-intro p{
-      color: var(--muted);
-      line-height: 1.8;
-    }
-
-    .about-grid{
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 16px;
-      margin-bottom: 16px;
-    }
-    .about-card{
-      border: 1px solid var(--border);
-      background: rgba(16,24,38,0.62);
-      border-radius: var(--radius);
-      padding: 20px;
-      transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
-    }
-    .about-card:hover{
-      transform: translateY(-2px);
-      border-color: rgba(255,255,255,0.18);
-      background: rgba(16,24,38,0.72);
-    }
-
-    .card-icon{
-      width: 52px;
-      height: 52px;
-      border-radius: 14px;
-      display: grid;
-      place-items: center;
-      background: linear-gradient(135deg, rgba(85,247,212,0.18), rgba(255,79,183,0.12));
-      border: 1px solid rgba(255,255,255,0.10);
-      color: rgba(238,242,255,0.92);
-      margin-bottom: 12px;
-    }
-    .about-card h4{
-      font-family: 'Orbitron', monospace;
-      font-size: 1.05rem;
-      margin-bottom: 10px;
-      letter-spacing: 0.05em;
-    }
-    .about-card p{
-      color: var(--muted);
-      line-height: 1.85;
-      font-size: 0.95rem;
-    }
-
-    .about-footer{
-      border: 1px solid var(--border);
-      background: rgba(16,24,38,0.55);
-      border-radius: var(--radius);
-      padding: 22px;
-      text-align: center;
-    }
-    .about-footer p{
-      color: var(--muted);
-      line-height: 1.9;
-      margin-bottom: 16px;
-    }
-    .about-stats{
-      display: flex;
-      justify-content: center;
-      gap: 26px;
-      flex-wrap: wrap;
-    }
-    .stat{
-      border: 1px solid rgba(255,255,255,0.10);
-      background: rgba(255,255,255,0.04);
-      border-radius: 16px;
-      padding: 14px 18px;
-      min-width: 160px;
-    }
-    .stat-number{
-      display: block;
-      font-family: 'Orbitron', monospace;
-      font-size: 1.65rem;
-      font-weight: 900;
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 6px;
-    }
-    .stat-label{
-      display: block;
-      font-size: 0.78rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--dim);
-    }
-
-    /* =========================
-       Footer
-    ========================== */
-    .site-footer{
-      border-top: 1px solid var(--border-2);
-      padding: 26px 0;
-      color: var(--dim);
-      font-size: 0.9rem;
-    }
-    .footer-inner{
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 14px;
-      flex-wrap: wrap;
-    }
-    .social-links{
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .social-links a{
-      width: 40px;
-      height: 40px;
-      border-radius: 14px;
-      display: grid;
-      place-items: center;
-      border: 1px solid rgba(255,255,255,0.12);
-      background: rgba(255,255,255,0.04);
-      color: rgba(238,242,255,0.82);
-      transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
-    }
-    .social-links a:hover{
-      transform: translateY(-1px);
-      border-color: rgba(85,247,212,0.45);
-      background: rgba(85,247,212,0.08);
-      color: rgba(238,242,255,0.95);
-    }
-
-    /* =========================
-       Lightbox
-    ========================== */
-    .lightbox{
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.92);
-      z-index: 10000;
-      justify-content: center;
-      align-items: center;
-      padding: 24px;
-      cursor: pointer;
-    }
-    .lightbox.active{ display: flex; }
-    .lightbox img{
-      max-width: min(1100px, 94vw);
-      max-height: 90vh;
-      border-radius: 16px;
-      border: 1px solid rgba(255,255,255,0.10);
-      box-shadow: var(--shadow);
-    }
-
-    /* =========================
-       Devlog Modal
-    ========================== */
-    .devlog-modal{
-      display: none;
-      position: fixed;
-      inset: 0;
-      z-index: 9999;
-      background: rgba(0,0,0,0.78);
-      backdrop-filter: blur(14px);
-      padding: 24px;
-      overflow-y: auto;
-    }
-    .devlog-modal.active{
-      display: flex;
-      align-items: flex-start;
-      justify-content: center;
-    }
-
-    .devlog-modal-content{
-      width: min(920px, 96vw);
-      margin-top: 40px;
-      border: 1px solid rgba(255,255,255,0.10);
-      border-radius: 22px;
-      background: rgba(16,24,38,0.92);
-      box-shadow: var(--shadow);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .modal-top{
-      padding: 18px 22px;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-    }
-
-    .modal-top .chip{
-      display: inline-flex;
-      gap: 10px;
-      align-items: center;
-      padding: 8px 12px;
-      border-radius: 999px;
-      border: 1px solid rgba(85,247,212,0.28);
-      background: rgba(85,247,212,0.08);
-      color: rgba(238,242,255,0.92);
-      font-weight: 800;
-      letter-spacing: 0.05em;
-      font-size: 0.82rem;
-    }
-
-    .modal-close{
-      width: 44px;
-      height: 44px;
-      border-radius: 14px;
-      border: 1px solid rgba(255,255,255,0.12);
-      background: rgba(255,255,255,0.04);
-      color: rgba(238,242,255,0.9);
-      font-size: 1.6rem;
-      cursor: pointer;
-      transition: transform 0.18s ease, background 0.18s ease, border-color 0.18s ease;
-      display: grid;
-      place-items: center;
-      line-height: 1;
-    }
-    .modal-close:hover{
-      transform: translateY(-1px);
-      background: rgba(255,255,255,0.08);
-      border-color: rgba(85,247,212,0.40);
-    }
-
-    #devlog-modal-body{
-      padding: 22px;
-    }
-
-    /* Modal content typography */
-    #devlog-modal-body h4{
-      font-size: 1.6rem;
-      font-weight: 900;
-      margin-bottom: 10px;
-      color: rgba(238,242,255,0.95);
-    }
-    #devlog-modal-body time{
-      display: inline-block;
-      margin-bottom: 14px;
-      padding: 6px 12px;
-      border-radius: 999px;
-      font-weight: 800;
-      font-size: 0.86rem;
-      border: 1px solid rgba(255,255,255,0.12);
-      background: rgba(255,255,255,0.05);
-      color: rgba(238,242,255,0.82);
-    }
-    #devlog-modal-body p{
-      color: var(--muted);
-      line-height: 2.0;
-      margin: 14px 0;
-      font-size: 1.02rem;
-    }
-    #devlog-modal-body strong{
-      color: rgba(255,180,75,0.95);
-      font-weight: 900;
-    }
-
-    /* =========================
-       Responsive
-    ========================== */
-    @media (max-width: 900px){
-      .brand p{ display: none; }
-      .hero-card{ padding: 30px; }
-      .devlog-header{ flex-direction: column; align-items: flex-start; }
-      .image-gallery img{ grid-column: span 12; height: 200px; }
-      .image-gallery img:first-child{ height: 240px; }
-    }
-
-    @media (max-width: 768px){
-      .nav{ display: none; }
-      .menu-btn{ display: inline-block; }
-      .section{ padding: 56px 0; }
-      .hero-inner{ padding: 64px 0; }
-      .hero-card{ padding: 24px; }
-      .devlog-modal{ padding: 16px; }
-      #devlog-modal-body{ padding: 18px; }
-      #devlog-modal-body h4{ font-size: 1.35rem; }
-    }
-
-    @media (max-width: 480px){
-      .hero-actions .btn{ width: 100%; }
-      .stat{ min-width: 220px; }
-    }
-  </style>
+  <!-- Shared CSS -->
+  <link rel="stylesheet" href="css/styles.css">
 </head>
 
 <body>
@@ -879,14 +22,16 @@
         <p>Game Developer</p>
       </div>
 
+      <!-- Desktop Nav (now goes to dedicated pages) -->
       <nav class="nav" aria-label="Primary navigation">
-        <a href="#home">HOME</a>
-        <a href="#projects">PROJECTS</a>
-        <a href="#devlog">DEVLOG</a>
-        <a href="#about">ABOUT</a>
-        <a class="nav-cta" href="#devlog">Read Latest</a>
+        <a href="index.html#home">HOME</a>
+        <a href="projects.html">PROJECTS</a>
+        <a href="devlog.html">DEVLOG</a>
+        <a href="about.html">ABOUT</a>
+        <a class="nav-cta" href="devlog.html">Read Latest</a>
       </nav>
 
+      <!-- Mobile button -->
       <button class="menu-btn" id="menu-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-drawer">
         <span></span><span></span><span></span>
       </button>
@@ -896,17 +41,16 @@
   <!-- Mobile Drawer -->
   <div class="drawer" id="mobile-drawer" aria-hidden="true">
     <div class="drawer-panel" role="dialog" aria-label="Mobile navigation">
-      <a href="#home">HOME</a>
-      <a href="#projects">PROJECTS</a>
-      <a href="#devlog">DEVLOG</a>
-      <a href="#about">ABOUT</a>
+      <a href="index.html#home">HOME</a>
+      <a href="projects.html">PROJECTS</a>
+      <a href="devlog.html">DEVLOG</a>
+      <a href="about.html">ABOUT</a>
     </div>
   </div>
 
-  <!-- Main -->
   <main role="main">
 
-    <!-- HOME (content unchanged) -->
+    <!-- HOME -->
     <section id="home">
       <div class="hero">
         <div class="hero-bg">
@@ -924,8 +68,8 @@
               <p class="hero-subtitle">Crafting 2D games with Godot powered by caffeine</p>
 
               <div class="hero-actions">
-                <a href="#projects" class="btn primary">View Projects</a>
-                <a href="#devlog" class="btn">Read Devlog</a>
+                <a href="projects.html" class="btn primary">View Projects</a>
+                <a href="devlog.html" class="btn">Read Devlog</a>
               </div>
             </div>
           </div>
@@ -934,7 +78,7 @@
       </div>
     </section>
 
-    <!-- PROJECTS (content unchanged) -->
+    <!-- PROJECTS (snapshot) -->
     <section id="projects" class="section">
       <div class="container">
         <div class="section-head">
@@ -950,26 +94,28 @@
             </div>
             <p>An immersive tycoon game where you</p>
             <p>Built with Godot Engine</p>
-            <a href="#devlog" class="project-link">View Development Log →</a>
+            <a href="projects.html" class="project-link">View Project Page →</a>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- DEVLOG -->
+    <!-- DEVLOG (snapshot: latest posts) -->
     <section id="devlog" class="section">
       <div class="container">
         <div class="section-head">
-          <h2>DEVELOPMENT LOG</h2>
+          <h2>LATEST DEV LOGS</h2>
           <div class="section-rule" aria-hidden="true"></div>
         </div>
 
-        <div class="devlog-list">
-
-          <!-- POST 1 -->
-          <article class="card devlog-entry" role="button" tabindex="0"
-                   onclick="openDevlogModal(this, event)"
-                   onkeydown="devlogKeyOpen(this, event)">
+        <!-- NOTE:
+          - Bigger separation is handled by the wrapper grid gap + entry margin.
+          - Click registering on both was caused by broken nested markup before.
+          - Each post is now a clean, separate <article> with no nesting.
+        -->
+        <div class="grid" style="gap: 26px;">
+          <!-- Post 1 -->
+          <article class="card devlog-entry" role="button" tabindex="0">
             <div class="card-pad">
 
               <div class="devlog-header">
@@ -979,7 +125,7 @@
 
               <span class="hint">Click to read more</span>
 
-              <!-- Preview clamp applies on main page, modal will show full -->
+              <!-- Preview clamp (doesn't change content, only visual length on index) -->
               <div class="preview-clamp">
                 <p>Today I caught up with a mate to get some help and direction on the full redesign of the game’s art. I’ve been itching to do this for a while, but I didn’t want to sink time into visuals until I knew the actual game systems were going to hold up. Now that I’ve proven to myself I can program a pretty complex foundation — one that’s almost good enough to support the core loop I’m chasing — it feels like the right time to shift gears.</p>
                 <p>Don’t get me wrong, there’s still a tonne of work left to do and the game is nowhere near “done”, but the important part is the base is solid. The logic, the structure, the flow… it’s all finally starting to feel like a real game instead of a pile of test systems. So I’m giving myself a bit of a breather from heavy programming for a moment and focusing on the part that’s going to make everything feel real: the presentation.</p>
@@ -989,21 +135,18 @@
                 <p>Pretty excited for this part. The code might be the backbone, but the art is what makes it feel alive.</p>
               </div>
 
-              <!-- Gallery (empty for now) -->
-              <div class="gallery-wrap">
-                <div class="gallery-title">SCREENSHOTS</div>
-                <div class="image-gallery" aria-label="Devlog images">
-                  <!-- Add images here if you want -->
-                </div>
+              <!-- Optional: small CTA that DOESN'T interfere with click-to-open -->
+              <a class="project-link" href="devlog.html" onclick="event.stopPropagation()">Go to Devlog Page →</a>
+
+              <div class="image-gallery" aria-label="Devlog images">
+                <!-- No images provided for this post yet -->
               </div>
 
             </div>
           </article>
 
-          <!-- POST 2 -->
-          <article class="card devlog-entry" role="button" tabindex="0"
-                   onclick="openDevlogModal(this, event)"
-                   onkeydown="devlogKeyOpen(this, event)">
+          <!-- Post 2 -->
+          <article class="card devlog-entry" role="button" tabindex="0">
             <div class="card-pad">
 
               <div class="devlog-header">
@@ -1023,15 +166,23 @@
                 <p>With this foundation in place, the game is now ready to move into the next major phase: sales simulation. This will introduce long-term performance, revenue decay, the impact of updates over time, and eventually the deeper strategy of balancing quality, bugs, timing, and player fatigue. But none of that would matter if the core loop wasn’t solid — and now it finally is.</p>
               </div>
 
+              <a class="project-link" href="devlog.html" onclick="event.stopPropagation()">Read Full Devlog Feed →</a>
+
               <div class="gallery-wrap">
                 <div class="gallery-title">SCREENSHOTS</div>
+
                 <div class="image-gallery" aria-label="Devlog images">
                   <img src="images/BlogPost 1-1.png" alt="Vision Angle 1" onclick="openLightbox(this, event)">
                   <img src="images/BlogPost 1-2.png" alt="Vision Angle 1" onclick="openLightbox(this, event)">
                   <img src="images/BlogPost 1-3.png" alt="Vision Angle 1" onclick="openLightbox(this, event)">
+                  <img src="images/BlogPost 1-4.png" alt="Vision Angle 1" onclick="openLightbox(this, event)">
+                  <img src="images/BlogPost 1-5.png" alt="Vision Angle 1" onclick="openLightbox(this, event)">
                   <img src="images/BlogPost 1-6.png" alt="Vision Angle 1" onclick="openLightbox(this, event)">
                   <img src="images/BlogPost 1-7.png" alt="Vision Angle 1" onclick="openLightbox(this, event)">
                   <img src="images/BlogPost 1-8.png" alt="Vision Angle 1" onclick="openLightbox(this, event)">
+                  <img src="images/BlogPost 1-9.png" alt="Vision Angle 1" onclick="openLightbox(this, event)">
+                  <img src="images/BlogPost 1-10.png" alt="Vision Angle 1" onclick="openLightbox(this, event)">
+                  <img src="images/BlogPost 1-11.png" alt="Vision Angle 1" onclick="openLightbox(this, event)">
                 </div>
               </div>
 
@@ -1039,14 +190,19 @@
           </article>
 
         </div>
+
+        <div style="margin-top: 18px;">
+          <a class="btn primary" href="devlog.html">View All Dev Logs →</a>
+        </div>
+
       </div>
     </section>
 
-    <!-- ABOUT (content unchanged) -->
+    <!-- ABOUT (snapshot) -->
     <section id="about" class="section">
       <div class="container">
         <div class="section-head">
-          <h2>ABOUT ME</h2>
+          <h2>ABOUT</h2>
           <div class="section-rule" aria-hidden="true"></div>
         </div>
 
@@ -1059,7 +215,7 @@
           <div class="about-grid">
             <div class="about-card">
               <div class="card-icon">
-                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                   <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z"/>
                   <path d="M12 22V12"/>
                   <path d="M12 12L20 7"/>
@@ -1072,7 +228,7 @@
 
             <div class="about-card">
               <div class="card-icon">
-                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                   <circle cx="12" cy="12" r="10"/>
                   <polyline points="12 6 12 12 16 14"/>
                 </svg>
@@ -1083,7 +239,7 @@
 
             <div class="about-card">
               <div class="card-icon">
-                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                   <path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/>
                   <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
                   <line x1="12" y1="22.08" x2="12" y2="12"/>
@@ -1109,6 +265,10 @@
                 <span class="stat-number">∞</span>
                 <span class="stat-label">Coffees Consumed</span>
               </div>
+            </div>
+
+            <div style="margin-top: 16px;">
+              <a class="btn" href="about.html">Read More About Me →</a>
             </div>
           </div>
 
@@ -1164,138 +324,12 @@
         <button class="modal-close" onclick="closeDevlogModal()" aria-label="Close modal">&times;</button>
       </div>
       <div id="devlog-modal-body">
-        <!-- Content will be injected here -->
+        <!-- Content injected by main.js -->
       </div>
     </div>
   </div>
 
-  <script>
-    // =========================
-    // Mobile menu toggle
-    // =========================
-    const menuToggle = document.getElementById('menu-toggle');
-    const drawer = document.getElementById('mobile-drawer');
-    const drawerLinks = drawer.querySelectorAll('a');
-
-    function setDrawer(open){
-      if(open){
-        menuToggle.classList.add('active');
-        menuToggle.setAttribute('aria-expanded', 'true');
-        drawer.classList.add('active');
-        drawer.setAttribute('aria-hidden', 'false');
-        document.body.style.overflow = 'hidden';
-      } else {
-        menuToggle.classList.remove('active');
-        menuToggle.setAttribute('aria-expanded', 'false');
-        drawer.classList.remove('active');
-        drawer.setAttribute('aria-hidden', 'true');
-        document.body.style.overflow = '';
-      }
-    }
-
-    if(menuToggle){
-      menuToggle.addEventListener('click', () => {
-        const isOpen = drawer.classList.contains('active');
-        setDrawer(!isOpen);
-      });
-    }
-
-    drawer.addEventListener('click', (e) => {
-      if(e.target === drawer) setDrawer(false);
-    });
-
-    drawerLinks.forEach(link => {
-      link.addEventListener('click', () => setDrawer(false));
-    });
-
-    // =========================
-    // Devlog modal
-    // =========================
-    function openDevlogModal(entry, ev) {
-      // If user clicked an image inside the card, don't open modal (image opens lightbox)
-      if (ev && ev.target && ev.target.tagName === 'IMG') return;
-
-      const modal = document.getElementById('devlog-modal');
-      const modalBody = document.getElementById('devlog-modal-body');
-
-      const content = entry.cloneNode(true);
-
-      // Strip interactivity off cloned card
-      content.removeAttribute('onclick');
-      content.removeAttribute('onkeydown');
-      content.removeAttribute('role');
-      content.removeAttribute('tabindex');
-
-      // Ensure images inside modal still open lightbox + stop propagation
-      const images = content.querySelectorAll('img');
-      images.forEach(img => {
-        img.setAttribute('onclick', 'openLightbox(this, event)');
-      });
-
-      modalBody.innerHTML = content.innerHTML;
-      modal.classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function devlogKeyOpen(entry, ev){
-      if(ev.key === 'Enter' || ev.key === ' '){
-        ev.preventDefault();
-        openDevlogModal(entry, ev);
-      }
-    }
-
-    function closeDevlogModal(event) {
-      if (event && event.target !== event.currentTarget) return;
-      const modal = document.getElementById('devlog-modal');
-      modal.classList.remove('active');
-
-      // Only restore scroll if lightbox isn't open
-      const lightbox = document.querySelector('.lightbox');
-      if(!lightbox.classList.contains('active')) document.body.style.overflow = '';
-    }
-
-    // =========================
-    // Lightbox
-    // =========================
-    function openLightbox(img, ev) {
-      if(ev) ev.stopPropagation();
-      const lightbox = document.querySelector('.lightbox');
-      const lightboxImg = document.getElementById('lightbox-img');
-      lightboxImg.src = img.src;
-      lightboxImg.alt = img.alt;
-      lightbox.classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeLightbox(ev) {
-      if(ev) ev.stopPropagation();
-      const lightbox = document.querySelector('.lightbox');
-      lightbox.classList.remove('active');
-
-      const modal = document.getElementById('devlog-modal');
-      if(!modal.classList.contains('active')) document.body.style.overflow = '';
-    }
-
-    // Escape closes all
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        closeLightbox();
-        closeDevlogModal();
-        setDrawer(false);
-      }
-    });
-
-    // Smooth scroll
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        const href = this.getAttribute('href');
-        const target = document.querySelector(href);
-        if (!target) return;
-        e.preventDefault();
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      });
-    });
-  </script>
-
+  <!-- Shared JS -->
+  <script defer src="js/main.js"></script>
 </body>
 </html>
