@@ -8,328 +8,175 @@
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-  <!-- Shared CSS -->
-  <link rel="stylesheet" href="css/styles.css">
+  <!-- Shared Styles -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- Shared JS -->
+  <script defer src="js/main.js"></script>
 </head>
 
 <body>
 
-  <!-- Top Navigation -->
-  <header class="topbar" role="banner">
+  <!-- =========================
+       Top Navigation
+  ========================== -->
+  <header class="topbar">
     <div class="topbar-inner">
-      <div class="brand" aria-label="Site brand">
+
+      <div class="brand">
         <h1>JENKO</h1>
         <p>Game Developer</p>
       </div>
 
-      <!-- Desktop Nav (now goes to dedicated pages) -->
-      <nav class="nav" aria-label="Primary navigation">
-        <a href="index.html#home">HOME</a>
+      <nav class="nav">
+        <a href="index.html">HOME</a>
         <a href="projects.html">PROJECTS</a>
         <a href="devlog.html">DEVLOG</a>
         <a href="about.html">ABOUT</a>
         <a class="nav-cta" href="devlog.html">Read Latest</a>
       </nav>
 
-      <!-- Mobile button -->
-      <button class="menu-btn" id="menu-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-drawer">
+      <button class="menu-btn" id="menu-toggle" aria-label="Toggle menu">
         <span></span><span></span><span></span>
       </button>
+
     </div>
   </header>
 
   <!-- Mobile Drawer -->
-  <div class="drawer" id="mobile-drawer" aria-hidden="true">
-    <div class="drawer-panel" role="dialog" aria-label="Mobile navigation">
-      <a href="index.html#home">HOME</a>
+  <div class="drawer" id="mobile-drawer">
+    <div class="drawer-panel">
+      <a href="index.html">HOME</a>
       <a href="projects.html">PROJECTS</a>
       <a href="devlog.html">DEVLOG</a>
       <a href="about.html">ABOUT</a>
     </div>
   </div>
 
-  <main role="main">
+  <!-- =========================
+       HERO / SNAPSHOT
+  ========================== -->
+  <main>
 
-    <!-- HOME -->
     <section id="home">
       <div class="hero">
+
         <div class="hero-bg">
-          <img src="images/Blog_BG.png" alt="Game Development Background" />
+          <img src="images/Blog_BG.png" alt="Game Development Background">
           <div class="hero-overlay"></div>
         </div>
 
         <div class="hero-inner">
           <div class="container">
+
             <div class="hero-card">
               <h1 class="hero-title">
                 <span>JENKO's</span>
                 <span>DEV LOG</span>
               </h1>
-              <p class="hero-subtitle">Crafting 2D games with Godot powered by caffeine</p>
+
+              <p class="hero-subtitle">
+                Crafting 2D games with Godot, powered by caffeine and late nights.
+              </p>
 
               <div class="hero-actions">
                 <a href="projects.html" class="btn primary">View Projects</a>
                 <a href="devlog.html" class="btn">Read Devlog</a>
               </div>
             </div>
+
           </div>
         </div>
 
       </div>
     </section>
 
-    <!-- PROJECTS (snapshot) -->
-    <section id="projects" class="section">
+    <!-- =========================
+         LATEST DEVLOG SNAPSHOT
+    ========================== -->
+    <section class="section">
       <div class="container">
+
         <div class="section-head">
-          <h2>PROJECTS</h2>
-          <div class="section-rule" aria-hidden="true"></div>
+          <h2>LATEST UPDATE</h2>
+          <div class="section-rule"></div>
         </div>
 
-        <div class="card project">
+        <!-- Snapshot post (click opens modal via main.js) -->
+        <article class="card devlog-entry" role="button" tabindex="0">
           <div class="card-pad">
-            <div class="project-header">
-              <h3>Dev Cycle</h3>
-              <span class="project-status">IN DEVELOPMENT</span>
+
+            <div class="devlog-header">
+              <h4>Dev Log — Art Overhaul Mode (Finally)</h4>
+              <time>16 Jan 2026</time>
             </div>
-            <p>An immersive tycoon game where you</p>
-            <p>Built with Godot Engine</p>
-            <a href="projects.html" class="project-link">View Project Page →</a>
+
+            <span class="hint">Click to read more</span>
+
+            <p>
+              After locking in the core systems and proving the foundation is solid,
+              I’ve shifted gears to focus on the visual side of the game. This update
+              marks the start of a full art and UI overhaul — menus, HUD, inventory,
+              and overall vibe.
+            </p>
+
           </div>
-        </div>
-      </div>
-    </section>
+        </article>
 
-    <!-- DEVLOG (snapshot: latest posts) -->
-    <section id="devlog" class="section">
-      <div class="container">
-        <div class="section-head">
-          <h2>LATEST DEV LOGS</h2>
-          <div class="section-rule" aria-hidden="true"></div>
-        </div>
-
-        <!-- NOTE:
-          - Bigger separation is handled by the wrapper grid gap + entry margin.
-          - Click registering on both was caused by broken nested markup before.
-          - Each post is now a clean, separate <article> with no nesting.
-        -->
-        <div class="grid" style="gap: 26px;">
-          <!-- Post 1 -->
-          <article class="card devlog-entry" role="button" tabindex="0">
-            <div class="card-pad">
-
-              <div class="devlog-header">
-                <h4>Dev Log — Art Overhaul Mode (Finally)</h4>
-                <time>16 Jan 2026</time>
-              </div>
-
-              <span class="hint">Click to read more</span>
-
-              <!-- Preview clamp (doesn't change content, only visual length on index) -->
-              <div class="preview-clamp">
-                <p>Today I caught up with a mate to get some help and direction on the full redesign of the game’s art. I’ve been itching to do this for a while, but I didn’t want to sink time into visuals until I knew the actual game systems were going to hold up. Now that I’ve proven to myself I can program a pretty complex foundation — one that’s almost good enough to support the core loop I’m chasing — it feels like the right time to shift gears.</p>
-                <p>Don’t get me wrong, there’s still a tonne of work left to do and the game is nowhere near “done”, but the important part is the base is solid. The logic, the structure, the flow… it’s all finally starting to feel like a real game instead of a pile of test systems. So I’m giving myself a bit of a breather from heavy programming for a moment and focusing on the part that’s going to make everything feel real: the presentation.</p>
-                <p>Over the next stretch I’ll be putting most of my time into reworking the entire look of the game — all the art, menus, and UI. I want the game to have a clear style and vibe that matches what I’ve had in my head from the start. That means redesigning everything properly, not just patching things up.</p>
-                <p>On the UI side, I’ll be adding a proper in-game ESC menu so you can access settings, quit to the main menu, or exit to desktop cleanly. I’m also planning a full overhaul of the inventory, and I’ll be rebuilding the HUD into something way cleaner and more readable. Right now it does the job, but it’s not the vibe, and it definitely doesn’t feel polished.</p>
-                <p>For the next few days I’ll basically be living in calls with my artist, going back and forth until everything starts landing exactly how we want it. Once the visuals and UI are in a way better place, I’ll jump back into the programming side and start going deeper into the core systems again — but this time with a game that actually looks like the game it’s meant to be.</p>
-                <p>Pretty excited for this part. The code might be the backbone, but the art is what makes it feel alive.</p>
-              </div>
-
-              <!-- Optional: small CTA that DOESN'T interfere with click-to-open -->
-              <a class="project-link" href="devlog.html" onclick="event.stopPropagation()">Go to Devlog Page →</a>
-
-              <div class="image-gallery" aria-label="Devlog images">
-                <!-- No images provided for this post yet -->
-              </div>
-
-            </div>
-          </article>
-
-          <!-- Post 2 -->
-          <article class="card devlog-entry" role="button" tabindex="0">
-            <div class="card-pad">
-
-              <div class="devlog-header">
-                <h4>Dev Log – Locking in the Core Development Loop</h4>
-                <time>15 Jan 2026</time>
-              </div>
-
-              <span class="hint">Click to read more</span>
-
-              <div class="preview-clamp">
-                <p>This has been one of the biggest development milestones so far, and honestly one of the most important ones to get right before moving forward. Over the last stretch of work, the focus hasn’t been on adding flashy features, but on properly locking in the entire game development loop from start to finish. I wanted to make sure that making a game, developing it, publishing it, supporting it, and finally moving on all feel like real, connected systems rather than disconnected menus or progress bars.</p>
-                <p>At the core of this update is the fact that development is now fully driven by time. Progress doesn’t magically jump forward or tick up just because you clicked a button. Hours are earned minute by minute through the in-game clock, sleeping correctly skips time without breaking anything, and development only advances when a real hour of work has actually passed. This was crucial to making the game feel grounded and believable rather than gamey or exploitable.</p>
-                <p>Once a project is started, it moves through a clear lifecycle. During development, the game builds up progress while also carrying an inherent bug risk that’s influenced by the player’s decisions, such as genre and programming language. More bugs mean worse starting quality, and that trade-off is intentional. When development finishes, the game becomes ready to publish, and once published, sales begin immediately. There’s no hidden delay or fake buffer — the game is out in the world, and its performance is now affected by the choices made during development.</p>
-                <p>After release, the game enters a proper support phase. This is where updates come into play. Updates don’t cost money yet, but they do cost player fatigue and time, and they exist to reduce bugs and increase quality over time. Importantly, support progress now starts at zero, not at some artificial 100%, and quality doesn’t reset or drop incorrectly when entering this phase. The quality you publish with is the baseline, and every update builds on top of that. Bugs are tracked from their starting count at release, and quality improves as bugs are fixed. Once bugs drop below a certain threshold, the player can finish support permanently, locking the game and freeing themselves up to start the next project.</p>
-                <p>A lot of effort also went into separating how information is presented. The in-game computer is now the place where full control happens — starting projects, publishing games, managing updates, and making decisions. The phone, on the other hand, is designed as a lightweight, always-available snapshot. It mirrors exactly what the computer shows, but without buttons or interaction. This means you can keep an eye on development or support progress while walking around, without opening menus or pausing the flow of the game. Under the hood, it’s signal-driven and optimised so it updates only when something actually changes.</p>
-                <p>Behind the scenes, the save system has been tightened up significantly. Active projects, completed games, released titles, support states, bugs, quality, and future sales data are all persisted cleanly. You can save at any point — mid-development, mid-support, or post-release — and everything restores exactly as it should. At the same time, the codebase itself has been cleaned up and tagged so systems are clearly separated and readable, making future additions far less risky.</p>
-                <p>With this foundation in place, the game is now ready to move into the next major phase: sales simulation. This will introduce long-term performance, revenue decay, the impact of updates over time, and eventually the deeper strategy of balancing quality, bugs, timing, and player fatigue. But none of that would matter if the core loop wasn’t solid — and now it finally is.</p>
-              </div>
-
-              <a class="project-link" href="devlog.html" onclick="event.stopPropagation()">Read Full Devlog Feed →</a>
-
-              <div class="gallery-wrap">
-                <div class="gallery-title">SCREENSHOTS</div>
-
-                <div class="image-gallery" aria-label="Devlog images">
-                  <img src="images/BlogPost 1-1.png" alt="Vision Angle 1" onclick="openLightbox(this, event)">
-                  <img src="images/BlogPost 1-2.png" alt="Vision Angle 1" onclick="openLightbox(this, event)">
-                  <img src="images/BlogPost 1-3.png" alt="Vision Angle 1" onclick="openLightbox(this, event)">
-                  <img src="images/BlogPost 1-4.png" alt="Vision Angle 1" onclick="openLightbox(this, event)">
-                  <img src="images/BlogPost 1-5.png" alt="Vision Angle 1" onclick="openLightbox(this, event)">
-                  <img src="images/BlogPost 1-6.png" alt="Vision Angle 1" onclick="openLightbox(this, event)">
-                  <img src="images/BlogPost 1-7.png" alt="Vision Angle 1" onclick="openLightbox(this, event)">
-                  <img src="images/BlogPost 1-8.png" alt="Vision Angle 1" onclick="openLightbox(this, event)">
-                  <img src="images/BlogPost 1-9.png" alt="Vision Angle 1" onclick="openLightbox(this, event)">
-                  <img src="images/BlogPost 1-10.png" alt="Vision Angle 1" onclick="openLightbox(this, event)">
-                  <img src="images/BlogPost 1-11.png" alt="Vision Angle 1" onclick="openLightbox(this, event)">
-                </div>
-              </div>
-
-            </div>
-          </article>
-
-        </div>
-
-        <div style="margin-top: 18px;">
-          <a class="btn primary" href="devlog.html">View All Dev Logs →</a>
+        <div style="margin-top: 28px;">
+          <a href="devlog.html" class="btn primary">View Full Dev Log</a>
         </div>
 
       </div>
     </section>
-
-    <!-- ABOUT (snapshot) -->
-    <section id="about" class="section">
-      <div class="container">
-        <div class="section-head">
-          <h2>ABOUT</h2>
-          <div class="section-rule" aria-hidden="true"></div>
-        </div>
-
-        <div class="about-content">
-          <div class="about-intro">
-            <h3>Hey, I'm Jenko!</h3>
-            <p>A 25-year-old game developer from Melbourne, Australia, turning coffee and spare time into interactive experiences.</p>
-          </div>
-
-          <div class="about-grid">
-            <div class="about-card">
-              <div class="card-icon">
-                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                  <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z"/>
-                  <path d="M12 22V12"/>
-                  <path d="M12 12L20 7"/>
-                  <path d="M12 12L4 7"/>
-                </svg>
-              </div>
-              <h4>The Journey</h4>
-              <p>Started my game dev adventure 3-4 years ago with Unity, explored the power of Unreal Engine for 6 months, then discovered Godot — and never looked back. Now I'm crafting 2D experiences that blend atmospheric storytelling with engaging mechanics.</p>
-            </div>
-
-            <div class="about-card">
-              <div class="card-icon">
-                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                  <circle cx="12" cy="12" r="10"/>
-                  <polyline points="12 6 12 12 16 14"/>
-                </svg>
-              </div>
-              <h4>The Balance</h4>
-              <p>I juggle a full-time job that takes me away for extended periods, but every spare moment becomes an opportunity to code, design, and create. Game development isn't just a hobby — it's my passion project that keeps me grounded (pun intended).</p>
-            </div>
-
-            <div class="about-card">
-              <div class="card-icon">
-                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                  <path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/>
-                  <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
-                  <line x1="12" y1="22.08" x2="12" y2="12"/>
-                </svg>
-              </div>
-              <h4>The Tech Stack</h4>
-              <p>Currently loving Godot for its flexibility and open-source nature. Experienced with GDScript, pixel art creation, and implementing complex game systems. Always learning, always building, always pushing pixels around until they feel just right.</p>
-            </div>
-          </div>
-
-          <div class="about-footer">
-            <p>When I'm not debugging door transitions at 2 AM or perfecting enemy AI vision cones, you'll find me exploring Melbourne's coffee scene (essential fuel for late-night dev sessions) or planning my next game mechanic.</p>
-            <div class="about-stats">
-              <div class="stat">
-                <span class="stat-number">3-4</span>
-                <span class="stat-label">Years in Game Dev</span>
-              </div>
-              <div class="stat">
-                <span class="stat-number">3</span>
-                <span class="stat-label">Engines Mastered</span>
-              </div>
-              <div class="stat">
-                <span class="stat-number">∞</span>
-                <span class="stat-label">Coffees Consumed</span>
-              </div>
-            </div>
-
-            <div style="margin-top: 16px;">
-              <a class="btn" href="about.html">Read More About Me →</a>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="site-footer">
-      <div class="container">
-        <div class="footer-inner">
-          <div>
-            <div>© 2025 Jenko</div>
-            <div>Made with Coffee</div>
-          </div>
-
-          <div class="social-links" aria-label="Social links">
-            <a href="#" title="GitHub" aria-label="GitHub">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-              </svg>
-            </a>
-
-            <a href="#" title="Twitter" aria-label="Twitter">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/>
-              </svg>
-            </a>
-
-            <a href="#" title="LinkedIn" aria-label="LinkedIn">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/>
-                <circle cx="4" cy="4" r="2"/>
-              </svg>
-            </a>
-          </div>
-        </div>
-      </div>
-    </footer>
 
   </main>
 
-  <!-- Lightbox -->
-  <div class="lightbox" onclick="closeLightbox(event)">
-    <img id="lightbox-img" src="" alt="Expanded view">
-  </div>
+  <!-- =========================
+       Footer
+  ========================== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-inner">
 
-  <!-- Devlog Modal -->
-  <div class="devlog-modal" id="devlog-modal" onclick="closeDevlogModal(event)">
-    <div class="devlog-modal-content" onclick="event.stopPropagation()">
-      <div class="modal-top">
-        <span class="chip">DEV LOG</span>
-        <button class="modal-close" onclick="closeDevlogModal()" aria-label="Close modal">&times;</button>
-      </div>
-      <div id="devlog-modal-body">
-        <!-- Content injected by main.js -->
+        <div>
+          <div>© 2026 Jenko</div>
+          <div>Made with Coffee</div>
+        </div>
+
+        <div class="social-links">
+          <a href="#" title="GitHub" aria-label="GitHub">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 0c-6.626 0-12 5.373-12 12
+              0 5.302 3.438 9.8 8.207 11.387
+              .599.111.793-.261.793-.577v-2.234
+              c-3.338.726-4.033-1.416-4.033-1.416
+              -.546-1.387-1.333-1.756-1.333-1.756
+              -1.089-.745.083-.729.083-.729
+              1.205.084 1.839 1.237 1.839 1.237
+              1.07 1.834 2.807 1.304 3.492.997
+              .107-.775.418-1.305.762-1.604
+              -2.665-.305-5.467-1.334-5.467-5.931
+              0-1.311.469-2.381 1.236-3.221
+              -.124-.303-.535-1.524.117-3.176
+              0 0 1.008-.322 3.301 1.23
+              .957-.266 1.983-.399 3.003-.404
+              1.02.005 2.047.138 3.006.404
+              2.291-1.552 3.297-1.23 3.297-1.23
+              .653 1.653.242 2.874.118 3.176
+              .77.84 1.235 1.911 1.235 3.221
+              0 4.609-2.807 5.624-5.479 5.921
+              .43.372.823 1.102.823 2.222v3.293
+              c0 .319.192.694.801.576
+              4.765-1.589 8.199-6.086 8.199-11.386
+              0-6.627-5.373-12-12-12z"/>
+            </svg>
+          </a>
+        </div>
+
       </div>
     </div>
-  </div>
+  </footer>
 
-  <!-- Shared JS -->
-  <script defer src="js/main.js"></script>
 </body>
 </html>
