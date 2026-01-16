@@ -8,17 +8,17 @@
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-  <!-- Shared Styles -->
+  <!-- Styles -->
   <link rel="stylesheet" href="css/style.css">
 
-  <!-- Shared JS -->
+  <!-- JS -->
   <script defer src="js/main.js"></script>
 </head>
 
 <body>
 
 <!-- =========================
-     Top Navigation
+     NAVBAR
 ========================== -->
 <header class="topbar">
   <div class="topbar-inner">
@@ -35,13 +35,12 @@
       <a class="nav-cta" href="devlog.html">Read Latest</a>
     </nav>
 
-    <button class="menu-btn" id="menu-toggle" aria-label="Toggle menu">
+    <button class="menu-btn" id="menu-toggle">
       <span></span><span></span><span></span>
     </button>
   </div>
 </header>
 
-<!-- Mobile Drawer -->
 <div class="drawer" id="mobile-drawer">
   <div class="drawer-panel">
     <a href="index.html">HOME</a>
@@ -59,7 +58,7 @@
 <section id="home">
   <div class="hero">
     <div class="hero-bg">
-      <img src="images/Blog_BG.png" alt="Game Development Background">
+      <img src="images/Blog_BG.png" alt="">
       <div class="hero-overlay"></div>
     </div>
 
@@ -70,9 +69,8 @@
             <span>JENKO's</span>
             <span>DEV LOG</span>
           </h1>
-
           <p class="hero-subtitle">
-            Crafting 2D games with Godot, powered by caffeine and stubborn persistence.
+            Crafting 2D games with Godot, caffeine, and stubborn persistence.
           </p>
 
           <div class="hero-actions">
@@ -87,33 +85,33 @@
 </section>
 
 <!-- =========================
-     PROJECTS SNAPSHOT
+     STATS (RESTORED)
 ========================== -->
 <section class="section">
   <div class="container">
-    <div class="section-head">
-      <h2>PROJECTS</h2>
-      <div class="section-rule"></div>
-    </div>
 
-    <div class="card project">
-      <div class="card-pad">
-        <div class="project-header">
-          <h3>Dev Cycle</h3>
-          <span class="project-status">IN DEVELOPMENT</span>
-        </div>
+    <div class="about-stats">
+      <div class="stat">
+        <span class="stat-number">3–4</span>
+        <span class="stat-label">YEARS DEV</span>
+      </div>
 
-        <p>An immersive game development tycoon focused on systems, strategy, and long-term planning.</p>
-        <p>Built with Godot Engine.</p>
+      <div class="stat">
+        <span class="stat-number">3</span>
+        <span class="stat-label">ENGINES</span>
+      </div>
 
-        <a href="projects.html" class="project-link">View Project →</a>
+      <div class="stat">
+        <span class="stat-number">∞</span>
+        <span class="stat-label">COFFEE</span>
       </div>
     </div>
+
   </div>
 </section>
 
 <!-- =========================
-     DEVLOG SNAPSHOT
+     LATEST DEVLOG SNAPSHOT
 ========================== -->
 <section class="section">
   <div class="container">
@@ -122,7 +120,7 @@
       <div class="section-rule"></div>
     </div>
 
-    <article class="card devlog-entry" role="button" tabindex="0">
+    <article class="card devlog-entry">
       <div class="card-pad">
         <div class="devlog-header">
           <h4>Dev Log — Art Overhaul Mode (Finally)</h4>
@@ -130,97 +128,20 @@
         </div>
         <span class="hint">Click to read more</span>
         <p>
-          With the core systems finally locked in, I’ve shifted focus to a full art and UI overhaul.
-          Menus, HUD, inventory, and overall vibe are getting rebuilt properly.
+          With the core systems finally locked in, I’ve shifted focus to a full art
+          and UI overhaul across the entire game.
         </p>
       </div>
     </article>
 
-    <article class="card devlog-entry" role="button" tabindex="0" style="margin-top: 28px;">
-      <div class="card-pad">
-        <div class="devlog-header">
-          <h4>Dev Log – Locking in the Core Development Loop</h4>
-          <time>15 Jan 2026</time>
-        </div>
-        <span class="hint">Click to read more</span>
-        <p>
-          This milestone was about locking the entire dev lifecycle —
-          development, publishing, support, bugs, and progression — into one cohesive system.
-        </p>
-      </div>
-    </article>
-
-    <div style="margin-top: 28px;">
-      <a href="devlog.html" class="btn primary">View Full Dev Log →</a>
+    <div style="margin-top: 24px;">
+      <a href="devlog.html" class="btn primary">View Full Devlog →</a>
     </div>
   </div>
 </section>
 
-<!-- =========================
-     ABOUT SNAPSHOT
-========================== -->
-<section class="section">
-  <div class="container">
-    <div class="section-head">
-      <h2>ABOUT</h2>
-      <div class="section-rule"></div>
-    </div>
+</main>
 
-    <div class="about-intro">
-      <h3>Hey, I'm Jenko!</h3>
-      <p>
-        A Melbourne-based game developer balancing full-time work with late-night
-        game development, turning ideas into systems one feature at a time.
-      </p>
-
-      <div style="margin-top: 18px;">
-        <a href="about.html" class="btn primary">Read Full Story →</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- =========================
-     OLD-STYLE STAT CARDS (RESTORED)
-========================== -->
-<section class="section" style="padding-top: 0;">
-  <div class="container">
-    <div class="about-grid">
-
-      <div class="about-card">
-        <div class="card-icon">⏱</div>
-        <h4>Years in Game Dev</h4>
-        <p>
-          <strong>3–4 years</strong> of hands-on development across multiple engines,
-          building complex systems and learning the hard way.
-        </p>
-      </div>
-
-      <div class="about-card">
-        <div class="card-icon">🛠</div>
-        <h4>Engines Mastered</h4>
-        <p>
-          Experience with <strong>Unity, Unreal, and Godot</strong>,
-          ultimately settling on Godot for flexible, system-driven 2D development.
-        </p>
-      </div>
-
-      <div class="about-card">
-        <div class="card-icon">☕</div>
-        <h4>Coffees Consumed</h4>
-        <p>
-          An <strong>unhealthy but essential</strong> amount —
-          powering late nights, debugging marathons, and sudden design breakthroughs.
-        </p>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- =========================
-     Footer
-========================== -->
 <footer class="site-footer">
   <div class="container">
     <div class="footer-inner">
@@ -231,28 +152,6 @@
     </div>
   </div>
 </footer>
-
-</main>
-
-<!-- =========================
-     Lightbox
-========================== -->
-<div class="lightbox" onclick="closeLightbox(event)">
-  <img id="lightbox-img" src="" alt="Expanded view">
-</div>
-
-<!-- =========================
-     Devlog Modal
-========================== -->
-<div class="devlog-modal" id="devlog-modal" onclick="closeDevlogModal(event)">
-  <div class="devlog-modal-content" onclick="event.stopPropagation()">
-    <div class="modal-top">
-      <span class="chip">DEV LOG</span>
-      <button class="modal-close" onclick="closeDevlogModal()">&times;</button>
-    </div>
-    <div id="devlog-modal-body"></div>
-  </div>
-</div>
 
 </body>
 </html>
