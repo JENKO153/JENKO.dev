@@ -4,1664 +4,983 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>JENKO | Game Developer</title>
+
+  <!-- Fonts (kept your original choice) -->
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
   <style>
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-
-  :root {
-    --primary: #00ffcc;
-    --secondary: #ff00aa;
-    --accent: #ffaa00;
-    --bg-dark: #0a0a0a;
-    --bg-medium: #1a1a1a;
-    --bg-light: #2a2a2a;
-    --text-primary: #ffffff;
-    --text-secondary: #b0b0b0;
-    --text-dim: #666666;
-  }
-
-  html {
-    scroll-behavior: smooth;
-    font-size: 16px;
-  }
-
-  body {
-    font-family: 'Inter', sans-serif;
-    background-color: var(--bg-dark);
-    color: var(--text-primary);
-    overflow-x: hidden;
-    position: relative;
-  }
-
-  /* Animated background particles */
-  body::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: 
-      radial-gradient(2px 2px at 20% 30%, var(--primary), transparent),
-      radial-gradient(2px 2px at 60% 70%, var(--secondary), transparent),
-      radial-gradient(1px 1px at 50% 50%, var(--accent), transparent);
-    background-size: 200px 200px;
-    opacity: 0.1;
-    animation: drift 20s infinite linear;
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  @keyframes drift {
-    0% { transform: translate(0, 0); }
-    100% { transform: translate(-200px, -200px); }
-  }
-
-  .layout {
-    display: flex;
-    height: 100vh;
-    position: relative;
-    z-index: 1;
-  }
-
-  /* Sidebar Styling */
-  .sidebar {
-    background: linear-gradient(180deg, var(--bg-medium), var(--bg-dark));
-    width: 300px;
-    padding: 3rem 2rem;
-    border-right: 1px solid rgba(255, 255, 255, 0.1);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .sidebar::after {
-    content: '';
-    position: absolute;
-    top: -50%;
-    right: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
-    opacity: 0.05;
-    animation: pulse 4s ease-in-out infinite;
-  }
-
-  @keyframes pulse {
-    0%, 100% { transform: scale(0.8); opacity: 0.05; }
-    50% { transform: scale(1.2); opacity: 0.1; }
-  }
-
-  .logo-section {
-    position: relative;
-    z-index: 2;
-  }
-
-  .logo-section h1 {
-    font-family: 'Orbitron', monospace;
-    font-size: 2.5rem;
-    font-weight: 900;
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    margin-bottom: 0.5rem;
-    letter-spacing: 2px;
-    animation: glow 2s ease-in-out infinite alternate;
-  }
-
-  @keyframes glow {
-    0% { filter: drop-shadow(0 0 10px rgba(0, 255, 204, 0.5)); }
-    100% { filter: drop-shadow(0 0 20px rgba(255, 0, 170, 0.8)); }
-  }
-
-  .tagline {
-    font-size: 0.9rem;
-    color: var(--text-secondary);
-    margin-bottom: 3rem;
-    font-weight: 300;
-    letter-spacing: 1px;
-  }
-
-  .nav-links {
-    position: relative;
-    z-index: 2;
-  }
-
-  .nav-links a {
-    display: flex;
-    align-items: center;
-    padding: 1rem 1.5rem;
-    margin: 0.5rem -1.5rem;
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: var(--text-secondary);
-    text-decoration: none;
-    border-radius: 8px;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .nav-links a::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 0;
-    height: 2px;
-    background: var(--primary);
-    transition: width 0.3s ease;
-  }
-
-  .nav-links a:hover {
-    color: var(--text-primary);
-    background: rgba(255, 255, 255, 0.05);
-    transform: translateX(10px);
-  }
-
-  .nav-links a:hover::before {
-    width: 20px;
-  }
-
-  .sidebar-footer {
-    font-size: 0.75rem;
-    color: var(--text-dim);
-    position: relative;
-    z-index: 2;
-  }
-
-  .social-links {
-    display: flex;
-    gap: 1rem;
-    margin-top: 1rem;
-  }
-
-  .social-links a {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
-    color: var(--text-secondary);
-  }
-
-  .social-links a:hover {
-    border-color: var(--primary);
-    color: var(--primary);
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0, 255, 204, 0.3);
-  }
-
-  /* Main Content Area */
-  .main {
-    flex: 1;
-    overflow-y: auto;
-    padding: 0;
-    background: var(--bg-dark);
-    position: relative;
-  }
-
-  .main > .section {
-    padding: 4rem;
-  }
-
-  #home {
-    padding: 0;
-  }
-
-  .main::-webkit-scrollbar {
-    width: 10px;
-  }
-
-  .main::-webkit-scrollbar-track {
-    background: var(--bg-medium);
-  }
-
-  .main::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, var(--primary), var(--secondary));
-    border-radius: 5px;
-  }
-
-  .section {
-    margin-bottom: 6rem;
-    opacity: 0;
-    animation: fadeInUp 0.8s ease forwards;
-  }
-
-  .section:nth-child(1) { animation-delay: 0.1s; }
-  .section:nth-child(2) { animation-delay: 0.2s; }
-  .section:nth-child(3) { animation-delay: 0.3s; }
-
-  @keyframes fadeInUp {
-    0% { 
-      opacity: 0; 
-      transform: translateY(40px); 
-    }
-    100% { 
-      opacity: 1; 
-      transform: translateY(0); 
-    }
-  }
-
-  .section-header {
-    display: flex;
-    align-items: center;
-    margin-bottom: 3rem;
-    position: relative;
-  }
-
-  .section h2 {
-    font-family: 'Orbitron', monospace;
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--text-primary);
-    margin-right: 2rem;
-    position: relative;
-  }
-
-  .section-header::after {
-    content: '';
-    flex: 1;
-    height: 2px;
-    background: linear-gradient(90deg, var(--primary), transparent);
-    margin-left: 2rem;
-  }
-
-  /* Project Cards */
-  .project {
-    background: linear-gradient(135deg, var(--bg-medium), var(--bg-light));
-    padding: 2rem;
-    border-radius: 16px;
-    margin-bottom: 2rem;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    position: relative;
-    overflow: hidden;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  .project::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(0, 255, 204, 0.1), transparent);
-    transition: left 0.6s ease;
-  }
-
-  .project:hover {
-    transform: translateY(-5px) scale(1.02);
-    border-color: var(--primary);
-    box-shadow: 
-      0 10px 30px rgba(0, 0, 0, 0.5),
-      0 0 50px rgba(0, 255, 204, 0.1);
-  }
-
-  .project:hover::before {
-    left: 100%;
-  }
-
-  .project-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1rem;
-  }
-
-  .project h3 {
-    font-family: 'Orbitron', monospace;
-    font-size: 1.4rem;
-    color: var(--primary);
-    font-weight: 700;
-  }
-
-  .project-status {
-    display: inline-block;
-    padding: 0.3rem 1rem;
-    background: rgba(255, 170, 0, 0.2);
-    border: 1px solid var(--accent);
-    border-radius: 20px;
-    font-size: 0.75rem;
-    color: var(--accent);
-    font-weight: 600;
-    animation: statusPulse 2s ease-in-out infinite;
-  }
-
-  @keyframes statusPulse {
-    0%, 100% { opacity: 0.8; }
-    50% { opacity: 1; }
-  }
-
-  .project p {
-    font-size: 1rem;
-    line-height: 1.8;
-    color: var(--text-secondary);
-    margin: 1rem 0;
-  }
-
-  .project-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    color: var(--primary);
-    font-weight: 500;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    margin-top: 1rem;
-  }
-
-  .project-link:hover {
-    gap: 1rem;
-    color: var(--text-primary);
-  }
-
-  /* Devlog Entries */
-  .devlog-entry {
-    background: var(--bg-medium);
-    padding: 2.5rem;
-    border-radius: 16px;
-    margin-bottom: 3rem;
-    border-left: 4px solid var(--secondary);
-    position: relative;
-    overflow: hidden;
-    transition: all 0.3s ease;
-    cursor: pointer;
-  }
-
-  .devlog-entry::after {
-    content: '';
-    position: absolute;
-    top: -2px;
-    left: -2px;
-    right: -2px;
-    bottom: -2px;
-    background: linear-gradient(45deg, var(--primary), var(--secondary), var(--accent));
-    border-radius: 16px;
-    opacity: 0;
-    z-index: -1;
-    transition: opacity 0.3s ease;
-  }
-
-  .devlog-entry::before {
-    content: 'Click to read more';
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    background: rgba(0, 255, 204, 0.2);
-    color: var(--primary);
-    padding: 0.3rem 1rem;
-    border-radius: 20px;
-    font-size: 0.75rem;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    pointer-events: none;
-  }
-
-  .devlog-entry:hover {
-    transform: translateX(10px);
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
-  }
-
-  .devlog-entry:hover::after {
-    opacity: 0.1;
-  }
-
-  .devlog-entry:hover::before {
-    opacity: 1;
-  }
-
-  /* Devlog Modal */
-  .devlog-modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.95);
-    backdrop-filter: blur(20px);
-    z-index: 10000;
-    overflow-y: auto;
-    padding: 2rem;
-    animation: modalFadeIn 0.3s ease;
-  }
-
-  @keyframes modalFadeIn {
-    0% { opacity: 0; }
-    100% { opacity: 1; }
-  }
-
-  .devlog-modal.active {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .devlog-modal-content {
-    background: var(--bg-medium);
-    border-radius: 20px;
-    max-width: 900px;
-    width: 100%;
-    max-height: 90vh;
-    overflow-y: auto;
-    position: relative;
-    padding: 3rem;
-    box-shadow: 
-      0 20px 60px rgba(0, 0, 0, 0.5),
-      0 0 100px rgba(0, 255, 204, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    animation: modalSlideIn 0.4s ease;
-  }
-
-  @keyframes modalSlideIn {
-    0% { 
-      transform: scale(0.8) translateY(50px);
-      opacity: 0;
-    }
-    100% { 
-      transform: scale(1) translateY(0);
-      opacity: 1;
-    }
-  }
-
-  .modal-close {
-    position: absolute;
-    top: 1.5rem;
-    right: 1.5rem;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    color: var(--text-primary);
-    font-size: 2rem;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    z-index: 10;
-  }
-
-  .modal-close:hover {
-    background: var(--primary);
-    color: var(--bg-dark);
-    transform: rotate(90deg);
-  }
-
-  #devlog-modal-body {
-    animation: contentFadeIn 0.5s ease 0.2s both;
-  }
-
-  @keyframes contentFadeIn {
-    0% { opacity: 0; transform: translateY(20px); }
-    100% { opacity: 1; transform: translateY(0); }
-  }
-
-  #devlog-modal-body .devlog-header {
-    margin-bottom: 2rem;
-    padding-bottom: 1.5rem;
-    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
-  }
-
-  #devlog-modal-body h4 {
-    font-family: 'Orbitron', monospace;
-    font-size: 2rem;
-    color: var(--primary);
-    margin-bottom: 1rem;
-  }
-
-  #devlog-modal-body time {
-    display: inline-block;
-    padding: 0.5rem 1.5rem;
-    background: linear-gradient(135deg, rgba(255, 0, 170, 0.2), rgba(0, 255, 204, 0.2));
-    border-radius: 30px;
-    font-size: 0.9rem;
-    color: var(--text-primary);
-    font-weight: 600;
-  }
-
-  #devlog-modal-body p {
-    font-size: 1.1rem;
-    line-height: 1.9;
-    margin: 1.5rem 0;
-    color: var(--text-secondary);
-  }
-
-  #devlog-modal-body strong {
-    color: var(--accent);
-  }
-
-  #devlog-modal-body .image-gallery {
-    margin-top: 3rem;
-    gap: 2rem;
-  }
-
-  #devlog-modal-body .image-gallery img {
-    height: 250px;
-    cursor: pointer;
-    border: 2px solid transparent;
-    transition: all 0.3s ease;
-  }
-
-  #devlog-modal-body .image-gallery img:hover {
-    border-color: var(--primary);
-    transform: scale(1.05);
-  }
-
-  .devlog-modal-content::-webkit-scrollbar {
-    width: 10px;
-  }
-
-  .devlog-modal-content::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 5px;
-  }
-
-  .devlog-modal-content::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, var(--primary), var(--secondary));
-    border-radius: 5px;
-  }
-
-  /* Mobile adjustments for modal */
-  @media (max-width: 768px) {
-    .devlog-entry::before {
-      display: none;
+    /* =========================
+       Reset / Base
+    ========================== */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root{
+      /* Clean, professional dark palette */
+      --bg: #0b0f14;
+      --panel: #101826;
+      --panel-2: #0f1724;
+      --border: rgba(255,255,255,0.10);
+      --border-2: rgba(255,255,255,0.06);
+
+      --text: #eef2ff;
+      --muted: rgba(238,242,255,0.70);
+      --dim: rgba(238,242,255,0.45);
+
+      /* Subtle accent (keeps your neon identity but toned down) */
+      --primary: #55f7d4;   /* teal */
+      --secondary: #ff4fb7; /* pink */
+      --accent: #ffb44b;    /* warm amber */
+
+      --shadow: 0 16px 50px rgba(0,0,0,0.55);
+      --radius: 18px;
+
+      --max: 1120px;
+      --navH: 72px;
     }
 
-    .devlog-modal {
-      padding: 1rem;
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body{
+      font-family: 'Inter', sans-serif;
+      background: radial-gradient(1200px 700px at 25% -10%, rgba(85,247,212,0.10), transparent 55%),
+                  radial-gradient(900px 600px at 110% 10%, rgba(255,79,183,0.08), transparent 55%),
+                  radial-gradient(900px 600px at 60% 120%, rgba(255,180,75,0.06), transparent 55%),
+                  var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
     }
 
-    .devlog-modal-content {
-      padding: 2rem 1.5rem;
-      max-height: 100vh;
-      border-radius: 16px;
+    a{ color: inherit; text-decoration: none; }
+    img{ display: block; max-width: 100%; }
+
+    /* Focus visibility */
+    :focus-visible{
+      outline: 2px solid rgba(85,247,212,0.9);
+      outline-offset: 3px;
+      border-radius: 10px;
     }
 
-    .modal-close {
-      top: 1rem;
-      right: 1rem;
-      width: 35px;
-      height: 35px;
-      font-size: 1.5rem;
+    /* =========================
+       Layout Containers
+    ========================== */
+    .container{
+      width: min(var(--max), 92vw);
+      margin: 0 auto;
     }
 
-    #devlog-modal-body h4 {
-      font-size: 1.5rem;
+    .section{
+      padding: 70px 0;
     }
 
-    #devlog-modal-body p {
-      font-size: 1rem;
+    /* Anchor offset for sticky nav */
+    section[id]{
+      scroll-margin-top: calc(var(--navH) + 18px);
     }
 
-    #devlog-modal-body .image-gallery {
-      grid-template-columns: 1fr;
-    }
-  }
-
-  .devlog-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 1.5rem;
-  }
-
-  .devlog-entry h4 {
-    font-size: 1.3rem;
-    color: var(--text-primary);
-    font-weight: 600;
-  }
-
-  .devlog-entry time {
-    display: inline-block;
-    padding: 0.3rem 1rem;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 20px;
-    font-size: 0.8rem;
-    color: var(--text-secondary);
-    font-weight: 500;
-  }
-
-  .devlog-entry p {
-    font-size: 0.95rem;
-    line-height: 1.8;
-    color: var(--text-secondary);
-    margin: 1rem 0;
-  }
-
-  .devlog-entry strong {
-    color: var(--primary);
-    font-weight: 600;
-  }
-
-  /* Image Gallery */
-  .image-gallery {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1.5rem;
-    margin-top: 2rem;
-  }
-
-  .image-gallery img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-  }
-
-  .image-gallery img:hover {
-    transform: scale(1.05) rotate(1deg);
-    box-shadow: 
-      0 10px 30px rgba(0, 0, 0, 0.5),
-      0 0 30px rgba(0, 255, 204, 0.2);
-  }
-
-  /* Lightbox */
-  .lightbox {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.95);
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-    cursor: pointer;
-    backdrop-filter: blur(10px);
-  }
-
-  .lightbox img {
-    max-width: 90%;
-    max-height: 90%;
-    border-radius: 12px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
-    animation: zoomIn 0.3s ease;
-  }
-
-  @keyframes zoomIn {
-    0% { transform: scale(0.8); opacity: 0; }
-    100% { transform: scale(1); opacity: 1; }
-  }
-
-  .lightbox.active {
-    display: flex;
-  }
-
-  /* Hero Section */
-  #home {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .hero-background {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-  }
-
-  .hero-background img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-    min-width: 100%;
-    min-height: 100%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-
-  .hero-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-      135deg,
-      rgba(10, 10, 10, 0.8) 0%,
-      rgba(10, 10, 10, 0.6) 50%,
-      rgba(10, 10, 10, 0.9) 100%
-    );
-    backdrop-filter: blur(2px);
-  }
-
-  .hero-section {
-    text-align: center;
-    position: relative;
-    z-index: 2;
-    width: 100%;
-    max-width: 1200px;
-  }
-
-  .hero-content {
-    margin-bottom: 3rem;
-    position: relative;
-    z-index: 3;
-  }
-
-  .hero-title {
-    font-family: 'Orbitron', monospace;
-    font-size: clamp(3rem, 8vw, 6rem);
-    font-weight: 900;
-    line-height: 0.9;
-    margin-bottom: 1.5rem;
-    text-shadow: 0 0 40px rgba(0, 0, 0, 0.8);
-  }
-
-  .title-line {
-    display: block;
-    background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: titleGlow 3s ease-in-out infinite alternate;
-  }
-
-  @keyframes titleGlow {
-    0% { 
-      filter: brightness(1) drop-shadow(0 0 20px rgba(0, 255, 204, 0.5));
-      transform: scale(1);
-    }
-    100% { 
-      filter: brightness(1.2) drop-shadow(0 0 40px rgba(255, 0, 170, 0.8));
-      transform: scale(1.02);
-    }
-  }
-
-  .hero-subtitle {
-    font-size: 1.3rem;
-    color: var(--text-primary);
-    margin-bottom: 3rem;
-    font-weight: 300;
-    letter-spacing: 2px;
-    animation: fadeInUp 1s ease 0.5s both;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
-  }
-
-  .hero-cta {
-    display: flex;
-    gap: 1.5rem;
-    justify-content: center;
-    flex-wrap: wrap;
-    animation: fadeInUp 1s ease 0.7s both;
-  }
-
-  .cta-button {
-    padding: 1rem 2.5rem;
-    font-family: 'Orbitron', monospace;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    border-radius: 30px;
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .cta-button.primary {
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
-    color: var(--bg-dark);
-    box-shadow: 0 5px 20px rgba(0, 255, 204, 0.3);
-  }
-
-  .cta-button.primary:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 30px rgba(0, 255, 204, 0.5);
-  }
-
-  .cta-button.secondary {
-    background: rgba(255, 255, 255, 0.1);
-    color: var(--text-primary);
-    border: 2px solid var(--accent);
-    box-shadow: 0 5px 20px rgba(255, 170, 0, 0.2);
-    backdrop-filter: blur(10px);
-  }
-
-  .cta-button.secondary:hover {
-    background: var(--accent);
-    color: var(--bg-dark);
-    transform: translateY(-3px);
-    box-shadow: 0 8px 30px rgba(255, 170, 0, 0.4);
-  }
-
-  .hero-visual {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 1;
-  }
-
-  .floating-element {
-    position: absolute;
-    width: 300px;
-    height: 300px;
-    border-radius: 50%;
-    background: radial-gradient(circle, var(--primary), transparent);
-    opacity: 0.05;
-    filter: blur(40px);
-    animation: float 10s ease-in-out infinite;
-  }
-
-  .floating-element:nth-child(1) {
-    top: 20%;
-    left: 10%;
-    animation-delay: 0s;
-  }
-
-  .floating-element:nth-child(2) {
-    top: 60%;
-    right: 10%;
-    background: radial-gradient(circle, var(--secondary), transparent);
-    animation-delay: 3s;
-    animation-duration: 12s;
-  }
-
-  .floating-element:nth-child(3) {
-    bottom: 10%;
-    left: 50%;
-    background: radial-gradient(circle, var(--accent), transparent);
-    animation-delay: 6s;
-    animation-duration: 8s;
-  }
-
-  @keyframes float {
-    0%, 100% { transform: translate(0, 0) scale(1); }
-    33% { transform: translate(30px, -30px) scale(1.1); }
-    66% { transform: translate(-20px, 20px) scale(0.9); }
-  }
-
-  /* About Section Styles */
-  .about-content {
-    max-width: 1000px;
-  }
-
-  .about-intro {
-    text-align: center;
-    margin-bottom: 3rem;
-    padding: 2rem;
-    background: linear-gradient(135deg, rgba(0, 255, 204, 0.05), rgba(255, 0, 170, 0.05));
-    border-radius: 16px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-  }
-
-  .about-intro h3 {
-    font-family: 'Orbitron', monospace;
-    font-size: 2rem;
-    margin-bottom: 1rem;
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-
-  .about-intro p {
-    font-size: 1.1rem;
-    color: var(--text-secondary);
-    font-weight: 300;
-  }
-
-  .about-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    margin-bottom: 3rem;
-  }
-
-  .about-card {
-    background: var(--bg-medium);
-    padding: 2rem;
-    border-radius: 16px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .about-card::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, var(--accent), transparent);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
-
-  .about-card:hover {
-    transform: translateY(-5px);
-    border-color: var(--accent);
-  }
-
-  .about-card:hover::before {
-    opacity: 0.05;
-  }
-
-  .card-icon {
-    width: 60px;
-    height: 60px;
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 1.5rem;
-    color: var(--bg-dark);
-  }
-
-  .about-card h4 {
-    font-family: 'Orbitron', monospace;
-    font-size: 1.2rem;
-    margin-bottom: 1rem;
-    color: var(--text-primary);
-  }
-
-  .about-card p {
-    font-size: 0.95rem;
-    line-height: 1.8;
-    color: var(--text-secondary);
-  }
-
-  .about-footer {
-    text-align: center;
-    background: var(--bg-medium);
-    padding: 2.5rem;
-    border-radius: 16px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-  }
-
-  .about-footer p {
-    font-size: 1rem;
-    line-height: 1.8;
-    color: var(--text-secondary);
-    margin-bottom: 2rem;
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .about-stats {
-    display: flex;
-    justify-content: center;
-    gap: 4rem;
-    flex-wrap: wrap;
-  }
-
-  .stat {
-    text-align: center;
-  }
-
-  .stat-number {
-    display: block;
-    font-family: 'Orbitron', monospace;
-    font-size: 2.5rem;
-    font-weight: 900;
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    margin-bottom: 0.5rem;
-    animation: countUp 2s ease-out;
-  }
-
-  @keyframes countUp {
-    0% { transform: scale(0); opacity: 0; }
-    50% { transform: scale(1.2); }
-    100% { transform: scale(1); opacity: 1; }
-  }
-
-  .stat-label {
-    display: block;
-    font-size: 0.8rem;
-    color: var(--text-dim);
-    text-transform: uppercase;
-    letter-spacing: 2px;
-  }
-
-  /* Responsive Design */
-  @media (max-width: 1024px) {
-    .sidebar {
-      width: 250px;
-      padding: 2rem 1.5rem;
-    }
-
-    .main {
-      padding: 3rem;
-    }
-
-    .hero-title {
-      font-size: clamp(2.5rem, 7vw, 5rem);
-    }
-
-    .about-stats {
-      gap: 2rem;
-    }
-  }
-
-  @media (max-width: 768px) {
-    .layout {
-      flex-direction: column;
-    }
-
-    .sidebar {
-      width: 100%;
-      border-right: none;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      padding: 1rem 1.5rem;
-      position: fixed;
+    /* =========================
+       Top Navigation
+    ========================== */
+    .topbar{
+      position: sticky;
       top: 0;
-      left: 0;
-      z-index: 1000;
-      backdrop-filter: blur(10px);
-      background: rgba(26, 26, 26, 0.95);
-      height: auto;
-    }
-
-    .sidebar::after {
-      display: none;
-    }
-
-    .logo-section {
+      z-index: 999;
+      height: var(--navH);
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      width: 100%;
+      backdrop-filter: blur(14px);
+      background: rgba(11,15,20,0.72);
+      border-bottom: 1px solid var(--border-2);
+    }
+
+    .topbar-inner{
+      width: min(var(--max), 92vw);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand{
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      min-width: 220px;
+    }
+
+    .brand h1{
+      font-family: 'Orbitron', monospace;
+      font-weight: 900;
+      letter-spacing: 2px;
+      font-size: 1.2rem;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .brand p{
+      color: var(--dim);
+      font-size: 0.9rem;
+      font-weight: 400;
+      white-space: nowrap;
+    }
+
+    .nav{
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nav a{
+      color: var(--muted);
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      padding: 10px 12px;
+      border-radius: 12px;
+      transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+    }
+
+    .nav a:hover{
+      background: rgba(255,255,255,0.06);
+      color: var(--text);
+      transform: translateY(-1px);
+    }
+
+    .nav-cta{
+      margin-left: 6px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(85,247,212,0.35);
+      background: rgba(85,247,212,0.10);
+      color: var(--text);
+      transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+    }
+    .nav-cta:hover{
+      transform: translateY(-1px);
+      background: rgba(85,247,212,0.16);
+      border-color: rgba(85,247,212,0.55);
+    }
+
+    /* Mobile menu button */
+    .menu-btn{
+      display: none;
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.04);
+      cursor: pointer;
       position: relative;
     }
-
-    .logo-section h1 {
-      font-size: 1.2rem;
-      margin-bottom: 0;
-      letter-spacing: 1px;
-    }
-
-    .tagline {
-      display: none;
-    }
-
-    .mobile-menu-toggle {
-      display: block;
-      flex-shrink: 0;
+    .menu-btn span{
       position: absolute;
-      right: 0;
-      top: 50%;
-      transform: translateY(-50%);
+      left: 50%;
+      width: 18px;
+      height: 2px;
+      background: rgba(238,242,255,0.85);
+      transform: translateX(-50%);
+      transition: transform 0.2s ease, top 0.2s ease, opacity 0.2s ease;
     }
+    .menu-btn span:nth-child(1){ top: 16px; }
+    .menu-btn span:nth-child(2){ top: 21px; }
+    .menu-btn span:nth-child(3){ top: 26px; }
+    .menu-btn.active span:nth-child(1){ top: 21px; transform: translateX(-50%) rotate(45deg); }
+    .menu-btn.active span:nth-child(2){ opacity: 0; }
+    .menu-btn.active span:nth-child(3){ top: 21px; transform: translateX(-50%) rotate(-45deg); }
 
-    .nav-links {
+    /* Mobile nav drawer */
+    .drawer{
+      display: none;
       position: fixed;
-      top: 60px;
-      left: 0;
-      right: 0;
-      background: rgba(26, 26, 26, 0.98);
-      flex-direction: column;
-      padding: 0;
-      gap: 0;
-      transform: translateY(-100%);
-      transition: transform 0.3s ease;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-      display: none;
+      inset: 0;
+      background: rgba(0,0,0,0.65);
+      z-index: 998;
     }
-
-    .nav-links.active {
-      display: flex;
-      transform: translateY(0);
+    .drawer.active{ display: block; }
+    .drawer-panel{
+      position: absolute;
+      top: var(--navH);
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(var(--max), 92vw);
+      border: 1px solid var(--border);
+      background: rgba(16,24,38,0.92);
+      backdrop-filter: blur(16px);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
     }
-
-    .nav-links a {
-      padding: 1.2rem 2rem;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-      width: 100%;
-      text-align: left;
-      font-size: 0.9rem;
-      letter-spacing: 1px;
+    .drawer-panel a{
       display: block;
-      margin: 0;
+      padding: 16px 16px;
+      color: var(--muted);
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
     }
-
-    .nav-links a:last-child {
-      border-bottom: none;
+    .drawer-panel a:hover{
+      background: rgba(255,255,255,0.06);
+      color: var(--text);
     }
+    .drawer-panel a:last-child{ border-bottom: none; }
 
-    .nav-links a:hover {
-      transform: none;
-      background: rgba(255, 255, 255, 0.1);
-    }
-
-    .nav-links a::before {
-      display: none;
-    }
-
-    .sidebar-footer {
-      display: none;
-    }
-
-    .main {
+    /* =========================
+       Hero
+    ========================== */
+    #home{
       padding: 0;
-      margin-top: 0;
     }
 
-    .main > .section {
-      padding: 5rem 1.5rem 2rem;
-    }
-
-    #home {
-      min-height: 100vh;
-      padding: 0;
-      margin-top: 60px; /* Account for fixed header */
-    }
-
-    #home {
-      min-height: 100vh;
-      padding: 2rem 1rem;
-    }
-
-    .hero-title {
-      font-size: clamp(2rem, 10vw, 3.5rem);
-      margin-bottom: 1rem;
-    }
-
-    .hero-subtitle {
-      font-size: 1rem;
-      margin-bottom: 2rem;
-      padding: 0 1rem;
-    }
-
-    .hero-cta {
-      flex-direction: column;
+    .hero{
+      min-height: calc(100vh - var(--navH));
+      display: grid;
       align-items: center;
-      gap: 1rem;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid var(--border-2);
     }
 
-    .cta-button {
-      padding: 0.8rem 2rem;
-      font-size: 0.9rem;
-      width: 200px;
+    .hero-bg{
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+    .hero-bg img{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: saturate(0.95) contrast(1.02);
+      transform: scale(1.02);
+    }
+    .hero-overlay{
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg,
+        rgba(11,15,20,0.70) 0%,
+        rgba(11,15,20,0.72) 40%,
+        rgba(11,15,20,0.92) 100%);
+    }
+
+    .hero-inner{
+      position: relative;
+      z-index: 1;
+      padding: 80px 0;
+    }
+
+    .hero-card{
+      border: 1px solid var(--border);
+      background: rgba(16,24,38,0.55);
+      backdrop-filter: blur(16px);
+      border-radius: calc(var(--radius) + 6px);
+      padding: 44px;
+      box-shadow: var(--shadow);
+    }
+
+    .hero-title{
+      font-family: 'Orbitron', monospace;
+      font-size: clamp(2.4rem, 6vw, 4.2rem);
+      line-height: 1.0;
+      font-weight: 900;
+      letter-spacing: 0.02em;
+      margin-bottom: 16px;
+    }
+    .hero-title span{
+      display: block;
+      background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-subtitle{
+      color: rgba(238,242,255,0.84);
+      font-size: 1.08rem;
+      line-height: 1.7;
+      margin-bottom: 26px;
+      max-width: 54ch;
+    }
+
+    .hero-actions{
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn{
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 12px 18px;
+      border-radius: 999px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.06);
+      color: var(--text);
+      transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+    }
+    .btn:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,0.08);
+      border-color: rgba(255,255,255,0.16);
+    }
+    .btn.primary{
+      border-color: rgba(85,247,212,0.55);
+      background: linear-gradient(135deg, rgba(85,247,212,0.18), rgba(255,79,183,0.10));
+    }
+    .btn.primary:hover{
+      background: linear-gradient(135deg, rgba(85,247,212,0.24), rgba(255,79,183,0.14));
+      border-color: rgba(85,247,212,0.75);
+    }
+
+    /* =========================
+       Section headers
+    ========================== */
+    .section-head{
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+
+    .section-head h2{
+      font-family: 'Orbitron', monospace;
+      font-size: 1.55rem;
+      letter-spacing: 0.08em;
+    }
+
+    .section-rule{
+      height: 1px;
+      flex: 1;
+      background: linear-gradient(90deg, rgba(85,247,212,0.35), rgba(255,255,255,0.06), transparent);
+      border-radius: 999px;
+      margin-left: 16px;
+    }
+
+    /* =========================
+       Cards
+    ========================== */
+    .grid{
+      display: grid;
+      gap: 18px;
+    }
+
+    .card{
+      border: 1px solid var(--border);
+      background: rgba(16,24,38,0.62);
+      border-radius: var(--radius);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+    }
+
+    .card-pad{ padding: 22px; }
+
+    /* =========================
+       Projects
+    ========================== */
+    .project-header{
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .project h3{
+      font-family: 'Orbitron', monospace;
+      font-size: 1.25rem;
+      color: rgba(85,247,212,0.95);
+      letter-spacing: 0.04em;
+    }
+
+    .project-status{
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      color: rgba(255,180,75,0.95);
+      border: 1px solid rgba(255,180,75,0.55);
+      background: rgba(255,180,75,0.12);
+      white-space: nowrap;
+    }
+
+    .project p{
+      color: var(--muted);
+      line-height: 1.8;
+      margin: 10px 0;
+    }
+
+    .project-link{
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 8px;
+      color: rgba(85,247,212,0.95);
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(85,247,212,0.28);
+      background: rgba(85,247,212,0.06);
+      transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+    }
+    .project-link:hover{
+      transform: translateY(-1px);
+      background: rgba(85,247,212,0.10);
+      border-color: rgba(85,247,212,0.45);
+    }
+
+    /* =========================
+       Devlog list card
+    ========================== */
+    .devlog-entry{
+      cursor: pointer;
+      transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+      position: relative;
+    }
+    .devlog-entry:hover{
+      transform: translateY(-2px);
+      border-color: rgba(255,255,255,0.18);
+      background: rgba(16,24,38,0.72);
+    }
+
+    .devlog-header{
+      display: flex;
+      gap: 14px;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 14px;
+    }
+    .devlog-entry h4{
+      font-size: 1.18rem;
+      font-weight: 800;
+      color: rgba(238,242,255,0.95);
+      line-height: 1.25;
+    }
+    .devlog-entry time{
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: rgba(238,242,255,0.80);
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.05);
+      white-space: nowrap;
+    }
+
+    .devlog-entry p{
+      color: var(--muted);
+      line-height: 1.9;
+      margin: 12px 0;
+    }
+    .devlog-entry strong{
+      color: rgba(85,247,212,0.95);
+      font-weight: 800;
+    }
+
+    .hint{
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      font-size: 0.78rem;
+      color: rgba(85,247,212,0.9);
+      border: 1px solid rgba(85,247,212,0.30);
+      background: rgba(85,247,212,0.08);
+      padding: 6px 10px;
+      border-radius: 999px;
+      opacity: 0.0;
+      transform: translateY(-2px);
+      transition: opacity 0.18s ease, transform 0.18s ease;
+      pointer-events: none;
+    }
+    .devlog-entry:hover .hint{
+      opacity: 1;
+      transform: translateY(0px);
+    }
+
+    /* Gallery */
+    .image-gallery{
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+      margin-top: 18px;
+    }
+    .image-gallery img{
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.10);
+      box-shadow: 0 10px 24px rgba(0,0,0,0.35);
+      transition: transform 0.18s ease, border-color 0.18s ease, filter 0.18s ease;
+      cursor: pointer;
+    }
+    .image-gallery img:hover{
+      transform: translateY(-2px);
+      border-color: rgba(85,247,212,0.40);
+      filter: brightness(1.03);
+    }
+
+    /* =========================
+       About
+    ========================== */
+    .about-intro{
+      text-align: center;
+      padding: 22px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: rgba(16,24,38,0.55);
+      margin-bottom: 18px;
+    }
+    .about-intro h3{
+      font-family: 'Orbitron', monospace;
+      font-size: 1.65rem;
+      margin-bottom: 10px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .about-intro p{
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .about-grid{
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    .about-card{
+      border: 1px solid var(--border);
+      background: rgba(16,24,38,0.62);
+      border-radius: var(--radius);
+      padding: 20px;
+      transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+    }
+    .about-card:hover{
+      transform: translateY(-2px);
+      border-color: rgba(255,255,255,0.18);
+      background: rgba(16,24,38,0.72);
+    }
+
+    .card-icon{
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, rgba(85,247,212,0.18), rgba(255,79,183,0.12));
+      border: 1px solid rgba(255,255,255,0.10);
+      color: rgba(238,242,255,0.92);
+      margin-bottom: 12px;
+    }
+    .about-card h4{
+      font-family: 'Orbitron', monospace;
+      font-size: 1.05rem;
+      margin-bottom: 10px;
+      letter-spacing: 0.05em;
+    }
+    .about-card p{
+      color: var(--muted);
+      line-height: 1.85;
+      font-size: 0.95rem;
+    }
+
+    .about-footer{
+      border: 1px solid var(--border);
+      background: rgba(16,24,38,0.55);
+      border-radius: var(--radius);
+      padding: 22px;
       text-align: center;
     }
-
-    .floating-element {
-      width: 200px;
-      height: 200px;
+    .about-footer p{
+      color: var(--muted);
+      line-height: 1.9;
+      margin-bottom: 16px;
     }
-
-    .section {
-      margin-bottom: 4rem;
-    }
-
-    .section h2 {
-      font-size: 1.5rem;
-    }
-
-    .section-header::after {
-      display: none;
-    }
-
-    .project {
-      padding: 1.5rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .project-header {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 1rem;
-    }
-
-    .project h3 {
-      font-size: 1.2rem;
-    }
-
-    .project-status {
-      font-size: 0.7rem;
-      padding: 0.25rem 0.8rem;
-    }
-
-    .project p {
-      font-size: 0.9rem;
-    }
-
-    .devlog-entry {
-      padding: 1.5rem;
-      margin-bottom: 2rem;
-    }
-
-    .devlog-header {
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-
-    .devlog-entry h4 {
-      font-size: 1.1rem;
-    }
-
-    .devlog-entry time {
-      font-size: 0.75rem;
-      padding: 0.25rem 0.8rem;
-    }
-
-    .devlog-entry p {
-      font-size: 0.85rem;
-      line-height: 1.7;
-    }
-
-    .image-gallery {
-      grid-template-columns: 1fr;
-      gap: 1rem;
-    }
-
-    .image-gallery img {
-      height: auto;
-      max-height: 250px;
-    }
-
-    .about-intro h3 {
-      font-size: 1.5rem;
-    }
-
-    .about-intro p {
-      font-size: 1rem;
-    }
-
-    .about-grid {
-      grid-template-columns: 1fr;
-      gap: 1.5rem;
-    }
-
-    .about-card {
-      padding: 1.5rem;
-    }
-
-    .card-icon {
-      width: 50px;
-      height: 50px;
-      margin-bottom: 1rem;
-    }
-
-    .card-icon svg {
-      width: 30px;
-      height: 30px;
-    }
-
-    .about-card h4 {
-      font-size: 1.1rem;
-    }
-
-    .about-card p {
-      font-size: 0.85rem;
-    }
-
-    .about-footer {
-      padding: 1.5rem;
-    }
-
-    .about-footer p {
-      font-size: 0.9rem;
-    }
-
-    .about-stats {
-      gap: 2rem;
-    }
-
-    .stat-number {
-      font-size: 2rem;
-    }
-
-    .stat-label {
-      font-size: 0.7rem;
-    }
-  }
-
-  @media (max-width: 480px) {
-    .sidebar {
-      padding: 0.8rem 1rem;
-    }
-
-    .logo-section h1 {
-      font-size: 1rem;
-      letter-spacing: 0.5px;
-    }
-
-    .nav-links {
-      top: 50px;
-    }
-
-    .nav-links a {
-      padding: 1rem 1.5rem;
-      font-size: 0.85rem;
-    }
-
-    .hero-title {
-      font-size: 2.5rem;
-    }
-
-    .hero-subtitle {
-      font-size: 0.9rem;
-    }
-
-    .cta-button {
-      width: 180px;
-      padding: 0.7rem 1.5rem;
-      font-size: 0.85rem;
-    }
-
-    .main {
-      padding: 4rem 1rem 2rem;
-    }
-
-    .section h2 {
-      font-size: 1.3rem;
-    }
-
-    .project h3 {
-      font-size: 1.1rem;
-    }
-
-    .devlog-entry h4 {
-      font-size: 1rem;
-    }
-  }
-
-  /* Mobile Menu Toggle (optional enhancement) */
-  .mobile-menu-toggle {
-    display: none;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0.5rem;
-    position: relative;
-    width: 30px;
-    height: 30px;
-  }
-
-  .mobile-menu-toggle span {
-    display: block;
-    width: 25px;
-    height: 2px;
-    background: var(--text-primary);
-    margin: 5px 0;
-    transition: all 0.3s ease;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-
-  .mobile-menu-toggle span:nth-child(1) {
-    top: 6px;
-  }
-
-  .mobile-menu-toggle span:nth-child(2) {
-    top: 14px;
-  }
-
-  .mobile-menu-toggle span:nth-child(3) {
-    top: 22px;
-  }
-
-  .mobile-menu-toggle.active span:nth-child(1) {
-    top: 14px;
-    transform: translateX(-50%) rotate(45deg);
-  }
-
-  .mobile-menu-toggle.active span:nth-child(2) {
-    opacity: 0;
-  }
-
-  .mobile-menu-toggle.active span:nth-child(3) {
-    top: 14px;
-    transform: translateX(-50%) rotate(-45deg);
-  }
-
-  @media (max-width: 768px) {
-    .mobile-menu-toggle {
-      display: block;
-    }
-
-    .nav-links {
-      display: none;
-    }
-
-    .nav-links.active {
+    .about-stats{
       display: flex;
+      justify-content: center;
+      gap: 26px;
+      flex-wrap: wrap;
+    }
+    .stat{
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.04);
+      border-radius: 16px;
+      padding: 14px 18px;
+      min-width: 160px;
+    }
+    .stat-number{
+      display: block;
+      font-family: 'Orbitron', monospace;
+      font-size: 1.65rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 6px;
+    }
+    .stat-label{
+      display: block;
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--dim);
     }
 
-    body {
-      overflow-x: hidden;
+    /* =========================
+       Footer
+    ========================== */
+    .site-footer{
+      border-top: 1px solid var(--border-2);
+      padding: 26px 0;
+      color: var(--dim);
+      font-size: 0.9rem;
+    }
+    .footer-inner{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .social-links{
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .social-links a{
+      width: 40px;
+      height: 40px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.04);
+      color: rgba(238,242,255,0.82);
+      transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+    }
+    .social-links a:hover{
+      transform: translateY(-1px);
+      border-color: rgba(85,247,212,0.45);
+      background: rgba(85,247,212,0.08);
+      color: rgba(238,242,255,0.95);
     }
 
-    /* Prevent horizontal scroll on mobile */
-    .layout {
-      overflow-x: hidden;
+    /* =========================
+       Lightbox
+    ========================== */
+    .lightbox{
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.92);
+      z-index: 10000;
+      justify-content: center;
+      align-items: center;
+      padding: 24px;
+      cursor: pointer;
+    }
+    .lightbox.active{ display: flex; }
+    .lightbox img{
+      max-width: min(1100px, 94vw);
+      max-height: 90vh;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.10);
+      box-shadow: var(--shadow);
     }
 
-    /* Ensure animations don't cause overflow */
-    .section {
-      overflow-x: hidden;
+    /* =========================
+       Devlog Modal
+    ========================== */
+    .devlog-modal{
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: rgba(0,0,0,0.78);
+      backdrop-filter: blur(14px);
+      padding: 24px;
+      overflow-y: auto;
+    }
+    .devlog-modal.active{
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
     }
 
-    /* Adjust hover effects for touch devices */
-    @media (hover: none) {
-      .project:hover,
-      .devlog-entry:hover,
-      .about-card:hover {
-        transform: none;
-      }
-
-      .nav-links a:hover {
-        background: transparent;
-      }
-
-      .social-links a:hover {
-        transform: none;
-        box-shadow: none;
-      }
+    .devlog-modal-content{
+      width: min(920px, 96vw);
+      margin-top: 40px;
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 22px;
+      background: rgba(16,24,38,0.92);
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
     }
-  }
 
-  /* Loading Animation */
-  @keyframes slideIn {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(0); }
-  }
+    .modal-top{
+      padding: 18px 22px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
 
-  .sidebar {
-    animation: slideIn 0.6s ease;
-  }
+    .modal-top .chip{
+      display: inline-flex;
+      gap: 10px;
+      align-items: center;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(85,247,212,0.28);
+      background: rgba(85,247,212,0.08);
+      color: rgba(238,242,255,0.92);
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      font-size: 0.82rem;
+    }
 
-  /* Hover Effects */
-  a {
-    position: relative;
-    text-decoration: none;
-  }
+    .modal-close{
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.04);
+      color: rgba(238,242,255,0.9);
+      font-size: 1.6rem;
+      cursor: pointer;
+      transition: transform 0.18s ease, background 0.18s ease, border-color 0.18s ease;
+      display: grid;
+      place-items: center;
+      line-height: 1;
+    }
+    .modal-close:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,0.08);
+      border-color: rgba(85,247,212,0.40);
+    }
 
-  /* Custom Cursor Effect */
-  .cursor-glow {
-    position: fixed;
-    width: 20px;
-    height: 20px;
-    background: radial-gradient(circle, var(--primary), transparent);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 9998;
-    opacity: 0.5;
-    transition: transform 0.1s ease;
-    display: none;
-  }
+    #devlog-modal-body{
+      padding: 22px;
+    }
+
+    /* Modal content typography */
+    #devlog-modal-body h4{
+      font-size: 1.6rem;
+      font-weight: 900;
+      margin-bottom: 10px;
+      color: rgba(238,242,255,0.95);
+    }
+    #devlog-modal-body time{
+      display: inline-block;
+      margin-bottom: 14px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-weight: 800;
+      font-size: 0.86rem;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.05);
+      color: rgba(238,242,255,0.82);
+    }
+    #devlog-modal-body p{
+      color: var(--muted);
+      line-height: 2.0;
+      margin: 14px 0;
+      font-size: 1.02rem;
+    }
+    #devlog-modal-body strong{
+      color: rgba(255,180,75,0.95);
+      font-weight: 900;
+    }
+
+    /* =========================
+       Responsive
+    ========================== */
+    @media (max-width: 900px){
+      .brand p{ display: none; }
+      .hero-card{ padding: 30px; }
+      .devlog-header{ flex-direction: column; align-items: flex-start; }
+      .hint{ display: none; }
+    }
+
+    @media (max-width: 768px){
+      .nav{ display: none; }
+      .menu-btn{ display: inline-block; }
+      .section{ padding: 56px 0; }
+      .hero-inner{ padding: 64px 0; }
+      .hero-card{ padding: 24px; }
+      .image-gallery img{ height: 180px; }
+      .devlog-modal{ padding: 16px; }
+      #devlog-modal-body{ padding: 18px; }
+      #devlog-modal-body h4{ font-size: 1.35rem; }
+    }
+
+    @media (max-width: 480px){
+      .hero-actions .btn{ width: 100%; }
+      .stat{ min-width: 220px; }
+    }
   </style>
 </head>
 
 <body>
-  <div class="cursor-glow"></div>
-  
-  <div class="layout">
-    <aside class="sidebar" id="sidebar">
-      <div class="logo-section">
+
+  <!-- Top Navigation -->
+  <header class="topbar" role="banner">
+    <div class="topbar-inner">
+      <div class="brand" aria-label="Site brand">
         <h1>JENKO</h1>
-        <p class="tagline">Game Developer</p>
-        <button class="mobile-menu-toggle" id="menu-toggle" aria-label="Toggle menu">
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
-        <nav class="nav-links" id="nav-links">
-          <a href="#home">HOME</a>
-          <a href="#projects">PROJECTS</a>
-          <a href="#devlog">DEVLOG</a>
-          <a href="#about">ABOUT</a>
-        </nav>
+        <p>Game Developer</p>
       </div>
-      
-      <div class="sidebar-footer">
-        <p>© 2025 Jenko</p>
-        <p>Made with Coffee</p>
-        <div class="social-links">
-          <a href="#" title="GitHub">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-            </svg>
-          </a>
-          <a href="#" title="Twitter">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/>
-            </svg>
-          </a>
-          <a href="#" title="LinkedIn">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/>
-              <circle cx="4" cy="4" r="2"/>
-            </svg>
-          </a>
-        </div>
-      </div>
-    </aside>
-    
-    <main class="main">
-      <section id="home" class="section">
-        <div class="hero-background">
+
+      <nav class="nav" aria-label="Primary navigation">
+        <a href="#home">HOME</a>
+        <a href="#projects">PROJECTS</a>
+        <a href="#devlog">DEVLOG</a>
+        <a href="#about">ABOUT</a>
+        <a class="nav-cta" href="#devlog">Read Latest</a>
+      </nav>
+
+      <button class="menu-btn" id="menu-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-drawer">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div class="drawer" id="mobile-drawer" aria-hidden="true">
+    <div class="drawer-panel" role="dialog" aria-label="Mobile navigation">
+      <a href="#home">HOME</a>
+      <a href="#projects">PROJECTS</a>
+      <a href="#devlog">DEVLOG</a>
+      <a href="#about">ABOUT</a>
+    </div>
+  </div>
+
+  <!-- Main -->
+  <main role="main">
+
+    <!-- HOME (content unchanged) -->
+    <section id="home">
+      <div class="hero">
+        <div class="hero-bg">
           <img src="images/Website_BG_Image.png" alt="Game Development Background" />
           <div class="hero-overlay"></div>
         </div>
-        <div class="hero-section">
-          <div class="hero-content">
-            <h1 class="hero-title">
-              <span class="title-line">JENKO's</span>
-              <span class="title-line">DEV LOG</span>
-            </h1>
-            <p class="hero-subtitle">Crafting 2D games with Godot powered by caffeine</p>
-            <div class="hero-cta">
-              <a href="#projects" class="cta-button primary">View Projects</a>
-              <a href="#devlog" class="cta-button secondary">Read Devlog</a>
+
+        <div class="hero-inner">
+          <div class="container">
+            <div class="hero-card">
+              <h1 class="hero-title">
+                <span>JENKO's</span>
+                <span>DEV LOG</span>
+              </h1>
+              <p class="hero-subtitle">Crafting 2D games with Godot powered by caffeine</p>
+
+              <div class="hero-actions">
+                <a href="#projects" class="btn primary">View Projects</a>
+                <a href="#devlog" class="btn">Read Devlog</a>
+              </div>
             </div>
           </div>
-          <div class="hero-visual">
-            <div class="floating-element"></div>
-            <div class="floating-element"></div>
-            <div class="floating-element"></div>
-          </div>
         </div>
-      </section>
-      
-      <section id="projects" class="section">
-        <div class="section-header">
+
+      </div>
+    </section>
+
+    <!-- PROJECTS (content unchanged) -->
+    <section id="projects" class="section">
+      <div class="container">
+        <div class="section-head">
           <h2>PROJECTS</h2>
+          <div class="section-rule" aria-hidden="true"></div>
         </div>
-        
-        <div class="project">
-          <div class="project-header">
-            <h3>Dev Cycle</h3>
-            <span class="project-status">IN DEVELOPMENT</span>
+
+        <div class="card project">
+          <div class="card-pad">
+            <div class="project-header">
+              <h3>Dev Cycle</h3>
+              <span class="project-status">IN DEVELOPMENT</span>
+            </div>
+            <p>An immersive tycoon game where you</p>
+            <p>Built with Godot Engine</p>
+            <a href="#devlog" class="project-link">View Development Log →</a>
           </div>
-          <p>An immersive tycoon game where you</p>
-          <p>Built with Godot Engine</p>
-          <a href="#devlog" class="project-link">
-            View Development Log →
-          </a>
         </div>
-      </section>
-      
-      <section id="devlog" class="section">
-        <div class="section-header">
+      </div>
+    </section>
+
+    <!-- DEVLOG (content unchanged) -->
+    <section id="devlog" class="section">
+      <div class="container">
+        <div class="section-head">
           <h2>DEVELOPMENT LOG</h2>
+          <div class="section-rule" aria-hidden="true"></div>
         </div>
-        
-        <div class="devlog-entry" onclick="openDevlogModal(this)">
-          <div class="devlog-header">
-            <h4>Dev Log – Locking in the Core Development Loop</h4>
-            <time>15 Jan 2026</time>
+
+        <article class="card devlog-entry" role="button" tabindex="0" onclick="openDevlogModal(this, event)" onkeydown="devlogKeyOpen(this, event)">
+          <div class="card-pad">
+            <span class="hint">Click to read more</span>
+
+            <div class="devlog-header">
+              <h4>Dev Log – Locking in the Core Development Loop</h4>
+              <time>15 Jan 2026</time>
+            </div>
+
+            <p>This has been one of the biggest development milestones so far, and honestly one of the most important ones to get right before moving forward. Over the last stretch of work, the focus hasn’t been on adding flashy features, but on properly locking in the entire game development loop from start to finish. I wanted to make sure that making a game, developing it, publishing it, supporting it, and finally moving on all feel like real, connected systems rather than disconnected menus or progress bars.</p>
+            <p>At the core of this update is the fact that development is now fully driven by time. Progress doesn’t magically jump forward or tick up just because you clicked a button. Hours are earned minute by minute through the in-game clock, sleeping correctly skips time without breaking anything, and development only advances when a real hour of work has actually passed. This was crucial to making the game feel grounded and believable rather than gamey or exploitable.</p>
+            <p>Once a project is started, it moves through a clear lifecycle. During development, the game builds up progress while also carrying an inherent bug risk that’s influenced by the player’s decisions, such as genre and programming language. More bugs mean worse starting quality, and that trade-off is intentional. When development finishes, the game becomes ready to publish, and once published, sales begin immediately. There’s no hidden delay or fake buffer — the game is out in the world, and its performance is now affected by the choices made during development.</p>
+            <p>After release, the game enters a proper support phase. This is where updates come into play. Updates don’t cost money yet, but they do cost player fatigue and time, and they exist to reduce bugs and increase quality over time. Importantly, support progress now starts at zero, not at some artificial 100%, and quality doesn’t reset or drop incorrectly when entering this phase. The quality you publish with is the baseline, and every update builds on top of that. Bugs are tracked from their starting count at release, and quality improves as bugs are fixed. Once bugs drop below a certain threshold, the player can finish support permanently, locking the game and freeing themselves up to start the next project.</p>
+            <p>A lot of effort also went into separating how information is presented. The in-game computer is now the place where full control happens — starting projects, publishing games, managing updates, and making decisions. The phone, on the other hand, is designed as a lightweight, always-available snapshot. It mirrors exactly what the computer shows, but without buttons or interaction. This means you can keep an eye on development or support progress while walking around, without opening menus or pausing the flow of the game. Under the hood, it’s signal-driven and optimised so it updates only when something actually changes.</p>
+            <p>Behind the scenes, the save system has been tightened up significantly. Active projects, completed games, released titles, support states, bugs, quality, and future sales data are all persisted cleanly. You can save at any point — mid-development, mid-support, or post-release — and everything restores exactly as it should. At the same time, the codebase itself has been cleaned up and tagged so systems are clearly separated and readable, making future additions far less risky.</p>
+            <p>With this foundation in place, the game is now ready to move into the next major phase: sales simulation. This will introduce long-term performance, revenue decay, the impact of updates over time, and eventually the deeper strategy of balancing quality, bugs, timing, and player fatigue. But none of that would matter if the core loop wasn’t solid — and now it finally is.</p>
+
+            <div class="image-gallery" aria-label="Devlog images">
+              <img src="images/BlogPost 1-1.png" alt="Vision Angle 1" onclick="openLightbox(this, event)">
+              <img src="images/BlogPost 1-2.png" alt="Vision Angle 1" onclick="openLightbox(this, event)">
+              <img src="images/BlogPost 1-3.png" alt="Vision Angle 1" onclick="openLightbox(this, event)">
+              <img src="images/BlogPost 1-4.png" alt="Vision Angle 1" onclick="openLightbox(this, event)">
+              <img src="images/BlogPost 1-5.png" alt="Vision Angle 1" onclick="openLightbox(this, event)">
+              <img src="images/BlogPost 1-6.png" alt="Vision Angle 1" onclick="openLightbox(this, event)">
+              <img src="images/BlogPost 1-7.png" alt="Vision Angle 1" onclick="openLightbox(this, event)">
+              <img src="images/BlogPost 1-8.png" alt="Vision Angle 1" onclick="openLightbox(this, event)">
+              <img src="images/BlogPost 1-9.png" alt="Vision Angle 1" onclick="openLightbox(this, event)">
+              <img src="images/BlogPost 1-10.png" alt="Vision Angle 1" onclick="openLightbox(this, event)">
+              <img src="images/BlogPost 1-11.png" alt="Vision Angle 1" onclick="openLightbox(this, event)">
+            </div>
+
           </div>
-          <p>This has been one of the biggest development milestones so far, and honestly one of the most important ones to get right before moving forward. Over the last stretch of work, the focus hasn’t been on adding flashy features, but on properly locking in the entire game development loop from start to finish. I wanted to make sure that making a game, developing it, publishing it, supporting it, and finally moving on all feel like real, connected systems rather than disconnected menus or progress bars.</p>
-          <p>At the core of this update is the fact that development is now fully driven by time. Progress doesn’t magically jump forward or tick up just because you clicked a button. Hours are earned minute by minute through the in-game clock, sleeping correctly skips time without breaking anything, and development only advances when a real hour of work has actually passed. This was crucial to making the game feel grounded and believable rather than gamey or exploitable.</p>
-          <p>Once a project is started, it moves through a clear lifecycle. During development, the game builds up progress while also carrying an inherent bug risk that’s influenced by the player’s decisions, such as genre and programming language. More bugs mean worse starting quality, and that trade-off is intentional. When development finishes, the game becomes ready to publish, and once published, sales begin immediately. There’s no hidden delay or fake buffer — the game is out in the world, and its performance is now affected by the choices made during development.</p>
-          <p>After release, the game enters a proper support phase. This is where updates come into play. Updates don’t cost money yet, but they do cost player fatigue and time, and they exist to reduce bugs and increase quality over time. Importantly, support progress now starts at zero, not at some artificial 100%, and quality doesn’t reset or drop incorrectly when entering this phase. The quality you publish with is the baseline, and every update builds on top of that. Bugs are tracked from their starting count at release, and quality improves as bugs are fixed. Once bugs drop below a certain threshold, the player can finish support permanently, locking the game and freeing themselves up to start the next project.</p>
-          <p>A lot of effort also went into separating how information is presented. The in-game computer is now the place where full control happens — starting projects, publishing games, managing updates, and making decisions. The phone, on the other hand, is designed as a lightweight, always-available snapshot. It mirrors exactly what the computer shows, but without buttons or interaction. This means you can keep an eye on development or support progress while walking around, without opening menus or pausing the flow of the game. Under the hood, it’s signal-driven and optimised so it updates only when something actually changes.</p>
-          <p>Behind the scenes, the save system has been tightened up significantly. Active projects, completed games, released titles, support states, bugs, quality, and future sales data are all persisted cleanly. You can save at any point — mid-development, mid-support, or post-release — and everything restores exactly as it should. At the same time, the codebase itself has been cleaned up and tagged so systems are clearly separated and readable, making future additions far less risky.</p>
-          <p>With this foundation in place, the game is now ready to move into the next major phase: sales simulation. This will introduce long-term performance, revenue decay, the impact of updates over time, and eventually the deeper strategy of balancing quality, bugs, timing, and player fatigue. But none of that would matter if the core loop wasn’t solid — and now it finally is.</p>
-          
-          <div class="image-gallery">
-            <img src="images/BlogPost 1-1.png" alt="Vision Angle 1" onclick="openLightbox(this)">
-            <img src="images/BlogPost 1-2.png" alt="Vision Angle 1" onclick="openLightbox(this)">
-            <img src="images/BlogPost 1-3.png" alt="Vision Angle 1" onclick="openLightbox(this)">
-            <img src="images/BlogPost 1-4.png" alt="Vision Angle 1" onclick="openLightbox(this)">
-            <img src="images/BlogPost 1-5.png" alt="Vision Angle 1" onclick="openLightbox(this)">
-            <img src="images/BlogPost 1-6.png" alt="Vision Angle 1" onclick="openLightbox(this)">
-            <img src="images/BlogPost 1-7.png" alt="Vision Angle 1" onclick="openLightbox(this)">
-            <img src="images/BlogPost 1-8.png" alt="Vision Angle 1" onclick="openLightbox(this)">
-            <img src="images/BlogPost 1-9.png" alt="Vision Angle 1" onclick="openLightbox(this)">
-            <img src="images/BlogPost 1-10.png" alt="Vision Angle 1" onclick="openLightbox(this)">
-            <img src="images/BlogPost 1-11.png" alt="Vision Angle 1" onclick="openLightbox(this)">
-          </div>
-        </div>
-      </section>
-      
-      <section id="about" class="section">
-        <div class="section-header">
+        </article>
+      </div>
+    </section>
+
+    <!-- ABOUT (content unchanged) -->
+    <section id="about" class="section">
+      <div class="container">
+        <div class="section-head">
           <h2>ABOUT ME</h2>
+          <div class="section-rule" aria-hidden="true"></div>
         </div>
-        
+
         <div class="about-content">
           <div class="about-intro">
             <h3>Hey, I'm Jenko!</h3>
             <p>A 25-year-old game developer from Melbourne, Australia, turning coffee and spare time into interactive experiences.</p>
           </div>
-          
+
           <div class="about-grid">
             <div class="about-card">
               <div class="card-icon">
-                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z"/>
                   <path d="M12 22V12"/>
                   <path d="M12 12L20 7"/>
@@ -1671,10 +990,10 @@
               <h4>The Journey</h4>
               <p>Started my game dev adventure 3-4 years ago with Unity, explored the power of Unreal Engine for 6 months, then discovered Godot — and never looked back. Now I'm crafting 2D experiences that blend atmospheric storytelling with engaging mechanics.</p>
             </div>
-            
+
             <div class="about-card">
               <div class="card-icon">
-                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <circle cx="12" cy="12" r="10"/>
                   <polyline points="12 6 12 12 16 14"/>
                 </svg>
@@ -1682,10 +1001,10 @@
               <h4>The Balance</h4>
               <p>I juggle a full-time job that takes me away for extended periods, but every spare moment becomes an opportunity to code, design, and create. Game development isn't just a hobby — it's my passion project that keeps me grounded (pun intended).</p>
             </div>
-            
+
             <div class="about-card">
               <div class="card-icon">
-                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/>
                   <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
                   <line x1="12" y1="22.08" x2="12" y2="12"/>
@@ -1695,7 +1014,7 @@
               <p>Currently loving Godot for its flexibility and open-source nature. Experienced with GDScript, pixel art creation, and implementing complex game systems. Always learning, always building, always pushing pixels around until they feel just right.</p>
             </div>
           </div>
-          
+
           <div class="about-footer">
             <p>When I'm not debugging door transitions at 2 AM or perfecting enemy AI vision cones, you'll find me exploring Melbourne's coffee scene (essential fuel for late-night dev sessions) or planning my next game mechanic.</p>
             <div class="about-stats">
@@ -1713,123 +1032,191 @@
               </div>
             </div>
           </div>
+
         </div>
-      </section>
-    </main>
-  </div>
-  
-  <div class="lightbox" onclick="closeLightbox()">
+      </div>
+    </section>
+
+    <!-- Footer (same footer content, just placed nicely) -->
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-inner">
+          <div>
+            <div>© 2025 Jenko</div>
+            <div>Made with Coffee</div>
+          </div>
+
+          <div class="social-links" aria-label="Social links">
+            <a href="#" title="GitHub" aria-label="GitHub">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+              </svg>
+            </a>
+
+            <a href="#" title="Twitter" aria-label="Twitter">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/>
+              </svg>
+            </a>
+
+            <a href="#" title="LinkedIn" aria-label="LinkedIn">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/>
+                <circle cx="4" cy="4" r="2"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- Lightbox -->
+  <div class="lightbox" onclick="closeLightbox(event)">
     <img id="lightbox-img" src="" alt="Expanded view">
   </div>
-  
+
+  <!-- Devlog Modal -->
   <div class="devlog-modal" id="devlog-modal" onclick="closeDevlogModal(event)">
     <div class="devlog-modal-content" onclick="event.stopPropagation()">
-      <button class="modal-close" onclick="closeDevlogModal()">&times;</button>
+      <div class="modal-top">
+        <span class="chip">DEV LOG</span>
+        <button class="modal-close" onclick="closeDevlogModal()" aria-label="Close modal">&times;</button>
+      </div>
       <div id="devlog-modal-body">
         <!-- Content will be injected here -->
       </div>
     </div>
   </div>
-  
+
   <script>
-  // Mobile menu toggle
-  const menuToggle = document.getElementById('menu-toggle');
-  const navLinks = document.getElementById('nav-links');
-  
-  if (menuToggle) {
-    menuToggle.addEventListener('click', () => {
-      menuToggle.classList.toggle('active');
-      navLinks.classList.toggle('active');
-    });
+    // =========================
+    // Mobile menu toggle
+    // =========================
+    const menuToggle = document.getElementById('menu-toggle');
+    const drawer = document.getElementById('mobile-drawer');
+    const drawerLinks = drawer.querySelectorAll('a');
 
-    // Close menu when clicking a link
-    document.querySelectorAll('.nav-links a').forEach(link => {
-      link.addEventListener('click', () => {
+    function setDrawer(open){
+      if(open){
+        menuToggle.classList.add('active');
+        menuToggle.setAttribute('aria-expanded', 'true');
+        drawer.classList.add('active');
+        drawer.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      } else {
         menuToggle.classList.remove('active');
-        navLinks.classList.remove('active');
+        menuToggle.setAttribute('aria-expanded', 'false');
+        drawer.classList.remove('active');
+        drawer.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      }
+    }
+
+    if(menuToggle){
+      menuToggle.addEventListener('click', () => {
+        const isOpen = drawer.classList.contains('active');
+        setDrawer(!isOpen);
       });
+    }
+
+    drawer.addEventListener('click', (e) => {
+      // Click outside panel closes
+      if(e.target === drawer) setDrawer(false);
     });
-  }
 
-  // Devlog Modal functionality
-  function openDevlogModal(entry) {
-    // Prevent opening if clicking on an image
-    if (event.target.tagName === 'IMG') {
-      return;
-    }
-    
-    const modal = document.getElementById('devlog-modal');
-    const modalBody = document.getElementById('devlog-modal-body');
-    
-    // Clone the content
-    const content = entry.cloneNode(true);
-    
-    // Remove onclick from cloned content
-    content.removeAttribute('onclick');
-    
-    // Update image onclick in cloned content
-    const images = content.querySelectorAll('img');
-    images.forEach(img => {
-      img.setAttribute('onclick', 'openLightbox(this)');
+    drawerLinks.forEach(link => {
+      link.addEventListener('click', () => setDrawer(false));
     });
-    
-    // Set the content
-    modalBody.innerHTML = content.innerHTML;
-    
-    // Show the modal
-    modal.classList.add('active');
-    document.body.style.overflow = 'hidden';
-  }
 
-  function closeDevlogModal(event) {
-    if (event && event.target !== event.currentTarget) {
-      return;
+    // =========================
+    // Devlog modal
+    // =========================
+    function openDevlogModal(entry, ev) {
+      // Prevent opening if clicking on an image
+      if (ev && ev.target && ev.target.tagName === 'IMG') return;
+
+      const modal = document.getElementById('devlog-modal');
+      const modalBody = document.getElementById('devlog-modal-body');
+
+      // Clone the content (keeps your content exactly)
+      const content = entry.cloneNode(true);
+
+      // Remove interactive wrappers from clone
+      content.removeAttribute('onclick');
+      content.removeAttribute('onkeydown');
+      content.removeAttribute('role');
+      content.removeAttribute('tabindex');
+
+      // Ensure images still open lightbox inside modal
+      const images = content.querySelectorAll('img');
+      images.forEach(img => {
+        img.setAttribute('onclick', 'openLightbox(this, event)');
+      });
+
+      modalBody.innerHTML = content.innerHTML;
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
     }
-    
-    const modal = document.getElementById('devlog-modal');
-    modal.classList.remove('active');
-    document.body.style.overflow = '';
-  }
 
-  // Lightbox functionality
-  function openLightbox(img) {
-    event.stopPropagation();
-    const lightbox = document.querySelector('.lightbox');
-    const lightboxImg = document.getElementById('lightbox-img');
-    lightboxImg.src = img.src;
-    lightboxImg.alt = img.alt;
-    lightbox.classList.add('active');
-  }
-
-  function closeLightbox() {
-    const lightbox = document.querySelector('.lightbox');
-    lightbox.classList.remove('active');
-  }
-
-  // Add escape key functionality
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-      closeLightbox();
-      closeDevlogModal();
+    function devlogKeyOpen(entry, ev){
+      if(ev.key === 'Enter' || ev.key === ' '){
+        ev.preventDefault();
+        openDevlogModal(entry, ev);
+      }
     }
-  });
 
-  // Smooth scroll for navigation links
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-      e.preventDefault();
-      const target = document.querySelector(this.getAttribute('href'));
-      if (target) {
-        target.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start'
-        });
+    function closeDevlogModal(event) {
+      if (event && event.target !== event.currentTarget) return;
+      const modal = document.getElementById('devlog-modal');
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    // =========================
+    // Lightbox
+    // =========================
+    function openLightbox(img, ev) {
+      if(ev) ev.stopPropagation();
+      const lightbox = document.querySelector('.lightbox');
+      const lightboxImg = document.getElementById('lightbox-img');
+      lightboxImg.src = img.src;
+      lightboxImg.alt = img.alt;
+      lightbox.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox(ev) {
+      if(ev) ev.stopPropagation();
+      const lightbox = document.querySelector('.lightbox');
+      lightbox.classList.remove('active');
+
+      // Only restore scroll if modal isn't open
+      const modal = document.getElementById('devlog-modal');
+      if(!modal.classList.contains('active')) document.body.style.overflow = '';
+    }
+
+    // Escape closes both
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeLightbox();
+        closeDevlogModal();
+        setDrawer(false);
       }
     });
-  });
 
-  // Optional: Add loading animation
-  window.addEventListener('load', () => {
-    document.body.style.opacity = '1';
-  });
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        const href = this.getAttribute('href');
+        const target = document.querySelector(href);
+        if (!target) return;
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
   </script>
+
+</body>
+</html>
