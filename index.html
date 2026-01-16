@@ -239,11 +239,7 @@
       border-bottom: 1px solid var(--border-2);
     }
 
-    .hero-bg{
-      position: absolute;
-      inset: 0;
-      z-index: 0;
-    }
+    .hero-bg{ position: absolute; inset: 0; z-index: 0; }
     .hero-bg img{
       width: 100%;
       height: 100%;
@@ -260,11 +256,7 @@
         rgba(11,15,20,0.92) 100%);
     }
 
-    .hero-inner{
-      position: relative;
-      z-index: 1;
-      padding: 80px 0;
-    }
+    .hero-inner{ position: relative; z-index: 1; padding: 80px 0; }
 
     .hero-card{
       border: 1px solid var(--border);
@@ -426,11 +418,11 @@
     }
 
     /* =========================
-       Devlog spacing FIX
+       DEVLOG LIST SPACING (bigger separation)
     ========================== */
     .devlog-list{
       display: grid;
-      gap: 34px; /* ✅ bigger separation between posts */
+      gap: 28px; /* ✅ bigger separation between posts */
     }
 
     /* =========================
@@ -471,7 +463,7 @@
       white-space: nowrap;
     }
 
-    /* Hint */
+    /* ✅ hint under header */
     .hint{
       display: inline-flex;
       align-items: center;
@@ -505,27 +497,68 @@
       font-weight: 800;
     }
 
-    /* Gallery */
+    /* =========================
+       Preview clamp (main page only)
+       Modal will override this to show full content.
+    ========================== */
+    .preview-clamp{
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 6; /* adjust if you want more/less preview */
+      overflow: hidden;
+    }
+    #devlog-modal-body .preview-clamp{
+      display: block;
+      -webkit-line-clamp: unset;
+      overflow: visible;
+    }
+
+    /* =========================
+       Gallery block + nicer layout
+       - first image hero (full width)
+       - rest in grid
+    ========================== */
+    .gallery-wrap{
+      margin-top: 18px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    .gallery-title{
+      font-family: 'Orbitron', monospace;
+      letter-spacing: 0.08em;
+      font-size: 0.95rem;
+      color: rgba(238,242,255,0.85);
+      margin-bottom: 10px;
+    }
+
     .image-gallery{
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      grid-template-columns: repeat(12, 1fr);
       gap: 14px;
-      margin-top: 18px;
+      margin-top: 10px;
     }
+
     .image-gallery img{
+      grid-column: span 6;
       width: 100%;
-      height: 200px;
+      height: 220px;
       object-fit: cover;
-      border-radius: 14px;
+      border-radius: 16px;
       border: 1px solid rgba(255,255,255,0.10);
-      box-shadow: 0 10px 24px rgba(0,0,0,0.35);
-      transition: transform 0.18s ease, border-color 0.18s ease, filter 0.18s ease;
+      box-shadow: 0 12px 26px rgba(0,0,0,0.38);
       cursor: pointer;
+      transition: transform 0.18s ease, border-color 0.18s ease, filter 0.18s ease;
     }
+
+    .image-gallery img:first-child{
+      grid-column: span 12;
+      height: 320px;
+    }
+
     .image-gallery img:hover{
-      transform: translateY(-2px);
+      transform: translateY(-3px);
       border-color: rgba(85,247,212,0.40);
-      filter: brightness(1.03);
+      filter: brightness(1.04);
     }
 
     /* =========================
@@ -814,6 +847,8 @@
       .brand p{ display: none; }
       .hero-card{ padding: 30px; }
       .devlog-header{ flex-direction: column; align-items: flex-start; }
+      .image-gallery img{ grid-column: span 12; height: 200px; }
+      .image-gallery img:first-child{ height: 240px; }
     }
 
     @media (max-width: 768px){
@@ -822,7 +857,6 @@
       .section{ padding: 56px 0; }
       .hero-inner{ padding: 64px 0; }
       .hero-card{ padding: 24px; }
-      .image-gallery img{ height: 180px; }
       .devlog-modal{ padding: 16px; }
       #devlog-modal-body{ padding: 18px; }
       #devlog-modal-body h4{ font-size: 1.35rem; }
@@ -922,7 +956,7 @@
       </div>
     </section>
 
-    <!-- DEVLOG (content unchanged, but fixed structure + spacing) -->
+    <!-- DEVLOG -->
     <section id="devlog" class="section">
       <div class="container">
         <div class="section-head">
@@ -931,7 +965,8 @@
         </div>
 
         <div class="devlog-list">
-          <!-- Post 1 -->
+
+          <!-- POST 1 -->
           <article class="card devlog-entry" role="button" tabindex="0"
                    onclick="openDevlogModal(this, event)"
                    onkeydown="devlogKeyOpen(this, event)">
@@ -944,20 +979,28 @@
 
               <span class="hint">Click to read more</span>
 
-              <p>Today I caught up with a mate to get some help and direction on the full redesign of the game’s art. I’ve been itching to do this for a while, but I didn’t want to sink time into visuals until I knew the actual game systems were going to hold up. Now that I’ve proven to myself I can program a pretty complex foundation — one that’s almost good enough to support the core loop I’m chasing — it feels like the right time to shift gears.</p>
-              <p>Don’t get me wrong, there’s still a tonne of work left to do and the game is nowhere near “done”, but the important part is the base is solid. The logic, the structure, the flow… it’s all finally starting to feel like a real game instead of a pile of test systems. So I’m giving myself a bit of a breather from heavy programming for a moment and focusing on the part that’s going to make everything feel real: the presentation.</p>
-              <p>Over the next stretch I’ll be putting most of my time into reworking the entire look of the game — all the art, menus, and UI. I want the game to have a clear style and vibe that matches what I’ve had in my head from the start. That means redesigning everything properly, not just patching things up.</p>
-              <p>On the UI side, I’ll be adding a proper in-game ESC menu so you can access settings, quit to the main menu, or exit to desktop cleanly. I’m also planning a full overhaul of the inventory, and I’ll be rebuilding the HUD into something way cleaner and more readable. Right now it does the job, but it’s not the vibe, and it definitely doesn’t feel polished.</p>
-              <p>For the next few days I’ll basically be living in calls with my artist, going back and forth until everything starts landing exactly how we want it. Once the visuals and UI are in a way better place, I’ll jump back into the programming side and start going deeper into the core systems again — but this time with a game that actually looks like the game it’s meant to be.</p>
-              <p>Pretty excited for this part. The code might be the backbone, but the art is what makes it feel alive.</p>
+              <!-- Preview clamp applies on main page, modal will show full -->
+              <div class="preview-clamp">
+                <p>Today I caught up with a mate to get some help and direction on the full redesign of the game’s art. I’ve been itching to do this for a while, but I didn’t want to sink time into visuals until I knew the actual game systems were going to hold up. Now that I’ve proven to myself I can program a pretty complex foundation — one that’s almost good enough to support the core loop I’m chasing — it feels like the right time to shift gears.</p>
+                <p>Don’t get me wrong, there’s still a tonne of work left to do and the game is nowhere near “done”, but the important part is the base is solid. The logic, the structure, the flow… it’s all finally starting to feel like a real game instead of a pile of test systems. So I’m giving myself a bit of a breather from heavy programming for a moment and focusing on the part that’s going to make everything feel real: the presentation.</p>
+                <p>Over the next stretch I’ll be putting most of my time into reworking the entire look of the game — all the art, menus, and UI. I want the game to have a clear style and vibe that matches what I’ve had in my head from the start. That means redesigning everything properly, not just patching things up.</p>
+                <p>On the UI side, I’ll be adding a proper in-game ESC menu so you can access settings, quit to the main menu, or exit to desktop cleanly. I’m also planning a full overhaul of the inventory, and I’ll be rebuilding the HUD into something way cleaner and more readable. Right now it does the job, but it’s not the vibe, and it definitely doesn’t feel polished.</p>
+                <p>For the next few days I’ll basically be living in calls with my artist, going back and forth until everything starts landing exactly how we want it. Once the visuals and UI are in a way better place, I’ll jump back into the programming side and start going deeper into the core systems again — but this time with a game that actually looks like the game it’s meant to be.</p>
+                <p>Pretty excited for this part. The code might be the backbone, but the art is what makes it feel alive.</p>
+              </div>
 
-              <div class="image-gallery" aria-label="Devlog images">
+              <!-- Gallery (empty for now) -->
+              <div class="gallery-wrap">
+                <div class="gallery-title">SCREENSHOTS</div>
+                <div class="image-gallery" aria-label="Devlog images">
+                  <!-- Add images here if you want -->
+                </div>
               </div>
 
             </div>
           </article>
 
-          <!-- Post 2 -->
+          <!-- POST 2 -->
           <article class="card devlog-entry" role="button" tabindex="0"
                    onclick="openDevlogModal(this, event)"
                    onkeydown="devlogKeyOpen(this, event)">
@@ -970,25 +1013,31 @@
 
               <span class="hint">Click to read more</span>
 
-              <p>This has been one of the biggest development milestones so far, and honestly one of the most important ones to get right before moving forward. Over the last stretch of work, the focus hasn’t been on adding flashy features, but on properly locking in the entire game development loop from start to finish. I wanted to make sure that making a game, developing it, publishing it, supporting it, and finally moving on all feel like real, connected systems rather than disconnected menus or progress bars.</p>
-              <p>At the core of this update is the fact that development is now fully driven by time. Progress doesn’t magically jump forward or tick up just because you clicked a button. Hours are earned minute by minute through the in-game clock, sleeping correctly skips time without breaking anything, and development only advances when a real hour of work has actually passed. This was crucial to making the game feel grounded and believable rather than gamey or exploitable.</p>
-              <p>Once a project is started, it moves through a clear lifecycle. During development, the game builds up progress while also carrying an inherent bug risk that’s influenced by the player’s decisions, such as genre and programming language. More bugs mean worse starting quality, and that trade-off is intentional. When development finishes, the game becomes ready to publish, and once published, sales begin immediately. There’s no hidden delay or fake buffer — the game is out in the world, and its performance is now affected by the choices made during development.</p>
-              <p>After release, the game enters a proper support phase. This is where updates come into play. Updates don’t cost money yet, but they do cost player fatigue and time, and they exist to reduce bugs and increase quality over time. Importantly, support progress now starts at zero, not at some artificial 100%, and quality doesn’t reset or drop incorrectly when entering this phase. The quality you publish with is the baseline, and every update builds on top of that. Bugs are tracked from their starting count at release, and quality improves as bugs are fixed. Once bugs drop below a certain threshold, the player can finish support permanently, locking the game and freeing themselves up to start the next project.</p>
-              <p>A lot of effort also went into separating how information is presented. The in-game computer is now the place where full control happens — starting projects, publishing games, managing updates, and making decisions. The phone, on the other hand, is designed as a lightweight, always-available snapshot. It mirrors exactly what the computer shows, but without buttons or interaction. This means you can keep an eye on development or support progress while walking around, without opening menus or pausing the flow of the game. Under the hood, it’s signal-driven and optimised so it updates only when something actually changes.</p>
-              <p>Behind the scenes, the save system has been tightened up significantly. Active projects, completed games, released titles, support states, bugs, quality, and future sales data are all persisted cleanly. You can save at any point — mid-development, mid-support, or post-release — and everything restores exactly as it should. At the same time, the codebase itself has been cleaned up and tagged so systems are clearly separated and readable, making future additions far less risky.</p>
-              <p>With this foundation in place, the game is now ready to move into the next major phase: sales simulation. This will introduce long-term performance, revenue decay, the impact of updates over time, and eventually the deeper strategy of balancing quality, bugs, timing, and player fatigue. But none of that would matter if the core loop wasn’t solid — and now it finally is.</p>
+              <div class="preview-clamp">
+                <p>This has been one of the biggest development milestones so far, and honestly one of the most important ones to get right before moving forward. Over the last stretch of work, the focus hasn’t been on adding flashy features, but on properly locking in the entire game development loop from start to finish. I wanted to make sure that making a game, developing it, publishing it, supporting it, and finally moving on all feel like real, connected systems rather than disconnected menus or progress bars.</p>
+                <p>At the core of this update is the fact that development is now fully driven by time. Progress doesn’t magically jump forward or tick up just because you clicked a button. Hours are earned minute by minute through the in-game clock, sleeping correctly skips time without breaking anything, and development only advances when a real hour of work has actually passed. This was crucial to making the game feel grounded and believable rather than gamey or exploitable.</p>
+                <p>Once a project is started, it moves through a clear lifecycle. During development, the game builds up progress while also carrying an inherent bug risk that’s influenced by the player’s decisions, such as genre and programming language. More bugs mean worse starting quality, and that trade-off is intentional. When development finishes, the game becomes ready to publish, and once published, sales begin immediately. There’s no hidden delay or fake buffer — the game is out in the world, and its performance is now affected by the choices made during development.</p>
+                <p>After release, the game enters a proper support phase. This is where updates come into play. Updates don’t cost money yet, but they do cost player fatigue and time, and they exist to reduce bugs and increase quality over time. Importantly, support progress now starts at zero, not at some artificial 100%, and quality doesn’t reset or drop incorrectly when entering this phase. The quality you publish with is the baseline, and every update builds on top of that. Bugs are tracked from their starting count at release, and quality improves as bugs are fixed. Once bugs drop below a certain threshold, the player can finish support permanently, locking the game and freeing themselves up to start the next project.</p>
+                <p>A lot of effort also went into separating how information is presented. The in-game computer is now the place where full control happens — starting projects, publishing games, managing updates, and making decisions. The phone, on the other hand, is designed as a lightweight, always-available snapshot. It mirrors exactly what the computer shows, but without buttons or interaction. This means you can keep an eye on development or support progress while walking around, without opening menus or pausing the flow of the game. Under the hood, it’s signal-driven and optimised so it updates only when something actually changes.</p>
+                <p>Behind the scenes, the save system has been tightened up significantly. Active projects, completed games, released titles, support states, bugs, quality, and future sales data are all persisted cleanly. You can save at any point — mid-development, mid-support, or post-release — and everything restores exactly as it should. At the same time, the codebase itself has been cleaned up and tagged so systems are clearly separated and readable, making future additions far less risky.</p>
+                <p>With this foundation in place, the game is now ready to move into the next major phase: sales simulation. This will introduce long-term performance, revenue decay, the impact of updates over time, and eventually the deeper strategy of balancing quality, bugs, timing, and player fatigue. But none of that would matter if the core loop wasn’t solid — and now it finally is.</p>
+              </div>
 
-              <div class="image-gallery" aria-label="Devlog images">
-                <img src="images/BlogPost 1-1.png" alt="Vision Angle 1" onclick="openLightbox(this, event)">
-                <img src="images/BlogPost 1-2.png" alt="Vision Angle 1" onclick="openLightbox(this, event)">
-                <img src="images/BlogPost 1-3.png" alt="Vision Angle 1" onclick="openLightbox(this, event)">
-                <img src="images/BlogPost 1-6.png" alt="Vision Angle 1" onclick="openLightbox(this, event)">
-                <img src="images/BlogPost 1-7.png" alt="Vision Angle 1" onclick="openLightbox(this, event)">
-                <img src="images/BlogPost 1-8.png" alt="Vision Angle 1" onclick="openLightbox(this, event)">
+              <div class="gallery-wrap">
+                <div class="gallery-title">SCREENSHOTS</div>
+                <div class="image-gallery" aria-label="Devlog images">
+                  <img src="images/BlogPost 1-1.png" alt="Vision Angle 1" onclick="openLightbox(this, event)">
+                  <img src="images/BlogPost 1-2.png" alt="Vision Angle 1" onclick="openLightbox(this, event)">
+                  <img src="images/BlogPost 1-3.png" alt="Vision Angle 1" onclick="openLightbox(this, event)">
+                  <img src="images/BlogPost 1-6.png" alt="Vision Angle 1" onclick="openLightbox(this, event)">
+                  <img src="images/BlogPost 1-7.png" alt="Vision Angle 1" onclick="openLightbox(this, event)">
+                  <img src="images/BlogPost 1-8.png" alt="Vision Angle 1" onclick="openLightbox(this, event)">
+                </div>
               </div>
 
             </div>
           </article>
+
         </div>
       </div>
     </section>
@@ -1163,6 +1212,7 @@
     // Devlog modal
     // =========================
     function openDevlogModal(entry, ev) {
+      // If user clicked an image inside the card, don't open modal (image opens lightbox)
       if (ev && ev.target && ev.target.tagName === 'IMG') return;
 
       const modal = document.getElementById('devlog-modal');
@@ -1170,11 +1220,13 @@
 
       const content = entry.cloneNode(true);
 
+      // Strip interactivity off cloned card
       content.removeAttribute('onclick');
       content.removeAttribute('onkeydown');
       content.removeAttribute('role');
       content.removeAttribute('tabindex');
 
+      // Ensure images inside modal still open lightbox + stop propagation
       const images = content.querySelectorAll('img');
       images.forEach(img => {
         img.setAttribute('onclick', 'openLightbox(this, event)');
@@ -1196,7 +1248,10 @@
       if (event && event.target !== event.currentTarget) return;
       const modal = document.getElementById('devlog-modal');
       modal.classList.remove('active');
-      document.body.style.overflow = '';
+
+      // Only restore scroll if lightbox isn't open
+      const lightbox = document.querySelector('.lightbox');
+      if(!lightbox.classList.contains('active')) document.body.style.overflow = '';
     }
 
     // =========================
@@ -1221,7 +1276,7 @@
       if(!modal.classList.contains('active')) document.body.style.overflow = '';
     }
 
-    // Escape closes both
+    // Escape closes all
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
         closeLightbox();
