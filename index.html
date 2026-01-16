@@ -452,7 +452,7 @@
       gap: 14px;
       justify-content: space-between;
       align-items: flex-start;
-      margin-bottom: 14px;
+      margin-bottom: 10px;
     }
     .devlog-entry h4{
       font-size: 1.18rem;
@@ -471,6 +471,30 @@
       white-space: nowrap;
     }
 
+    /* ✅ FIX: hint no longer absolute; sits under header, never overlaps date */
+    .hint{
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+
+      font-size: 0.78rem;
+      color: rgba(85,247,212,0.9);
+      border: 1px solid rgba(85,247,212,0.30);
+      background: rgba(85,247,212,0.08);
+      padding: 6px 10px;
+      border-radius: 999px;
+
+      opacity: 0;
+      transform: translateY(-2px);
+      transition: opacity 0.18s ease, transform 0.18s ease;
+
+      margin-bottom: 8px;
+    }
+    .devlog-entry:hover .hint{
+      opacity: 1;
+      transform: translateY(0);
+    }
+
     .devlog-entry p{
       color: var(--muted);
       line-height: 1.9;
@@ -479,26 +503,6 @@
     .devlog-entry strong{
       color: rgba(85,247,212,0.95);
       font-weight: 800;
-    }
-
-    .hint{
-      position: absolute;
-      top: 16px;
-      right: 16px;
-      font-size: 0.78rem;
-      color: rgba(85,247,212,0.9);
-      border: 1px solid rgba(85,247,212,0.30);
-      background: rgba(85,247,212,0.08);
-      padding: 6px 10px;
-      border-radius: 999px;
-      opacity: 0.0;
-      transform: translateY(-2px);
-      transition: opacity 0.18s ease, transform 0.18s ease;
-      pointer-events: none;
-    }
-    .devlog-entry:hover .hint{
-      opacity: 1;
-      transform: translateY(0px);
     }
 
     /* Gallery */
@@ -810,7 +814,6 @@
       .brand p{ display: none; }
       .hero-card{ padding: 30px; }
       .devlog-header{ flex-direction: column; align-items: flex-start; }
-      .hint{ display: none; }
     }
 
     @media (max-width: 768px){
@@ -873,7 +876,7 @@
     <section id="home">
       <div class="hero">
         <div class="hero-bg">
-          <img src="images/Website_BG_Image.png" alt="Game Development Background" />
+          <img src="images/Website_BG.png" alt="Game Development Background" />
           <div class="hero-overlay"></div>
         </div>
 
@@ -929,12 +932,14 @@
 
         <article class="card devlog-entry" role="button" tabindex="0" onclick="openDevlogModal(this, event)" onkeydown="devlogKeyOpen(this, event)">
           <div class="card-pad">
-            <span class="hint">Click to read more</span>
 
             <div class="devlog-header">
               <h4>Dev Log – Locking in the Core Development Loop</h4>
               <time>15 Jan 2026</time>
             </div>
+
+            <!-- ✅ FIX: moved here so it never overlaps the date -->
+            <span class="hint">Click to read more</span>
 
             <p>This has been one of the biggest development milestones so far, and honestly one of the most important ones to get right before moving forward. Over the last stretch of work, the focus hasn’t been on adding flashy features, but on properly locking in the entire game development loop from start to finish. I wanted to make sure that making a game, developing it, publishing it, supporting it, and finally moving on all feel like real, connected systems rather than disconnected menus or progress bars.</p>
             <p>At the core of this update is the fact that development is now fully driven by time. Progress doesn’t magically jump forward or tick up just because you clicked a button. Hours are earned minute by minute through the in-game clock, sleeping correctly skips time without breaking anything, and development only advances when a real hour of work has actually passed. This was crucial to making the game feel grounded and believable rather than gamey or exploitable.</p>
@@ -1122,7 +1127,6 @@
     }
 
     drawer.addEventListener('click', (e) => {
-      // Click outside panel closes
       if(e.target === drawer) setDrawer(false);
     });
 
@@ -1134,22 +1138,18 @@
     // Devlog modal
     // =========================
     function openDevlogModal(entry, ev) {
-      // Prevent opening if clicking on an image
       if (ev && ev.target && ev.target.tagName === 'IMG') return;
 
       const modal = document.getElementById('devlog-modal');
       const modalBody = document.getElementById('devlog-modal-body');
 
-      // Clone the content (keeps your content exactly)
       const content = entry.cloneNode(true);
 
-      // Remove interactive wrappers from clone
       content.removeAttribute('onclick');
       content.removeAttribute('onkeydown');
       content.removeAttribute('role');
       content.removeAttribute('tabindex');
 
-      // Ensure images still open lightbox inside modal
       const images = content.querySelectorAll('img');
       images.forEach(img => {
         img.setAttribute('onclick', 'openLightbox(this, event)');
@@ -1192,7 +1192,6 @@
       const lightbox = document.querySelector('.lightbox');
       lightbox.classList.remove('active');
 
-      // Only restore scroll if modal isn't open
       const modal = document.getElementById('devlog-modal');
       if(!modal.classList.contains('active')) document.body.style.overflow = '';
     }
