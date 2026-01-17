@@ -9,7 +9,7 @@
       title: "Dev Log — Breaking Down the Core Loop: The Dev Cycle",
       dateLabel: "17 Jan 2026",
       excerpt:
-        "With the core systems finally locked in, I’ve shifted focus to a full art and UI overhaul across the entire game.",
+        "Today being a rest day I've taken some time to think about the core game loop",
       paragraphs: [
         "Lately I’ve been spending a lot of time thinking about what the actual heart of this game is. Not features, not UI, not polish — but the loop you’re going to repeat over and over as a player. The tricky part is making something that feels realistic and layered without turning into a boring or overly repetitive grind, which is kind of the constant battle with tycoon-style games.",
         "At its simplest, the core of the game is what I’m calling the dev cycle.",
