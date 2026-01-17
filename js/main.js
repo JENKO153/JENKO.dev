@@ -5,6 +5,26 @@
   // =========================
   const POSTS = [
     {
+      id: "2026-01-17",
+      title: "Dev Log — Breaking Down the Core Loop: The Dev Cycle",
+      dateLabel: "17 Jan 2026",
+      excerpt:
+        "With the core systems finally locked in, I’ve shifted focus to a full art and UI overhaul across the entire game.",
+      paragraphs: [
+        "Lately I’ve been spending a lot of time thinking about what the actual heart of this game is. Not features, not UI, not polish — but the loop you’re going to repeat over and over as a player. The tricky part is making something that feels realistic and layered without turning into a boring or overly repetitive grind, which is kind of the constant battle with tycoon-style games.",
+        "At its simplest, the core of the game is what I’m calling the dev cycle.",
+        "When you start developing a game, you’re committing to the full process — not just writing code and hitting “publish.” The money it costs to begin development is tied to the real cost of putting a game out into the world. That includes things like marketing and other overhead, not just development time. You’re basically front-loading that commitment instead of pretending games magically appear once a progress bar fills.",
+        "One thing I’m still experimenting with is how much flexibility the player has during development, especially early on as a solo dev. I like the idea of being able to hire out certain aspects of development — maybe art, audio, or marketing — to speed things up or get better results than you’d manage alone. The trade-off is obvious: you lose money or long-term profit, but you gain time and quality. It adds an extra layer of decision-making without forcing it on the player if they’d rather do everything themselves.",
+        "Beyond just the project itself, everything around you plays into the loop too. The computer you’re using, the desk, the chair — even the space you’re working in — all come with their own perks and drawbacks. Faster work speeds, lower fatigue, reduced stress, higher efficiency… nothing is strictly better, just different. Some setups let you grind harder, others help you last longer without burning out. The goal is to let players decide what they want to prioritise instead of pushing one optimal build.",
+        "Once a game is released, the cycle doesn’t just end. That’s where the support phase comes in. After launch, you can continue updating and supporting your game — fixing bugs, improving quality, and extending its lifespan. The catch is that while you’re supporting a game, you’re not making a new one. Your focus is locked in. You can keep updating, but only so many times, and over time the game naturally loses relevance and interest until it eventually fades out and gets lost in the ether like most real games do.",
+        "At that point, you have to make a call: keep supporting a dying title, or let it go and move on to the next project.",
+        "That’s the loop at its most basic: develop → release → support → move on.",
+        "There’s a lot more depth planned on top of this — sales simulation, player interest, quality decay, long-term strategy — but none of that matters if the core loop doesn’t feel solid and believable. Right now, the goal is to make every decision feel like a trade-off instead of a checklist, and to make progress feel earned without turning the game into busywork.",
+        "It’s still early, and a lot of this will change as it gets tested and broken, but this is the foundation everything else is being built on.",
+      ],
+      images: [] // add images here later if you want
+    },
+    {
       id: "2026-01-16",
       title: "Dev Log — Art Overhaul Mode (Finally)",
       dateLabel: "16 Jan 2026",
