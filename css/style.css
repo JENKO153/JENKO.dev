@@ -847,3 +847,27 @@ img{ display: block; max-width: 100%; }
   .hero-actions .btn{ width: 100%; }
   .stat{ width: 160px; }
 }
+
+/* =========================
+   Fix skinny top nav
+========================== */
+
+.topbar {
+  min-height: 72px; /* restores proper height */
+}
+
+.topbar-inner {
+  height: 72px;
+  padding: 0 0; /* ensures padding isn't collapsing it */
+}
+
+.nav a,
+.nav-cta {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.brand {
+  padding: 8px 0;
+}
+
