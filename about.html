@@ -5,559 +5,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>JENKO | About</title>
 
-  <!-- Fonts (same as home) -->
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-
-  <style>
-    /* =========================
-       Reset / Base
-    ========================== */
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-
-    :root{
-      --bg: #0b0f14;
-      --panel: #101826;
-      --panel-2: #0f1724;
-      --border: rgba(255,255,255,0.10);
-      --border-2: rgba(255,255,255,0.06);
-
-      --text: #eef2ff;
-      --muted: rgba(238,242,255,0.70);
-      --dim: rgba(238,242,255,0.45);
-
-      --primary: #55f7d4;
-      --secondary: #ff4fb7;
-      --accent: #ffb44b;
-
-      --shadow: 0 16px 50px rgba(0,0,0,0.55);
-      --radius: 18px;
-
-      --max: 1120px;
-      --navH: 72px;
-    }
-
-    html { scroll-behavior: smooth; font-size: 16px; }
-    body{
-      font-family: 'Inter', sans-serif;
-      background: radial-gradient(1200px 700px at 25% -10%, rgba(85,247,212,0.10), transparent 55%),
-                  radial-gradient(900px 600px at 110% 10%, rgba(255,79,183,0.08), transparent 55%),
-                  radial-gradient(900px 600px at 60% 120%, rgba(255,180,75,0.06), transparent 55%),
-                  var(--bg);
-      color: var(--text);
-      overflow-x: hidden;
-    }
-
-    a{ color: inherit; text-decoration: none; }
-    img{ display: block; max-width: 100%; }
-
-    :focus-visible{
-      outline: 2px solid rgba(85,247,212,0.9);
-      outline-offset: 3px;
-      border-radius: 10px;
-    }
-
-    .container{
-      width: min(var(--max), 92vw);
-      margin: 0 auto;
-    }
-
-    .section{
-      padding: 70px 0;
-    }
-
-    /* =========================
-       Top Navigation (same style)
-    ========================== */
-    .topbar{
-      position: sticky;
-      top: 0;
-      z-index: 999;
-      height: var(--navH);
-      display: flex;
-      align-items: center;
-      backdrop-filter: blur(14px);
-      background: rgba(11,15,20,0.72);
-      border-bottom: 1px solid var(--border-2);
-    }
-
-    .topbar-inner{
-      width: min(var(--max), 92vw);
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-    }
-
-    .brand{
-      display: flex;
-      align-items: baseline;
-      gap: 12px;
-      min-width: 220px;
-    }
-
-    .brand h1{
-      font-family: 'Orbitron', monospace;
-      font-weight: 900;
-      letter-spacing: 2px;
-      font-size: 1.2rem;
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .brand p{
-      color: var(--dim);
-      font-size: 0.9rem;
-      font-weight: 400;
-      white-space: nowrap;
-    }
-
-    .nav{
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .nav a{
-      color: var(--muted);
-      font-size: 0.9rem;
-      font-weight: 600;
-      letter-spacing: 0.06em;
-      padding: 10px 12px;
-      border-radius: 12px;
-      transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
-    }
-
-    .nav a:hover{
-      background: rgba(255,255,255,0.06);
-      color: var(--text);
-      transform: translateY(-1px);
-    }
-
-    .nav-cta{
-      margin-left: 6px;
-      padding: 10px 14px;
-      border-radius: 999px;
-      border: 1px solid rgba(85,247,212,0.35);
-      background: rgba(85,247,212,0.10);
-      color: var(--text);
-      transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
-    }
-    .nav-cta:hover{
-      transform: translateY(-1px);
-      background: rgba(85,247,212,0.16);
-      border-color: rgba(85,247,212,0.55);
-    }
-
-    .menu-btn{
-      display: none;
-      width: 44px;
-      height: 44px;
-      border-radius: 14px;
-      border: 1px solid var(--border);
-      background: rgba(255,255,255,0.04);
-      cursor: pointer;
-      position: relative;
-    }
-    .menu-btn span{
-      position: absolute;
-      left: 50%;
-      width: 18px;
-      height: 2px;
-      background: rgba(238,242,255,0.85);
-      transform: translateX(-50%);
-      transition: transform 0.2s ease, top 0.2s ease, opacity 0.2s ease;
-    }
-    .menu-btn span:nth-child(1){ top: 16px; }
-    .menu-btn span:nth-child(2){ top: 21px; }
-    .menu-btn span:nth-child(3){ top: 26px; }
-    .menu-btn.active span:nth-child(1){ top: 21px; transform: translateX(-50%) rotate(45deg); }
-    .menu-btn.active span:nth-child(2){ opacity: 0; }
-    .menu-btn.active span:nth-child(3){ top: 21px; transform: translateX(-50%) rotate(-45deg); }
-
-    .drawer{
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.65);
-      z-index: 998;
-    }
-    .drawer.active{ display: block; }
-    .drawer-panel{
-      position: absolute;
-      top: var(--navH);
-      left: 50%;
-      transform: translateX(-50%);
-      width: min(var(--max), 92vw);
-      border: 1px solid var(--border);
-      background: rgba(16,24,38,0.92);
-      backdrop-filter: blur(16px);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      overflow: hidden;
-    }
-    .drawer-panel a{
-      display: block;
-      padding: 16px 16px;
-      color: var(--muted);
-      font-weight: 600;
-      letter-spacing: 0.05em;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-    }
-    .drawer-panel a:hover{
-      background: rgba(255,255,255,0.06);
-      color: var(--text);
-    }
-    .drawer-panel a:last-child{ border-bottom: none; }
-
-    /* =========================
-       Page Hero (same vibe)
-    ========================== */
-    .page-hero{
-      padding: 54px 0 28px;
-      border-bottom: 1px solid var(--border-2);
-    }
-
-    .page-hero-card{
-      border: 1px solid var(--border);
-      background: rgba(16,24,38,0.62);
-      border-radius: calc(var(--radius) + 6px);
-      box-shadow: var(--shadow);
-      padding: 28px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .page-hero-card::before{
-      content:"";
-      position:absolute;
-      inset:-2px;
-      background: radial-gradient(900px 400px at 20% 0%, rgba(85,247,212,0.14), transparent 60%),
-                  radial-gradient(900px 400px at 110% 20%, rgba(255,79,183,0.10), transparent 60%);
-      pointer-events:none;
-    }
-
-    .page-hero-inner{
-      position: relative;
-      z-index: 1;
-    }
-
-    .page-title{
-      font-family: 'Orbitron', monospace;
-      font-size: clamp(1.8rem, 4vw, 2.6rem);
-      font-weight: 900;
-      letter-spacing: 0.03em;
-      margin-bottom: 10px;
-      background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .page-subtitle{
-      color: rgba(238,242,255,0.82);
-      line-height: 1.75;
-      max-width: 72ch;
-    }
-
-    /* =========================
-       Section header
-    ========================== */
-    .section-head{
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: 14px;
-      margin-bottom: 22px;
-    }
-
-    .section-head h2{
-      font-family: 'Orbitron', monospace;
-      font-size: 1.55rem;
-      letter-spacing: 0.08em;
-    }
-
-    .section-rule{
-      height: 1px;
-      flex: 1;
-      background: linear-gradient(90deg, rgba(85,247,212,0.35), rgba(255,255,255,0.06), transparent);
-      border-radius: 999px;
-      margin-left: 16px;
-    }
-
-    /* =========================
-       Cards / About Layout
-    ========================== */
-    .card{
-      border: 1px solid var(--border);
-      background: rgba(16,24,38,0.62);
-      border-radius: var(--radius);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.35);
-    }
-    .card-pad{ padding: 22px; }
-
-    .about-split{
-      display: grid;
-      grid-template-columns: 1.15fr 0.85fr;
-      gap: 18px;
-      align-items: start;
-    }
-
-    .about-headline{
-      font-family: 'Orbitron', monospace;
-      font-size: 1.5rem;
-      letter-spacing: 0.06em;
-      margin-bottom: 10px;
-      background: linear-gradient(135deg, rgba(85,247,212,0.95), rgba(255,79,183,0.9));
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .about-body p{
-      color: var(--muted);
-      line-height: 1.95;
-      margin: 12px 0;
-      font-size: 1.02rem;
-    }
-
-    .about-body strong{
-      color: rgba(255,180,75,0.95);
-      font-weight: 900;
-    }
-
-    .pill-row{
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 16px;
-    }
-
-    .pill{
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 8px 12px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.10);
-      background: rgba(255,255,255,0.04);
-      color: rgba(238,242,255,0.85);
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      font-size: 0.82rem;
-      user-select: none;
-    }
-    .pill .dot{
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-      background: rgba(85,247,212,0.9);
-      box-shadow: 0 0 0 3px rgba(85,247,212,0.10);
-    }
-
-    /* Sidebar card */
-    .profile-card{
-      position: sticky;
-      top: calc(var(--navH) + 18px);
-    }
-
-    .avatar{
-      width: 96px;
-      height: 96px;
-      border-radius: 22px;
-      border: 1px solid rgba(255,255,255,0.12);
-      background: linear-gradient(135deg, rgba(85,247,212,0.16), rgba(255,79,183,0.10));
-      box-shadow: 0 12px 28px rgba(0,0,0,0.35);
-      display: grid;
-      place-items: center;
-      margin-bottom: 14px;
-      overflow: hidden;
-    }
-    .avatar span{
-      font-family: 'Orbitron', monospace;
-      font-weight: 900;
-      letter-spacing: 0.12em;
-      color: rgba(238,242,255,0.9);
-    }
-
-    .profile-name{
-      font-family: 'Orbitron', monospace;
-      font-size: 1.15rem;
-      letter-spacing: 0.06em;
-      margin-bottom: 6px;
-      color: rgba(238,242,255,0.95);
-    }
-    .profile-sub{
-      color: rgba(238,242,255,0.72);
-      line-height: 1.7;
-      font-size: 0.95rem;
-      margin-bottom: 14px;
-    }
-
-    .link-list{
-      display: grid;
-      gap: 10px;
-      margin-top: 12px;
-    }
-
-    .link-btn{
-      display: inline-flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 12px 14px;
-      border-radius: 14px;
-      border: 1px solid rgba(255,255,255,0.10);
-      background: rgba(255,255,255,0.04);
-      color: rgba(238,242,255,0.88);
-      font-weight: 800;
-      letter-spacing: 0.03em;
-      transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
-    }
-    .link-btn:hover{
-      transform: translateY(-2px);
-      border-color: rgba(85,247,212,0.40);
-      background: rgba(85,247,212,0.08);
-    }
-    .link-btn small{
-      color: rgba(238,242,255,0.55);
-      font-weight: 700;
-    }
-
-    /* Stats row */
-    .stats{
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      margin-top: 18px;
-    }
-
-    .stat{
-      border: 1px solid rgba(255,255,255,0.10);
-      background: rgba(255,255,255,0.04);
-      border-radius: 16px;
-      padding: 14px 16px;
-      text-align: center;
-    }
-    .stat strong{
-      display: block;
-      font-family: 'Orbitron', monospace;
-      font-weight: 900;
-      font-size: 1.55rem;
-      margin-bottom: 6px;
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .stat span{
-      font-size: 0.78rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: var(--dim);
-    }
-
-    /* Timeline */
-    .timeline{
-      display: grid;
-      gap: 12px;
-      margin-top: 18px;
-    }
-    .timeline-item{
-      display: grid;
-      grid-template-columns: 120px 1fr;
-      gap: 14px;
-      padding: 14px;
-      border-radius: 16px;
-      border: 1px solid rgba(255,255,255,0.08);
-      background: rgba(255,255,255,0.03);
-    }
-    .timeline-item .when{
-      font-family: 'Orbitron', monospace;
-      letter-spacing: 0.08em;
-      font-size: 0.82rem;
-      color: rgba(238,242,255,0.75);
-      padding-top: 2px;
-      white-space: nowrap;
-    }
-    .timeline-item .what{
-      color: var(--muted);
-      line-height: 1.85;
-    }
-
-    /* Footer */
-    .site-footer{
-      border-top: 1px solid var(--border-2);
-      padding: 26px 0;
-      color: var(--dim);
-      font-size: 0.9rem;
-    }
-    .footer-inner{
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 14px;
-      flex-wrap: wrap;
-    }
-    .social-links{
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .social-links a{
-      width: 40px;
-      height: 40px;
-      border-radius: 14px;
-      display: grid;
-      place-items: center;
-      border: 1px solid rgba(255,255,255,0.12);
-      background: rgba(255,255,255,0.04);
-      color: rgba(238,242,255,0.82);
-      transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
-    }
-    .social-links a:hover{
-      transform: translateY(-1px);
-      border-color: rgba(85,247,212,0.45);
-      background: rgba(85,247,212,0.08);
-      color: rgba(238,242,255,0.95);
-    }
-
-    /* Responsive */
-    @media (max-width: 980px){
-      .about-split{ grid-template-columns: 1fr; }
-      .profile-card{ position: relative; top: 0; }
-      .brand p{ display: none; }
-    }
-
-    @media (max-width: 768px){
-      .nav{ display: none; }
-      .menu-btn{ display: inline-block; }
-      .section{ padding: 56px 0; }
-      .timeline-item{ grid-template-columns: 1fr; }
-      .timeline-item .when{ padding-top: 0; }
-      .stats{ grid-template-columns: 1fr; }
-    }
-  </style>
+  <link rel="stylesheet" href="css/style.css" />
+  <script defer src="js/main.js"></script>
 </head>
 
 <body>
 
-  <!-- Top Navigation -->
   <header class="topbar" role="banner">
     <div class="topbar-inner">
-      <div class="brand" aria-label="Site brand">
+      <a class="brand" href="index.html" aria-label="Go home">
         <h1>JENKO</h1>
         <p>Game Developer</p>
-      </div>
+      </a>
 
-      <!-- Multi-page nav (same vibe as your home) -->
       <nav class="nav" aria-label="Primary navigation">
         <a href="index.html">HOME</a>
-        <a href="index.html#projects">PROJECTS</a>
+        <a href="projects.html">PROJECTS</a>
         <a href="devlog.html">DEVLOG</a>
-        <a href="about.html">ABOUT</a>
+        <a class="active" href="about.html">ABOUT</a>
         <a class="nav-cta" href="devlog.html">Read Latest</a>
       </nav>
 
@@ -567,239 +33,81 @@
     </div>
   </header>
 
-  <!-- Mobile Drawer -->
   <div class="drawer" id="mobile-drawer" aria-hidden="true">
     <div class="drawer-panel" role="dialog" aria-label="Mobile navigation">
       <a href="index.html">HOME</a>
-      <a href="index.html#projects">PROJECTS</a>
+      <a href="projects.html">PROJECTS</a>
       <a href="devlog.html">DEVLOG</a>
       <a href="about.html">ABOUT</a>
     </div>
   </div>
 
   <main role="main">
-
-    <!-- Page Hero -->
-    <section class="page-hero">
-      <div class="container">
-        <div class="page-hero-card">
-          <div class="page-hero-inner">
-            <div class="page-title">ABOUT ME</div>
-            <div class="page-subtitle">
-              A bit more detail than the homepage. Who I am, how I got here, and what I’m building right now.
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ABOUT CONTENT -->
     <section class="section">
       <div class="container">
-
         <div class="section-head">
-          <h2>THE STORY</h2>
+          <h2>ABOUT ME</h2>
           <div class="section-rule" aria-hidden="true"></div>
         </div>
 
-        <div class="about-split">
-
-          <!-- Main story -->
-          <div class="card">
-            <div class="card-pad">
-              <div class="about-headline">Hey, I’m Jenko.</div>
-
-              <div class="about-body">
-                <p>
-                  I’m a game dev from Australia building <strong>2D games in Godot</strong> — mostly late at night, powered by coffee
-                  and that stubborn “just one more system” mentality.
-                </p>
-                <p>
-                  I started out messing around with <strong>Unity</strong>, spent a bit of time learning <strong>Unreal</strong>, and then
-                  discovered <strong>Godot</strong> — and honestly, it just clicked for me. It’s flexible, fast to iterate in, and perfect
-                  for the kind of top-down / system-heavy games I love making.
-                </p>
-                <p>
-                  Right now I’m deep into my current project <strong>Dev Cycle</strong> — a tycoon-style game about making games.
-                  The big goal is to make it feel grounded: real dev loops, meaningful decisions, bugs, updates, publishing,
-                  and a proper “release → support → move on” cycle.
-                </p>
-                <p>
-                  The way I like building is pretty simple: I don’t move on until the foundation is solid. So I’ll disappear
-                  into programming for a while, get the core loop actually working, then come up for air and make it look and feel right.
-                </p>
-
-                <div class="pill-row" aria-label="Quick tags">
-                  <span class="pill"><span class="dot"></span> Godot 4</span>
-                  <span class="pill"><span class="dot"></span> GDScript</span>
-                  <span class="pill"><span class="dot"></span> Top-down 2D</span>
-                  <span class="pill"><span class="dot"></span> System-heavy gameplay</span>
-                  <span class="pill"><span class="dot"></span> Pixel art pipelines</span>
-                </div>
-
-                <div class="timeline" aria-label="Timeline">
-                  <div class="timeline-item">
-                    <div class="when">START</div>
-                    <div class="what">Picked up game dev as a serious hobby and started shipping tiny prototypes.</div>
-                  </div>
-                  <div class="timeline-item">
-                    <div class="when">UNITY</div>
-                    <div class="what">Learned fundamentals and got comfortable building gameplay + UI quickly.</div>
-                  </div>
-                  <div class="timeline-item">
-                    <div class="when">UNREAL</div>
-                    <div class="what">Explored it for a bit, learned a lot — but it wasn’t the best fit for my 2D focus.</div>
-                  </div>
-                  <div class="timeline-item">
-                    <div class="when">GODOT</div>
-                    <div class="what">Found my home. Fast iteration, clean structure, and perfect for the games I’m making now.</div>
-                  </div>
-                  <div class="timeline-item">
-                    <div class="when">NOW</div>
-                    <div class="what">Building Dev Cycle and documenting everything in the devlog — the wins and the pain.</div>
-                  </div>
-                </div>
-
-              </div>
-            </div>
-          </div>
-
-          <!-- Sidebar / profile -->
-          <div class="card profile-card">
-            <div class="card-pad">
-
-              <!-- If you have a real profile image later, replace this div with an <img> -->
-              <div class="avatar" aria-label="Profile avatar placeholder">
-                <span>J</span>
-              </div>
-
-              <div class="profile-name">Jenko</div>
-              <div class="profile-sub">
-                Indie Game Developer<br/>
-                Building <strong>Dev Cycle</strong><br/>
-                Australia 🇦🇺
-              </div>
-
-              <div class="stats" aria-label="Stats">
-                <div class="stat">
-                  <strong>3-4</strong>
-                  <span>Years Dev</span>
-                </div>
-                <div class="stat">
-                  <strong>3</strong>
-                  <span>Engines</span>
-                </div>
-                <div class="stat">
-                  <strong>∞</strong>
-                  <span>Coffee</span>
-                </div>
-              </div>
-
-              <div class="link-list" aria-label="Links">
-                <!-- Replace # with your real links when ready -->
-                <a class="link-btn" href="#" target="_blank" rel="noopener">
-                  GitHub <small>→</small>
-                </a>
-                <a class="link-btn" href="#" target="_blank" rel="noopener">
-                  YouTube <small>→</small>
-                </a>
-                <a class="link-btn" href="#" target="_blank" rel="noopener">
-                  Itch.io <small>→</small>
-                </a>
-                <a class="link-btn" href="devlog.html">
-                  Read the Devlog <small>→</small>
-                </a>
-              </div>
-
-            </div>
-          </div>
-
+        <div class="about-intro">
+          <h3>Hey, I'm Jenko!</h3>
+          <p>A 25-year-old game developer from Melbourne, Australia, turning coffee and spare time into interactive experiences.</p>
         </div>
 
+        <!-- Restored stat pills (exact style) -->
+        <div class="about-stats">
+          <div class="stat">
+            <span class="stat-number">3–4</span>
+            <span class="stat-label">YEARS DEV</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number">3</span>
+            <span class="stat-label">ENGINES</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number">∞</span>
+            <span class="stat-label">COFFEE</span>
+          </div>
+        </div>
+
+        <div class="about-grid">
+          <div class="about-card">
+            <div class="card-icon">⚡</div>
+            <h4>The Journey</h4>
+            <p>Started my game dev adventure 3-4 years ago with Unity, explored the power of Unreal Engine for 6 months, then discovered Godot — and never looked back. Now I'm crafting 2D experiences that blend atmospheric storytelling with engaging mechanics.</p>
+          </div>
+
+          <div class="about-card">
+            <div class="card-icon">🕒</div>
+            <h4>The Balance</h4>
+            <p>I juggle a full-time job that takes me away for extended periods, but every spare moment becomes an opportunity to code, design, and create. Game development isn't just a hobby — it's my passion project that keeps me grounded (pun intended).</p>
+          </div>
+
+          <div class="about-card">
+            <div class="card-icon">🧩</div>
+            <h4>The Tech Stack</h4>
+            <p>Currently loving Godot for its flexibility and open-source nature. Experienced with GDScript, pixel art creation, and implementing complex game systems. Always learning, always building, always pushing pixels around until they feel just right.</p>
+          </div>
+        </div>
+
+        <div class="about-footer">
+          <p>When I'm not debugging door transitions at 2 AM or perfecting enemy AI vision cones, you'll find me exploring Melbourne's coffee scene (essential fuel for late-night dev sessions) or planning my next game mechanic.</p>
+        </div>
       </div>
     </section>
-
-    <!-- Footer -->
-    <footer class="site-footer">
-      <div class="container">
-        <div class="footer-inner">
-          <div>
-            <div>© 2025 Jenko</div>
-            <div>Made with Coffee</div>
-          </div>
-
-          <div class="social-links" aria-label="Social links">
-            <a href="#" title="GitHub" aria-label="GitHub">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-              </svg>
-            </a>
-
-            <a href="#" title="Twitter" aria-label="Twitter">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/>
-              </svg>
-            </a>
-
-            <a href="#" title="LinkedIn" aria-label="LinkedIn">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/>
-                <circle cx="4" cy="4" r="2"/>
-              </svg>
-            </a>
-          </div>
-        </div>
-      </div>
-    </footer>
-
   </main>
 
-  <script>
-    // =========================
-    // Mobile menu toggle
-    // =========================
-    const menuToggle = document.getElementById('menu-toggle');
-    const drawer = document.getElementById('mobile-drawer');
-    const drawerLinks = drawer.querySelectorAll('a');
-
-    function setDrawer(open){
-      if(open){
-        menuToggle.classList.add('active');
-        menuToggle.setAttribute('aria-expanded', 'true');
-        drawer.classList.add('active');
-        drawer.setAttribute('aria-hidden', 'false');
-        document.body.style.overflow = 'hidden';
-      } else {
-        menuToggle.classList.remove('active');
-        menuToggle.setAttribute('aria-expanded', 'false');
-        drawer.classList.remove('active');
-        drawer.setAttribute('aria-hidden', 'true');
-        document.body.style.overflow = '';
-      }
-    }
-
-    if(menuToggle){
-      menuToggle.addEventListener('click', () => {
-        const isOpen = drawer.classList.contains('active');
-        setDrawer(!isOpen);
-      });
-    }
-
-    drawer.addEventListener('click', (e) => {
-      if(e.target === drawer) setDrawer(false);
-    });
-
-    drawerLinks.forEach(link => {
-      link.addEventListener('click', () => setDrawer(false));
-    });
-
-    // Escape closes drawer
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        setDrawer(false);
-      }
-    });
-  </script>
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div>
+          <div>© 2026 Jenko</div>
+          <div>Made with Coffee</div>
+        </div>
+      </div>
+    </div>
+  </footer>
 
 </body>
 </html>

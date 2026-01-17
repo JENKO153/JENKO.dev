@@ -5,153 +5,198 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>JENKO | Game Developer</title>
 
-  <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-
-  <!-- Styles -->
-  <link rel="stylesheet" href="css/style.css">
-
-  <!-- JS -->
+  <link rel="stylesheet" href="css/style.css" />
   <script defer src="js/main.js"></script>
 </head>
 
 <body>
 
-<!-- =========================
-     NAVBAR
-========================== -->
-<header class="topbar">
-  <div class="topbar-inner">
-    <div class="brand">
-      <h1>JENKO</h1>
-      <p>Game Developer</p>
-    </div>
+  <!-- Top Navigation -->
+  <header class="topbar" role="banner">
+    <div class="topbar-inner">
+      <a class="brand" href="index.html" aria-label="Go home">
+        <h1>JENKO</h1>
+        <p>Game Developer</p>
+      </a>
 
-    <nav class="nav">
+      <nav class="nav" aria-label="Primary navigation">
+        <a class="active" href="index.html">HOME</a>
+        <a href="projects.html">PROJECTS</a>
+        <a href="devlog.html">DEVLOG</a>
+        <a href="about.html">ABOUT</a>
+        <a class="nav-cta" href="devlog.html">Read Latest</a>
+      </nav>
+
+      <button class="menu-btn" id="menu-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-drawer">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div class="drawer" id="mobile-drawer" aria-hidden="true">
+    <div class="drawer-panel" role="dialog" aria-label="Mobile navigation">
       <a href="index.html">HOME</a>
       <a href="projects.html">PROJECTS</a>
       <a href="devlog.html">DEVLOG</a>
       <a href="about.html">ABOUT</a>
-      <a class="nav-cta" href="devlog.html">Read Latest</a>
-    </nav>
-
-    <button class="menu-btn" id="menu-toggle">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
-</header>
-
-<div class="drawer" id="mobile-drawer">
-  <div class="drawer-panel">
-    <a href="index.html">HOME</a>
-    <a href="projects.html">PROJECTS</a>
-    <a href="devlog.html">DEVLOG</a>
-    <a href="about.html">ABOUT</a>
-  </div>
-</div>
-
-<main>
-
-<!-- =========================
-     HERO
-========================== -->
-<section id="home">
-  <div class="hero">
-    <div class="hero-bg">
-      <img src="images/Blog_BG.png" alt="">
-      <div class="hero-overlay"></div>
     </div>
+  </div>
 
-    <div class="hero-inner">
-      <div class="container">
-        <div class="hero-card">
-          <h1 class="hero-title">
-            <span>JENKO's</span>
-            <span>DEV LOG</span>
-          </h1>
-          <p class="hero-subtitle">
-            Crafting 2D games with Godot, caffeine, and stubborn persistence.
-          </p>
+  <main role="main">
 
-          <div class="hero-actions">
-            <a href="projects.html" class="btn primary">View Projects</a>
-            <a href="devlog.html" class="btn">Read Devlog</a>
-            <a href="about.html" class="btn">About Me</a>
+    <!-- HERO -->
+    <section id="home">
+      <div class="hero">
+        <div class="hero-bg">
+          <img src="images/Blog_BG.png" alt="Game Development Background" />
+          <div class="hero-overlay"></div>
+        </div>
+
+        <div class="hero-inner">
+          <div class="container">
+            <div class="hero-card">
+              <h1 class="hero-title">
+                <span>JENKO's</span>
+                <span>DEV LOG</span>
+              </h1>
+              <p class="hero-subtitle">Crafting 2D games with Godot powered by caffeine</p>
+
+              <div class="hero-actions">
+                <a href="projects.html" class="btn primary">View Projects</a>
+                <a href="devlog.html" class="btn">Read Devlog</a>
+                <a href="about.html" class="btn">About Me</a>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<!-- =========================
-     STATS (RESTORED)
-========================== -->
-<section class="section">
-  <div class="container">
-
-    <div class="about-stats">
-      <div class="stat">
-        <span class="stat-number">3–4</span>
-        <span class="stat-label">YEARS DEV</span>
-      </div>
-
-      <div class="stat">
-        <span class="stat-number">3</span>
-        <span class="stat-label">ENGINES</span>
-      </div>
-
-      <div class="stat">
-        <span class="stat-number">∞</span>
-        <span class="stat-label">COFFEE</span>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<!-- =========================
-     LATEST DEVLOG SNAPSHOT
-========================== -->
-<section class="section">
-  <div class="container">
-    <div class="section-head">
-      <h2>LATEST DEVLOG</h2>
-      <div class="section-rule"></div>
-    </div>
-
-    <article class="card devlog-entry">
-      <div class="card-pad">
-        <div class="devlog-header">
-          <h4>Dev Log — Art Overhaul Mode (Finally)</h4>
-          <time>16 Jan 2026</time>
+    <!-- STAT PILLS (RESTORED EXACT STYLE) -->
+    <section class="section">
+      <div class="container">
+        <div class="about-stats">
+          <div class="stat">
+            <span class="stat-number">3–4</span>
+            <span class="stat-label">YEARS DEV</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number">3</span>
+            <span class="stat-label">ENGINES</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number">∞</span>
+            <span class="stat-label">COFFEE</span>
+          </div>
         </div>
-        <span class="hint">Click to read more</span>
-        <p>
-          With the core systems finally locked in, I’ve shifted focus to a full art
-          and UI overhaul across the entire game.
-        </p>
       </div>
-    </article>
+    </section>
 
-    <div style="margin-top: 24px;">
-      <a href="devlog.html" class="btn primary">View Full Devlog →</a>
-    </div>
-  </div>
-</section>
+    <!-- SNAPSHOTS GRID -->
+    <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <h2>SNAPSHOTS</h2>
+          <div class="section-rule" aria-hidden="true"></div>
+        </div>
 
-</main>
+        <div class="snap-grid">
 
-<footer class="site-footer">
-  <div class="container">
-    <div class="footer-inner">
-      <div>
-        <div>© 2026 Jenko</div>
-        <div>Made with Coffee</div>
+          <!-- Projects Snapshot -->
+          <div class="card snapshot">
+            <div class="card-pad">
+              <div class="snapshot-top">
+                <h3>Projects</h3>
+                <span class="chip">IN DEV</span>
+              </div>
+              <p class="muted">Quick peek at what I’m working on right now.</p>
+              <a class="snapshot-link" href="projects.html">Go to Projects →</a>
+            </div>
+          </div>
+
+          <!-- Devlog Snapshot (filled by JS from the SAME posts data) -->
+          <div class="card snapshot">
+            <div class="card-pad">
+              <div class="snapshot-top">
+                <h3>Latest Devlog</h3>
+                <span class="chip chip-teal">NEW</span>
+              </div>
+              <div id="latest-devlog-snapshot">
+                <p class="muted">Loading latest post…</p>
+              </div>
+              <a class="snapshot-link" href="devlog.html">Go to Devlog →</a>
+            </div>
+          </div>
+
+          <!-- About Snapshot -->
+          <div class="card snapshot">
+            <div class="card-pad">
+              <div class="snapshot-top">
+                <h3>About</h3>
+                <span class="chip chip-pink">ME</span>
+              </div>
+              <p class="muted">Who I am, what I build, and why I’m obsessed with this stuff.</p>
+              <a class="snapshot-link" href="about.html">Go to About →</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- LATEST DEVLOG PREVIEWS (cards) -->
+    <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <h2>LATEST POSTS</h2>
+          <div class="section-rule" aria-hidden="true"></div>
+        </div>
+
+        <div id="latest-posts" class="stack">
+          <!-- injected by JS -->
+        </div>
+
+        <div class="center-row">
+          <a class="btn primary" href="devlog.html">View Full Devlog →</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div>
+          <div>© 2026 Jenko</div>
+          <div>Made with Coffee</div>
+        </div>
+
+        <div class="social-links" aria-label="Social links">
+          <a href="#" title="GitHub" aria-label="GitHub">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+            </svg>
+          </a>
+
+          <a href="#" title="Twitter" aria-label="Twitter">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/>
+            </svg>
+          </a>
+
+          <a href="#" title="LinkedIn" aria-label="LinkedIn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/>
+              <circle cx="4" cy="4" r="2"/>
+            </svg>
+          </a>
+        </div>
       </div>
     </div>
-  </div>
-</footer>
+  </footer>
 
 </body>
 </html>
