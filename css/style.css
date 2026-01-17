@@ -596,27 +596,47 @@ img{ display: block; max-width: 100%; }
 /* =========================
    About
 ========================== */
-.about-intro{
+/* =========================
+   About intro – readability pass
+========================== */
+
+.about-intro {
   text-align: center;
-  padding: 22px;
+  padding: 32px 36px;
   border-radius: var(--radius);
   border: 1px solid var(--border);
   background: rgba(16,24,38,0.55);
-  margin-bottom: 18px;
+
+  /* NEW */
+  max-width: 860px;
+  margin: 0 auto 28px auto;
 }
-.about-intro h3{
+
+.about-intro h3 {
   font-family: 'Orbitron', monospace;
-  font-size: 1.65rem;
-  margin-bottom: 10px;
+  font-size: 1.75rem;
+  margin-bottom: 18px;
   background: linear-gradient(135deg, var(--primary), var(--secondary));
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
-.about-intro p{
+
+.about-intro p {
   color: var(--muted);
-  line-height: 1.8;
+  line-height: 1.9;
+
+  /* NEW */
+  font-size: 1.02rem;
+  max-width: 68ch;
+  margin: 0 auto 16px auto;
 }
+
+/* Remove extra space on last paragraph */
+.about-intro p:last-child {
+  margin-bottom: 0;
+}
+
 .about-grid{
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -889,76 +909,5 @@ body {
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
-}
-/* =========================
-   About page — make the text box more inviting
-========================== */
-
-.about-box {
-  position: relative;
-  overflow: hidden;
-}
-
-.about-box-inner {
-  padding: 28px;
-}
-
-/* subtle accent rail on the left */
-.about-box::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 3px;
-  background: linear-gradient(180deg, rgba(85,247,212,0.95), rgba(255,79,183,0.75), rgba(255,180,75,0.60));
-  opacity: 0.9;
-}
-
-/* title stays bold + styled */
-.about-title {
-  font-family: 'Orbitron', monospace;
-  font-size: clamp(1.4rem, 2.5vw, 1.8rem);
-  margin-bottom: 14px;
-  text-align: center;
-  background: linear-gradient(135deg, var(--primary), var(--secondary));
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-/* body becomes readable (NO more wall of text) */
-.about-body {
-  max-width: 78ch;
-  margin: 0 auto;
-  text-align: left;
-}
-
-.about-body p {
-  margin: 0 0 14px;
-  line-height: 1.95;
-  color: var(--muted);
-  font-size: 1.02rem;
-}
-
-/* first paragraph = "lead" */
-.about-lead {
-  font-size: 1.08rem;
-  color: rgba(238,242,255,0.88);
-}
-
-/* last line = friendly signoff */
-.about-signoff {
-  margin-top: 18px;
-  padding-top: 14px;
-  border-top: 1px solid rgba(255,255,255,0.08);
-  color: rgba(238,242,255,0.85);
-  font-weight: 700;
-}
-
-/* mobile tightening */
-@media (max-width: 768px) {
-  .about-box-inner { padding: 20px; }
-  .about-body p { font-size: 0.98rem; }
 }
 
