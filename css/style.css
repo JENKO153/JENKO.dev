@@ -871,3 +871,23 @@ img{ display: block; max-width: 100%; }
   padding: 8px 0;
 }
 
+/* =========================
+   Fix background clipping on tall pages
+========================== */
+
+html {
+  background: var(--bg);
+}
+
+body {
+  background:
+    radial-gradient(1200px 700px at 25% -10%, rgba(85,247,212,0.10), transparent 55%),
+    radial-gradient(900px 600px at 110% 10%, rgba(255,79,183,0.08), transparent 55%),
+    radial-gradient(900px 600px at 60% 120%, rgba(255,180,75,0.06), transparent 55%),
+    var(--bg);
+
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
+
