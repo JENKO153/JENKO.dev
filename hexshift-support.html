@@ -1,297 +1,146 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
-
   <meta charset="UTF-8" />
-
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hex Shift | Support</title>
 
-  <title>HexShift | Support</title>
-
-
-
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css" />
-
+  <script defer src="js/main.js"></script>
 </head>
-
-
 
 <body>
 
-
-
   <header class="topbar" role="banner">
-
     <div class="topbar-inner">
-
       <a class="brand" href="index.html" aria-label="Go home">
-
         <h1>JENKO</h1>
-
-        <p>Game Developer</p>
-
+        <p>App Portfolio</p>
       </a>
 
-    </div>
+      <nav class="nav" aria-label="Primary navigation">
+        <a href="index.html">HOME</a>
+        <a href="projects.html">APPS</a>
+        <a class="active" href="devlog.html">RESOURCES</a>
+        <a href="about.html">ABOUT</a>
+        <a class="nav-cta" href="projects.html#hexshift">Hex Shift</a>
+      </nav>
 
+      <button class="menu-btn" id="menu-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-drawer">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
   </header>
 
-
+  <div class="drawer" id="mobile-drawer" aria-hidden="true">
+    <div class="drawer-panel" role="dialog" aria-label="Mobile navigation">
+      <a href="index.html">HOME</a>
+      <a href="projects.html">APPS</a>
+      <a href="devlog.html">RESOURCES</a>
+      <a href="about.html">ABOUT</a>
+    </div>
+  </div>
 
   <main role="main">
-
     <section class="section">
-
       <div class="container">
-
-
-
-        <!-- Logo + Title -->
-
-        <div style="display:flex; flex-direction:column; align-items:center; text-align:center; margin-bottom:48px;">
-
-          <img
-
-            src="images/HexShiftLogoDark.png"
-
-            alt="HexShift Logo"
-
-            style="width:120px; height:120px; border-radius:26px; margin-bottom:22px; box-shadow:0 10px 40px rgba(0,0,0,0.55);"
-
-          />
-
-          <h2 style="font-family:'Orbitron',monospace; font-size:clamp(1.8rem,5vw,2.8rem); font-weight:900; letter-spacing:0.06em; background:linear-gradient(135deg,#55f7d4,#ff4fb7,#ffb44b); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:10px;">
-
-            HEXSHIFT
-
-          </h2>
-
-          <p class="muted" style="font-size:1.05rem; max-width:48ch;">
-
-            Support &amp; Help Centre
-
-          </p>
-
+        <div class="legal-hero">
+          <img src="images/HexShiftLogoDark.png" alt="Hex Shift logo" class="legal-logo" />
+          <h2 class="legal-title">HEX SHIFT</h2>
+          <p class="legal-subtitle">Support &amp; Help Centre</p>
         </div>
 
-
-
-        <!-- FAQ -->
-
         <div class="section-head">
-
           <h2>FAQ</h2>
-
           <div class="section-rule" aria-hidden="true"></div>
-
         </div>
 
-
-
-        <div class="stack" style="margin-bottom:48px;">
-
-
-
+        <div class="stack legal-stack-tight">
           <div class="card">
-
             <div class="card-pad">
-
-              <h4 style="font-family:'Orbitron',monospace; font-size:1rem; letter-spacing:0.05em; margin-bottom:10px;">How do I rotate a group of hexes?</h4>
-
-              <p class="muted" style="line-height:1.85;">Tap any hex to select it, then tap a neighbouring hex to rotate the group of three around the shared edge. Matching colours in clusters of three or more will shatter and score points.</p>
-
+              <h4 class="policy-title">How do I rotate a group of hexes?</h4>
+              <p class="muted">Tap any hex to select it, then tap a neighbouring hex to rotate the group of three around the shared edge. Matching colours in clusters of three or more will shatter and score points.</p>
             </div>
-
           </div>
 
-
-
           <div class="card">
-
             <div class="card-pad">
-
-              <h4 style="font-family:'Orbitron',monospace; font-size:1rem; letter-spacing:0.05em; margin-bottom:10px;">What are the special hex types?</h4>
-
-              <p class="muted" style="line-height:1.85;">
-
-                <strong style="color:#ffb44b;">Mystery</strong> — reveals a random colour when matched.<br>
-
-                <strong style="color:#ffb44b;">Locked</strong> — must be cleared by an adjacent match before it can move.<br>
-
-                <strong style="color:#ffb44b;">Bomb</strong> — clears adjacent cells if not matched in time.<br>
-
-                <strong style="color:#ffb44b;">Spreader</strong> — slowly converts neighbouring hexes to its colour.<br>
-
-                <strong style="color:#ffb44b;">Prism</strong> — tap to instantly convert the 6 surrounding cells to one colour and trigger a shatter.
-
-              </p>
-
+              <h4 class="policy-title">What are the special hex types?</h4>
+              <p class="muted"><strong>Mystery</strong> reveals a random colour when matched. <strong>Locked</strong> must be cleared by an adjacent match before it can move. <strong>Bomb</strong> clears adjacent cells if not matched in time. <strong>Spreader</strong> slowly converts neighbouring hexes to its colour. <strong>Prism</strong> converts the six surrounding cells to one colour and can trigger an instant shatter.</p>
             </div>
-
           </div>
 
-
-
           <div class="card">
-
             <div class="card-pad">
-
-              <h4 style="font-family:'Orbitron',monospace; font-size:1rem; letter-spacing:0.05em; margin-bottom:10px;">How does scoring work?</h4>
-
-              <p class="muted" style="line-height:1.85;">Each shatter scores base points multiplied by your current streak. Chain shatters in a single move to build your streak multiplier and rack up big scores. Streaks reset if a move produces no match.</p>
-
+              <h4 class="policy-title">How does scoring work?</h4>
+              <p class="muted">Each shatter scores base points multiplied by your current streak. Chain shatters in a single move to build the multiplier and push for higher scores. A move with no match resets the streak.</p>
             </div>
-
           </div>
 
-
-
           <div class="card">
-
             <div class="card-pad">
-
-              <h4 style="font-family:'Orbitron',monospace; font-size:1rem; letter-spacing:0.05em; margin-bottom:10px;">What are the different game modes?</h4>
-
-              <p class="muted" style="line-height:1.85;">
-
-                <strong style="color:#ffb44b;">Classic</strong> — play until you run out of moves. Focus on high scores and Game Center leaderboards.<br>
-
-                <strong style="color:#ffb44b;">Timed</strong> — race the clock to score as high as possible before time runs out.<br>
-
-                <strong style="color:#ffb44b;">Hardcore</strong> — no continues, no safety net. One run, one shot.
-
-              </p>
-
+              <h4 class="policy-title">What are the different game modes?</h4>
+              <p class="muted"><strong>Classic</strong> is score chasing until you run out of moves. <strong>Timed</strong> is a race against the clock. <strong>Hardcore</strong> strips everything back to one run and no safety net.</p>
             </div>
-
           </div>
 
-
-
           <div class="card">
-
             <div class="card-pad">
-
-              <h4 style="font-family:'Orbitron',monospace; font-size:1rem; letter-spacing:0.05em; margin-bottom:10px;">How do continues work?</h4>
-
-              <p class="muted" style="line-height:1.85;">When your run ends in Classic or Timed mode you can watch a rewarded ad to continue from where you left off. Up to 3 continues are available per run.</p>
-
+              <h4 class="policy-title">How do continues work?</h4>
+              <p class="muted">When a run ends in Classic or Timed mode, you can watch a rewarded ad to continue from where you left off. Up to three continues are available per run.</p>
             </div>
-
           </div>
 
-
-
           <div class="card">
-
             <div class="card-pad">
-
-              <h4 style="font-family:'Orbitron',monospace; font-size:1rem; letter-spacing:0.05em; margin-bottom:10px;">My score didn't submit to Game Center. What happened?</h4>
-
-              <p class="muted" style="line-height:1.85;">Make sure you're signed in to Game Center in your device Settings before starting a run. Scores are submitted at the end of each game — if you were offline at the time, reconnect to the internet and the score should sync on your next launch.</p>
-
+              <h4 class="policy-title">My score didn’t submit to Game Center. What happened?</h4>
+              <p class="muted">Make sure you are signed in to Game Center in Settings before starting a run. Scores are submitted at the end of each game, so if you were offline at the time they should sync the next time you open the app while connected.</p>
             </div>
-
           </div>
 
-
-
           <div class="card">
-
             <div class="card-pad">
-
-              <h4 style="font-family:'Orbitron',monospace; font-size:1rem; letter-spacing:0.05em; margin-bottom:10px;">How do I turn off sound or music?</h4>
-
-              <p class="muted" style="line-height:1.85;">Tap the settings icon on the main menu to toggle sounds on or off. Your preference is saved between sessions.</p>
-
+              <h4 class="policy-title">How do I turn off sound or music?</h4>
+              <p class="muted">Open the settings icon from the main menu and toggle sound there. Your choice is saved between sessions.</p>
             </div>
-
           </div>
 
-
-
           <div class="card">
-
             <div class="card-pad">
-
-              <h4 style="font-family:'Orbitron',monospace; font-size:1rem; letter-spacing:0.05em; margin-bottom:10px;">Does HexShift work on iPad?</h4>
-
-              <p class="muted" style="line-height:1.85;">Yes — HexShift is fully supported on iPad with layout scaling to fit the larger screen.</p>
-
+              <h4 class="policy-title">Does Hex Shift work on iPad?</h4>
+              <p class="muted">Yes. Hex Shift supports iPad and scales the layout for the larger screen.</p>
             </div>
-
           </div>
-
-
-
         </div>
 
-
-
-        <!-- Contact -->
-
-        <div class="section-head">
-
+        <div class="section-head legal-section-gap">
           <h2>CONTACT</h2>
-
           <div class="section-rule" aria-hidden="true"></div>
-
         </div>
 
-
-
-        <div class="card" style="max-width:680px; margin:0 auto;">
-
-          <div class="card-pad" style="text-align:center; padding:32px;">
-
-            <div style="width:52px; height:52px; border-radius:14px; display:grid; place-items:center; background:linear-gradient(135deg,rgba(85,247,212,0.18),rgba(255,79,183,0.12)); border:1px solid rgba(255,255,255,0.10); font-size:1.4rem; margin:0 auto 16px;">✉️</div>
-
-            <h4 style="font-family:'Orbitron',monospace; font-size:1.05rem; letter-spacing:0.05em; margin-bottom:10px;">Still need help?</h4>
-
-            <p class="muted" style="line-height:1.85; margin-bottom:20px;">If your issue isn't covered above, send an email and I'll get back to you as soon as I can.</p>
-
-            <a href="mailto:support@jenkodev.com" class="btn primary" style="display:inline-flex;">admin@jenkodev.com</a>
-
+        <div class="card legal-contact-card">
+          <div class="card-pad legal-contact">
+            <div class="contact-icon">✉️</div>
+            <h4 class="policy-title">Still need help?</h4>
+            <p class="muted">If your issue is not covered above, send an email and I’ll get back to you as soon as I can.</p>
+            <a href="mailto:admin@jenkodev.com" class="btn primary">admin@jenkodev.com</a>
           </div>
-
         </div>
-
-
-
       </div>
-
     </section>
-
   </main>
 
-
-
   <footer class="site-footer">
-
     <div class="container">
-
       <div class="footer-inner">
-
         <div>
-
           <div>© 2026 Jenko</div>
-
-          <div>Made with Coffee</div>
-
+          <div>Designed and shipped in Australia</div>
         </div>
-
       </div>
-
     </div>
-
   </footer>
 
-
-
 </body>
-
 </html>

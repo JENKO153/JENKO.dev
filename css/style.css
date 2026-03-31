@@ -363,6 +363,13 @@ img{ display: block; max-width: 100%; }
   margin-top: 24px;
 }
 
+.section-copy{
+  color: var(--muted);
+  line-height: 1.9;
+  max-width: 68ch;
+  margin-bottom: 28px;
+}
+
 /* =========================
    Stat pills (MATCHES YOUR SCREENSHOT)
 ========================== */
@@ -509,6 +516,113 @@ img{ display: block; max-width: 100%; }
   border-radius: 12px;
   border: 1px solid rgba(85,247,212,0.28);
   background: rgba(85,247,212,0.06);
+}
+.project-link:hover{
+  background: rgba(85,247,212,0.10);
+  border-color: rgba(85,247,212,0.45);
+}
+
+.app-card h3,
+.resource-entry h3{
+  font-family: 'Orbitron', monospace;
+  font-size: 1.3rem;
+  color: rgba(85,247,212,0.95);
+  letter-spacing: 0.04em;
+  margin-top: 6px;
+}
+
+.app-heading{
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.app-logo{
+  width: 76px;
+  height: 76px;
+  border-radius: 20px;
+  object-fit: cover;
+  flex: 0 0 auto;
+  border: 1px solid rgba(255,255,255,0.12);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.35);
+  background: rgba(255,255,255,0.04);
+}
+
+.app-logo-small{
+  width: 58px;
+  height: 58px;
+  border-radius: 16px;
+}
+
+.app-card p{
+  color: var(--muted);
+  line-height: 1.85;
+  margin: 14px 0 0;
+}
+
+.app-type{
+  display: inline-flex;
+  color: rgba(255,255,255,0.60);
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.app-tagline{
+  margin-top: 10px;
+  max-width: 56ch;
+}
+
+.app-meta{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.meta-pill{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.05);
+  color: rgba(238,242,255,0.82);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.app-links{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.project-status.status-live{
+  color: rgba(85,247,212,0.98);
+  border-color: rgba(85,247,212,0.55);
+  background: rgba(85,247,212,0.12);
+}
+
+.project-status.status-soon{
+  color: rgba(255,79,183,0.96);
+  border-color: rgba(255,79,183,0.45);
+  background: rgba(255,79,183,0.10);
+}
+
+.resource-entry p{
+  line-height: 1.8;
+  margin-top: 14px;
+}
+
+.resource-top{
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
 }
 
 /* =========================
@@ -692,6 +806,119 @@ img{ display: block; max-width: 100%; }
 }
 
 /* =========================
+   Legal / Support
+========================== */
+.legal-hero{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 42px;
+}
+
+.legal-hero-text-only{
+  gap: 0;
+}
+
+.legal-logo,
+.legal-badge{
+  width: 120px;
+  height: 120px;
+  border-radius: 26px;
+  margin-bottom: 22px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.55);
+}
+
+.legal-badge{
+  display: grid;
+  place-items: center;
+  font-family: 'Orbitron', monospace;
+  font-size: 2rem;
+  font-weight: 900;
+  letter-spacing: 0.10em;
+  color: rgba(238,242,255,0.95);
+  background: linear-gradient(135deg, rgba(85,247,212,0.18), rgba(255,79,183,0.16), rgba(255,180,75,0.12));
+  border: 1px solid rgba(255,255,255,0.10);
+}
+
+.legal-title{
+  font-family: 'Orbitron', monospace;
+  font-size: clamp(1.8rem, 5vw, 2.8rem);
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  margin-bottom: 10px;
+  background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.legal-subtitle{
+  color: var(--muted);
+  font-size: 1.05rem;
+  max-width: 48ch;
+}
+
+.legal-date{
+  color: var(--dim);
+  font-size: 0.88rem;
+  margin-top: 8px;
+}
+
+.legal-stack{
+  max-width: 780px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.legal-stack-tight{
+  margin-bottom: 48px;
+}
+
+.policy-title{
+  font-family: 'Orbitron', monospace;
+  font-size: 1rem;
+  letter-spacing: 0.05em;
+  margin-bottom: 10px;
+}
+
+.inline-link{
+  color: rgba(85,247,212,0.95);
+}
+
+.muted strong{
+  color: rgba(255,180,75,0.95);
+}
+
+.legal-contact{
+  text-align: center;
+  padding: 32px;
+}
+
+.contact-icon{
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  margin: 0 auto 16px;
+  background: linear-gradient(135deg, rgba(85,247,212,0.18), rgba(255,79,183,0.12));
+  border: 1px solid rgba(255,255,255,0.10);
+  font-size: 1.4rem;
+}
+
+.legal-section-gap{
+  margin-top: 8px;
+}
+
+.legal-contact-card{
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+/* =========================
    Footer
 ========================== */
 .site-footer{
@@ -849,6 +1076,9 @@ img{ display: block; max-width: 100%; }
   .brand p{ display: none; }
   .hero-card{ padding: 30px; }
   .devlog-header{ flex-direction: column; align-items: flex-start; }
+  .project-header,
+  .resource-top{ flex-direction: column; align-items: flex-start; }
+  .app-heading{ align-items: flex-start; }
 }
 
 @media (max-width: 768px){
@@ -857,6 +1087,17 @@ img{ display: block; max-width: 100%; }
   .section{ padding: 56px 0; }
   .hero-inner{ padding: 64px 0; }
   .hero-card{ padding: 24px; }
+  .app-heading{ gap: 14px; }
+  .app-logo{
+    width: 64px;
+    height: 64px;
+    border-radius: 18px;
+  }
+  .app-logo-small{
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+  }
   .image-gallery img{ height: 180px; }
   .devlog-modal{ padding: 16px; }
   #devlog-modal-body{ padding: 18px; }
@@ -910,4 +1151,3 @@ body {
   background-attachment: fixed;
   background-size: cover;
 }
-
