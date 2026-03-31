@@ -884,6 +884,31 @@ img{ display: block; max-width: 100%; }
   margin-bottom: 10px;
 }
 
+.info-list{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.info-list li{
+  color: var(--muted);
+  line-height: 1.85;
+  padding-left: 22px;
+  position: relative;
+}
+
+.info-list li::before{
+  content: "•";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: rgba(255,180,75,0.95);
+  font-weight: 900;
+}
+
 .inline-link{
   color: rgba(85,247,212,0.95);
 }

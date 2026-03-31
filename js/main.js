@@ -25,9 +25,10 @@
       statusClass: "status-soon",
       tagline: "A practical tool for organising picket jobs, lists, and on-site planning.",
       description:
-        "Picket List is a focused utility app designed to make planning simpler and reduce the back-and-forth around lists, prep, and field work. Its launch support is being set up now, including a privacy policy page that is ready to link from the App Store.",
+        "Picket List is a focused utility app designed to make planning simpler and reduce the back-and-forth around lists, prep, and field work. It now has dedicated support and privacy pages ready for launch and App Store linking.",
       meta: ["iPhone", "Utility", "Launch Ready"],
       links: [
+        { label: "Support", href: "picketlist-support.html" },
         { label: "Privacy Policy", href: "picketlist-privacypolicy.html" }
       ]
     }
