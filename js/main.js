@@ -31,6 +31,22 @@
         { label: "Support", href: "picketlist-support.html" },
         { label: "Privacy Policy", href: "picketlist-privacypolicy.html" }
       ]
+    },
+    {
+      id: "holy-scroll",
+      name: "Holy Scroll",
+      type: "Scripture App",
+      logo: "images/HolyScroll.png",
+      statusLabel: "READY",
+      statusClass: "status-ready",
+      tagline: "A quieter scripture app with a personalised feed, vault, reminders, and optional support tiers.",
+      description:
+        "Holy Scroll is a signed-in scripture experience built around a calm feed, a personal vault, iCloud sync, optional daily reminders, and optional weekly support subscriptions handled by Apple.",
+      meta: ["iPhone", "Sign in with Apple", "iCloud Sync", "Subscriptions"],
+      links: [
+        { label: "Support", href: "holyscroll-support.html" },
+        { label: "Privacy Policy", href: "holyscroll-privacypolicy.html" }
+      ]
     }
   ];
 

@@ -613,6 +613,12 @@ img{ display: block; max-width: 100%; }
   background: rgba(255,79,183,0.10);
 }
 
+.project-status.status-ready{
+  color: rgba(255,180,75,0.98);
+  border-color: rgba(255,180,75,0.45);
+  background: rgba(255,180,75,0.12);
+}
+
 .resource-entry p{
   line-height: 1.8;
   margin-top: 14px;
