@@ -45,7 +45,8 @@
       meta: ["iPhone", "Sign in with Apple", "iCloud Sync", "Subscriptions"],
       links: [
         { label: "Support", href: "holyscroll-support.html" },
-        { label: "Privacy Policy", href: "holyscroll-privacypolicy.html" }
+        { label: "Privacy Policy", href: "holyscroll-privacypolicy.html" },
+        { label: "Terms of Service", href: "holyscroll-termsofservice.html" }
       ]
     }
   ];
